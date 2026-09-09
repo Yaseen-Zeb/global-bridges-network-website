@@ -371,7 +371,7 @@ export default function Home() {
           </div>
 
           <div className="text-center pt-md">
-            <Link href="/donate-goods" aria-label="View complete list of current resource needs">
+            <Link href="/current-needs" aria-label="View complete list of current resource needs">
               <Button variant="outline" size="lg">
                 View Current Needs <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
               </Button>

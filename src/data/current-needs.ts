@@ -25,7 +25,7 @@ export const CMS_CURRENT_NEEDS: CurrentNeed[] = [
     quantity: "15 Starter Sets",
     priority: "urgent",
     lastUpdated: "March 2025",
-    image: "https://images.unsplash.com/photo-1585238332058-fcc7bd56515a?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1548688977-3e38ddc590f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fE5ldyUyMEhvdXNlaG9sZCUyMENvb2t3YXJlJTIwU2V0c3xlbnwwfHwwfHx8MA%3D%3D",
     active: true,
   },
   {
@@ -37,7 +37,7 @@ export const CMS_CURRENT_NEEDS: CurrentNeed[] = [
     quantity: "High Priority",
     priority: "urgent",
     lastUpdated: "March 2025",
-    image: "https://images.unsplash.com/photo-1552594615-585eaaf6cba2?auto=format&fit=crop&w=600&q=80",
+    image: "https://media.istockphoto.com/id/1204857727/photo/jackets.jpg?s=612x612&w=0&k=20&c=VR5oPtz92-DGc2cWCmW6vdiqktDDTS3vOpT4xxsV0cc=",
     active: true,
   },
   {
@@ -49,7 +49,7 @@ export const CMS_CURRENT_NEEDS: CurrentNeed[] = [
     quantity: "30 Backpacks",
     priority: "high",
     lastUpdated: "February 2025",
-    image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1594608661623-aa0bd3a69d98?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8U2Nob29sJTIwQmFja3BhY2tzJTIwJTI2JTIwU3VwcGxpZXN8ZW58MHx8MHx8fDA%3D",
     active: true,
   },
   {
@@ -61,7 +61,7 @@ export const CMS_CURRENT_NEEDS: CurrentNeed[] = [
     quantity: "25 Kits",
     priority: "high",
     lastUpdated: "March 2025",
-    image: "https://images.unsplash.com/photo-1584305574041-38290e2908cb?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1577467014094-fa0b5b2e2569?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDQxfHx8ZW58MHx8fHx8",
     active: true,
   },
   {

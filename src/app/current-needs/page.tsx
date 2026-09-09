@@ -57,25 +57,10 @@ export default function CurrentNeedsPage() {
         </div>
       </section>
 
-      {/* IMPORTANT ADVISORY BANNER */}
-      <section className="py-md px-md lg:px-xl border-b border-border bg-muted/20" aria-label="Donation Guidance Advisory">
-        <div className="mx-auto max-w-4xl">
-          <div className="rounded-card border border-primary/20 bg-background p-md shadow-card flex items-start gap-md">
-            <Info className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
-            <div className="space-y-xs">
-              <Typography variant="h3" className="text-base font-semibold text-foreground">
-                Before You Donate Goods
-              </Typography>
-              <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
-                Reviewing active items ensures that arriving families receive exactly what they need immediately without cluttering storage space. If you have an item listed below, please use our <strong>Donate Goods</strong> form to coordinate delivery or drop-off.
-              </Typography>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* 2. CMS NEEDS LIST & FILTERS */}
-      <section className="py-2xl px-md lg:px-xl border-b border-border" aria-labelledby="active-needs-heading">
+      <section className="py-2xl px-md lg:px-xl bg-muted/20 border-b border-border" aria-labelledby="active-needs-heading">
         <div className="mx-auto max-w-6xl space-y-xl">
           <div className="text-center max-w-2xl mx-auto space-y-xs">
             <Typography variant="caption" className="text-primary font-semibold tracking-wider uppercase">
@@ -96,7 +81,7 @@ export default function CurrentNeedsPage() {
       </section>
 
       {/* 3. DONATE GOODS CTA SECTION */}
-      <section className="py-2xl px-md lg:px-xl bg-muted/20 border-b border-border" aria-labelledby="donate-goods-cta-heading">
+      <section className="py-2xl px-md lg:px-xl border-b border-border" aria-labelledby="donate-goods-cta-heading">
         <div className="mx-auto max-w-4xl text-center space-y-md">
           <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto">
             <Package className="h-6 w-6" aria-hidden="true" />

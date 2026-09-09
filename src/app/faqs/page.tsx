@@ -136,7 +136,7 @@ export default function FAQsPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="px-xl border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 hover:border-primary-foreground hover:text-primary-foreground dark:text-primary-foreground dark:hover:text-primary-foreground"
+                className="bg-transparent border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground hover:text-primary dark:bg-transparent dark:text-primary-foreground dark:border-primary-foreground/40 dark:hover:bg-primary-foreground dark:hover:text-primary font-semibold"
               >
                 Donate Goods
               </Button>
