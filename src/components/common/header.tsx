@@ -64,6 +64,12 @@ export function Header() {
           >
             Services
           </Link>
+          <Link
+            href="/contact"
+            className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button px-xs py-xs"
+          >
+            Contact
+          </Link>
 
           {/* Group 1: Ways to Give Dropdown */}
           <div
@@ -289,6 +295,13 @@ export function Header() {
               className="block rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
             >
               Services
+            </Link>
+            <Link
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
+            >
+              Contact Us
             </Link>
           </div>
 

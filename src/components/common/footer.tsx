@@ -109,6 +109,14 @@ export function Footer() {
                   Get Involved
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
+                >
+                  Contact Us
+                </Link>
+              </li>
             </ul>
           </div>
 

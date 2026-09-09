@@ -1,0 +1,213 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import {
+  Mail,
+  MapPin,
+  PhoneCall,
+  Clock,
+  MessageSquare,
+  ShieldCheck,
+  Heart,
+  Package,
+  ArrowRight,
+} from "lucide-react";
+import { Typography } from "@/components/common/typography";
+import { Button } from "@/components/ui/button";
+import { CONTACT_INFO } from "@/data/contact-info";
+import { ContactForm } from "@/components/contact/contact-form";
+
+export const metadata: Metadata = {
+  title: "Contact Us | Bridge Global Network",
+  description:
+    "Get in touch with Bridge Global Network. Submit general inquiries, request help, inquire about services, donate goods, or explore volunteer and partnership opportunities.",
+  openGraph: {
+    title: "Contact Us | Bridge Global Network",
+    description:
+      "Reach out to Bridge Global Network via our unified inquiry form or contact our administrative team for refugee support, goods donations, or partnerships.",
+    url: "https://globalbridgesnetwork.org/contact",
+    type: "website",
+  },
+};
+
+export default function ContactPage() {
+  return (
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
+      {/* 1. HERO SECTION */}
+      <section
+        className="relative py-2xl px-md lg:py-3xl lg:px-xl border-b border-border bg-gradient-to-b from-background via-muted/30 to-background"
+        aria-labelledby="contact-hero-heading"
+      >
+        <div className="mx-auto max-w-4xl text-center space-y-md">
+          <div className="inline-flex items-center gap-xs rounded-full bg-primary/10 px-md py-xs text-xs font-semibold text-primary">
+            <Mail className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+            <span>Get in Touch</span>
+          </div>
+
+          <Typography
+            variant="h1"
+            id="contact-hero-heading"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight"
+          >
+            Contact Bridge Global Network
+          </Typography>
+
+          <Typography
+            variant="body"
+            className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
+          >
+            We welcome inquiries from individuals seeking support, volunteers, community partners, and supporters. Use our unified form below to reach out directly to our team.
+          </Typography>
+        </div>
+      </section>
+
+      {/* 2. CONFIG-DRIVEN CONTACT INFO CARDS & INQUIRY FORM */}
+      <section className="py-2xl px-md lg:px-xl border-b border-border" aria-labelledby="contact-main-heading">
+        <div className="mx-auto max-w-7xl space-y-xl">
+          <div className="text-center max-w-2xl mx-auto space-y-xs">
+            <Typography variant="caption" className="text-primary font-semibold tracking-wider uppercase">
+              Direct Communication
+            </Typography>
+            <Typography variant="h2" id="contact-main-heading" className="text-2xl sm:text-3xl font-bold">
+              Reach Our Administrative Team
+            </Typography>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+            {/* Contact Information Cards Column (5 Cols) */}
+            <div className="lg:col-span-5 space-y-md">
+              {/* Registered Address */}
+              <article className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-md">
+                <MapPin className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <div className="space-y-xs">
+                  <Typography variant="h3" className="text-base font-semibold">
+                    {CONTACT_INFO.addressTitle}
+                  </Typography>
+                  {CONTACT_INFO.addressDetails.map((line, idx) => (
+                    <Typography key={idx} variant="body-sm" className="text-muted-foreground leading-relaxed">
+                      {line}
+                    </Typography>
+                  ))}
+                </div>
+              </article>
+
+              {/* Shared Email */}
+              <article className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-md">
+                <Mail className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <div className="space-y-xs">
+                  <Typography variant="h3" className="text-base font-semibold">
+                    Shared Email Inbox
+                  </Typography>
+                  <a
+                    href={`mailto:${CONTACT_INFO.email}`}
+                    className="text-sm font-semibold text-primary hover:underline block"
+                  >
+                    {CONTACT_INFO.email}
+                  </a>
+                  <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
+                    Monitored daily by our administrative team. Response time is typically 1-2 business days.
+                  </Typography>
+                </div>
+              </article>
+
+              {/* Phone & Office Hours */}
+              <article className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-md">
+                <PhoneCall className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <div className="space-y-xs">
+                  <Typography variant="h3" className="text-base font-semibold">
+                    {CONTACT_INFO.phoneTitle}
+                  </Typography>
+                  <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
+                    {CONTACT_INFO.phoneDetails}
+                  </Typography>
+                  <div className="flex items-center gap-xs pt-xs text-xs text-muted-foreground font-medium">
+                    <Clock className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
+                    <span>{CONTACT_INFO.officeHours}</span>
+                  </div>
+                </div>
+              </article>
+
+              {/* Privacy Safeguard Notice */}
+              <div className="rounded-card border border-primary/20 bg-muted/20 p-md shadow-xs flex items-start gap-sm">
+                <ShieldCheck className="h-5 w-5 text-success shrink-0 mt-0.5" aria-hidden="true" />
+                <Typography variant="body-sm" className="text-muted-foreground text-xs leading-relaxed">
+                  <strong>Zero Database Promise:</strong> Contact form submissions are dispatched statelessly to our shared email inbox with 0 database or CRM storage.
+                </Typography>
+              </div>
+            </div>
+
+            {/* Unified Inquiry Form Column (7 Cols) */}
+            <div className="lg:col-span-7">
+              <ContactForm />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. DIRECT PATHWAYS & QUICK ACTIONS */}
+      <section className="py-2xl px-md lg:px-xl bg-muted/20 border-b border-border" aria-labelledby="direct-pathways-heading">
+        <div className="mx-auto max-w-6xl space-y-xl">
+          <div className="text-center max-w-2xl mx-auto space-y-xs">
+            <Typography variant="caption" className="text-primary font-semibold tracking-wider uppercase">
+              Quick Pathways
+            </Typography>
+            <Typography variant="h2" id="direct-pathways-heading" className="text-2xl sm:text-3xl font-bold">
+              Looking for Something Specific?
+            </Typography>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
+            <article className="rounded-card border border-border bg-background p-lg shadow-card flex flex-col justify-between space-y-md">
+              <div className="space-y-sm">
+                <Typography variant="h3" className="text-lg font-bold text-foreground">
+                  Our Service Areas
+                </Typography>
+                <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
+                  Explore our six primary focus areas including resettlement aid, health, legal guidance, and overseas women empowerment.
+                </Typography>
+              </div>
+              <Link href="/services">
+                <Button variant="outline" className="w-full">
+                  Explore Services <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
+                </Button>
+              </Link>
+            </article>
+
+            <article className="rounded-card border border-border bg-background p-lg shadow-card flex flex-col justify-between space-y-md">
+              <div className="space-y-sm">
+                <Typography variant="h3" className="text-lg font-bold text-foreground">
+                  Donate Essential Goods
+                </Typography>
+                <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
+                  Review our current needs list and submit an offer for essential cookware, winter coats, or school backpacks.
+                </Typography>
+              </div>
+              <Link href="/donate-goods">
+                <Button variant="outline" className="w-full">
+                  <Package className="mr-xs h-4 w-4 text-primary" aria-hidden="true" />
+                  Donate Goods
+                </Button>
+              </Link>
+            </article>
+
+            <article className="rounded-card border border-border bg-background p-lg shadow-card flex flex-col justify-between space-y-md">
+              <div className="space-y-sm">
+                <Typography variant="h3" className="text-lg font-bold text-foreground">
+                  Financial Giving
+                </Typography>
+                <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
+                  Make a tax-deductible financial contribution to advance emergency family assistance and overseas micro-grants.
+                </Typography>
+              </div>
+              <Link href="/donate">
+                <Button variant="primary" className="w-full">
+                  <Heart className="mr-xs h-4 w-4" aria-hidden="true" />
+                  Donate Funds
+                </Button>
+              </Link>
+            </article>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
