@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Sparkles } from "lucide-react";
+import { HeartHandshake } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const TAGS = [
@@ -47,6 +47,7 @@ export function AnimatedEyebrow({
       )}
       {...props}
     >
+      <HeartHandshake className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden="true" />
       <span
         className={cn(
           "transition-all duration-300 ease-in-out transform inline-block whitespace-nowrap",

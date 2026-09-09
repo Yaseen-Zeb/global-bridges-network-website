@@ -10,7 +10,7 @@ import {
   Scale,
   Briefcase,
   GraduationCap,
-  Sparkles,
+  HeartHandshake,
   Package,
   Users,
   ArrowRight,
@@ -51,7 +51,7 @@ const SERVICE_AREAS = [
       "Language practice classes, adult digital literacy workshops, and youth after-school academic support.",
   },
   {
-    icon: Sparkles,
+    icon: HeartHandshake,
     title: "Women Empowerment",
     description:
       "Supporting overseas skill-building workshops, micro-grant programs, and women's leadership initiatives.",
