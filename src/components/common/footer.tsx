@@ -95,6 +95,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href="/faqs"
+                  className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
+                >
+                  Frequently Asked Questions
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/get-involved"
                   className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
                 >

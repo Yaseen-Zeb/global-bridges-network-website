@@ -16,6 +16,7 @@ import {
   Users,
   Building2,
   Sparkles,
+  HelpCircle,
 } from "lucide-react";
 
 export function Header() {
@@ -205,6 +206,23 @@ export function Header() {
                     </span>
                   </div>
                 </Link>
+
+                <Link
+                  href="/faqs"
+                  role="menuitem"
+                  onClick={() => setCommunityDropdownOpen(false)}
+                  className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group"
+                >
+                  <HelpCircle className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:scale-105 transition-transform" aria-hidden="true" />
+                  <div>
+                    <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
+                      Frequently Asked Questions
+                    </span>
+                    <span className="text-xs text-muted-foreground block">
+                      Clear answers &amp; guidance
+                    </span>
+                  </div>
+                </Link>
               </div>
             )}
           </div>
@@ -325,6 +343,14 @@ export function Header() {
             >
               <MessageSquare className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
               <span>Stories &amp; Testimonials</span>
+            </Link>
+            <Link
+              href="/faqs"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-xs rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
+            >
+              <HelpCircle className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
+              <span>Frequently Asked Questions</span>
             </Link>
           </div>
 
