@@ -1,12 +1,24 @@
 "use client";
 
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { INQUIRY_CATEGORIES } from "@/data/contact-info";
 import { cn } from "@/lib/utils";
 
@@ -33,6 +45,7 @@ export function ContactForm() {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -48,16 +61,13 @@ export function ContactForm() {
 
   const onSubmit = async (data: ContactFormData) => {
     setSubmitStatus({ type: "loading" });
-
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
       const result = await response.json();
-
       if (response.ok && result.success) {
         setSubmitStatus({
           type: "success",
@@ -70,7 +80,7 @@ export function ContactForm() {
           message: result.error || "Failed to send message. Please check fields and try again.",
         });
       }
-    } catch (err) {
+    } catch {
       setSubmitStatus({
         type: "error",
         message: "A network error occurred while sending your message. Please try again later.",
@@ -79,66 +89,51 @@ export function ContactForm() {
   };
 
   return (
-    <div
-      className={cn(
-        "rounded-card border border-border bg-background p-lg sm:p-xl shadow-card space-y-md"
-      )}
-    >
+    <div className="rounded-card border border-border bg-background p-lg sm:p-xl shadow-card space-y-md">
       <div className="space-y-xs border-b border-border pb-md">
         <Typography variant="h3" className="text-xl font-bold text-foreground">
           Send Us a Message
         </Typography>
         <Typography variant="body-sm" className="text-muted-foreground">
-          Fill out the inquiry form below. Your message will be forwarded directly to our team inbox.
+          Fill out the inquiry form below. Your message will be forwarded directly to our team
+          inbox.
         </Typography>
       </div>
 
-      {/* Submission State Banners */}
+      {/* Status banners */}
       {submitStatus.type === "success" && (
-        <div
-          role="status"
-          aria-live="polite"
-          className="p-md rounded-button text-sm flex items-start gap-sm border bg-success/10 border-success/30 text-success-foreground"
-        >
-          <CheckCircle2 className="h-5 w-5 shrink-0 text-success mt-0.5" aria-hidden="true" />
+        <Alert role="status" aria-live="polite" variant="success">
+          <CheckCircle2 className="h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" />
           <div className="space-y-xs">
-            <span className="font-bold block">Message Sent Successfully!</span>
-            <span>{submitStatus.message}</span>
+            <AlertTitle>Message Sent Successfully!</AlertTitle>
+            <AlertDescription>{submitStatus.message}</AlertDescription>
           </div>
-        </div>
+        </Alert>
       )}
-
       {submitStatus.type === "error" && (
-        <div
-          role="alert"
-          aria-live="assertive"
-          className="p-md rounded-button text-sm flex items-start gap-sm border bg-destructive/10 border-destructive/30 text-destructive-foreground"
-        >
-          <AlertCircle className="h-5 w-5 shrink-0 text-destructive mt-0.5" aria-hidden="true" />
+        <Alert role="alert" aria-live="assertive" variant="destructive">
+          <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" />
           <div className="space-y-xs">
-            <span className="font-bold block">Submission Error</span>
-            <span>{submitStatus.message}</span>
+            <AlertTitle>Submission Error</AlertTitle>
+            <AlertDescription>{submitStatus.message}</AlertDescription>
           </div>
-        </div>
+        </Alert>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-md" noValidate>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
           {/* Name */}
           <div className="space-y-xs">
-            <label htmlFor="contact-name" className="block text-xs font-semibold text-foreground">
+            <Label htmlFor="contact-name">
               Full Name <span className="text-destructive">*</span>
-            </label>
-            <input
+            </Label>
+            <Input
               id="contact-name"
               type="text"
               placeholder="e.g. Jane Doe"
               aria-invalid={errors.name ? "true" : "false"}
               aria-describedby={errors.name ? "name-error" : undefined}
-              className={cn(
-                "w-full rounded-input border border-input bg-background px-md py-sm text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors",
-                errors.name && "border-destructive focus-visible:ring-destructive"
-              )}
+              className={cn(errors.name && "border-destructive focus-visible:ring-destructive")}
               {...register("name")}
             />
             {errors.name && (
@@ -150,19 +145,16 @@ export function ContactForm() {
 
           {/* Email */}
           <div className="space-y-xs">
-            <label htmlFor="contact-email" className="block text-xs font-semibold text-foreground">
+            <Label htmlFor="contact-email">
               Email Address <span className="text-destructive">*</span>
-            </label>
-            <input
+            </Label>
+            <Input
               id="contact-email"
               type="email"
               placeholder="jane@example.org"
               aria-invalid={errors.email ? "true" : "false"}
               aria-describedby={errors.email ? "email-error" : undefined}
-              className={cn(
-                "w-full rounded-input border border-input bg-background px-md py-sm text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors",
-                errors.email && "border-destructive focus-visible:ring-destructive"
-              )}
+              className={cn(errors.email && "border-destructive focus-visible:ring-destructive")}
               {...register("email")}
             />
             {errors.email && (
@@ -174,42 +166,53 @@ export function ContactForm() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
-          {/* Phone (Optional) */}
+          {/* Phone */}
           <div className="space-y-xs">
-            <label htmlFor="contact-phone" className="block text-xs font-semibold text-foreground">
-              Phone Number <span className="text-muted-foreground font-normal">(Optional)</span>
-            </label>
-            <input
+            <Label htmlFor="contact-phone">
+              Phone Number{" "}
+              <span className="text-muted-foreground font-normal">(Optional)</span>
+            </Label>
+            <Input
               id="contact-phone"
               type="tel"
               placeholder="(555) 000-0000"
-              aria-invalid={errors.phone ? "true" : "false"}
-              className="w-full rounded-input border border-input bg-background px-md py-sm text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
               {...register("phone")}
             />
           </div>
 
-          {/* Inquiry Category Dropdown */}
+          {/* Inquiry Category — Radix Select via Controller */}
           <div className="space-y-xs">
-            <label htmlFor="contact-category" className="block text-xs font-semibold text-foreground">
+            <Label htmlFor="contact-category">
               Inquiry Category <span className="text-destructive">*</span>
-            </label>
-            <select
-              id="contact-category"
-              aria-invalid={errors.category ? "true" : "false"}
-              aria-describedby={errors.category ? "category-error" : undefined}
-              className={cn(
-                "w-full rounded-input border border-input bg-background px-md py-sm text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors cursor-pointer",
-                errors.category && "border-destructive focus-visible:ring-destructive"
+            </Label>
+            <Controller
+              name="category"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  value={field.value}
+                  onValueChange={field.onChange}
+                >
+                  <SelectTrigger
+                    id="contact-category"
+                    aria-invalid={errors.category ? "true" : "false"}
+                    aria-describedby={errors.category ? "category-error" : undefined}
+                    className={cn(
+                      errors.category && "border-destructive focus:ring-destructive"
+                    )}
+                  >
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {INQUIRY_CATEGORIES.map((cat) => (
+                      <SelectItem key={cat.value} value={cat.value}>
+                        {cat.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               )}
-              {...register("category")}
-            >
-              {INQUIRY_CATEGORIES.map((cat) => (
-                <option key={cat.value} value={cat.value}>
-                  {cat.label}
-                </option>
-              ))}
-            </select>
+            />
             {errors.category && (
               <p id="category-error" className="text-xs font-medium text-destructive">
                 {errors.category.message}
@@ -220,17 +223,17 @@ export function ContactForm() {
 
         {/* Message */}
         <div className="space-y-xs">
-          <label htmlFor="contact-message" className="block text-xs font-semibold text-foreground">
+          <Label htmlFor="contact-message">
             Your Message <span className="text-destructive">*</span>
-          </label>
-          <textarea
+          </Label>
+          <Textarea
             id="contact-message"
             rows={5}
             placeholder="Please write your question or inquiry here..."
             aria-invalid={errors.message ? "true" : "false"}
             aria-describedby={errors.message ? "message-error" : undefined}
             className={cn(
-              "w-full rounded-input border border-input bg-background px-md py-sm text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors resize-y min-h-[120px]",
+              "min-h-[120px]",
               errors.message && "border-destructive focus-visible:ring-destructive"
             )}
             {...register("message")}
@@ -242,20 +245,31 @@ export function ContactForm() {
           )}
         </div>
 
-        {/* Privacy Consent Checkbox */}
+        {/* Privacy Consent */}
         <div className="space-y-xs pt-xs">
           <div className="flex items-start gap-xs">
-            <input
-              id="contact-consent"
-              type="checkbox"
-              aria-invalid={errors.consent ? "true" : "false"}
-              aria-describedby={errors.consent ? "consent-error" : undefined}
-              className="mt-0.5 h-4 w-4 rounded border-input text-primary focus:ring-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
-              {...register("consent")}
+            <Controller
+              name="consent"
+              control={control}
+              render={({ field }) => (
+                <Checkbox
+                  id="contact-consent"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  aria-invalid={errors.consent ? "true" : "false"}
+                  aria-describedby={errors.consent ? "consent-error" : undefined}
+                  className="mt-0.5"
+                />
+              )}
             />
-            <label htmlFor="contact-consent" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
-              I consent to having Bridge Global Network process my information to respond to this inquiry. I understand submission data is transmitted statelessly and never stored in a website database. <span className="text-destructive">*</span>
-            </label>
+            <Label
+              htmlFor="contact-consent"
+              className="text-xs text-muted-foreground leading-relaxed cursor-pointer font-normal"
+            >
+              I consent to having Bridge Global Network process my information to respond to this
+              inquiry. I understand submission data is transmitted statelessly and never stored in a
+              website database. <span className="text-destructive">*</span>
+            </Label>
           </div>
           {errors.consent && (
             <p id="consent-error" className="text-xs font-medium text-destructive pl-5">
@@ -264,7 +278,7 @@ export function ContactForm() {
           )}
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <div className="pt-sm">
           <Button
             type="submit"

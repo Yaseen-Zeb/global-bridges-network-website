@@ -2,8 +2,20 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Typography } from "@/components/common/typography";
-import { CheckCircle2, AlertCircle, Send, Package } from "lucide-react";
+import { CheckCircle2, AlertCircle, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ITEM_CATEGORIES = [
@@ -16,7 +28,6 @@ const ITEM_CATEGORIES = [
 ];
 
 const CONDITION_OPTIONS = ["New", "Like New", "Gently Used"];
-
 const CONTACT_METHOD_OPTIONS = ["Email", "Phone", "Either (Email or Phone)"];
 
 export function GoodsIntakeForm({ className }: { className?: string }) {
@@ -40,15 +51,15 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
   } | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value, type } = e.target;
-    if (type === "checkbox") {
-      const checked = (e.target as HTMLInputElement).checked;
-      setFormData((prev) => ({ ...prev, [name]: checked }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Radix Select uses onValueChange instead of native onChange
+  const handleSelectChange = (field: string) => (value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -62,7 +73,6 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
       const data = await res.json();
 
       if (res.ok && data.success) {
@@ -70,7 +80,6 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
           type: "success",
           message: data.message || "Your goods offer has been submitted successfully!",
         });
-        // Reset form
         setFormData({
           name: "",
           email: "",
@@ -111,62 +120,56 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
           Submit Your Goods Offer
         </Typography>
         <Typography variant="body-sm" className="text-muted-foreground">
-          Fill out this form to let us know about the items you wish to offer. Our team will review your offer and reach out.
+          Fill out this form to let us know about the items you wish to offer. Our team will review
+          your offer and reach out.
         </Typography>
       </div>
 
       {submitStatus && (
-        <div
+        <Alert
           role="alert"
-          className={cn(
-            "p-md rounded-button text-sm flex items-start gap-sm border",
-            submitStatus.type === "success"
-              ? "bg-success/10 border-success/30 text-success-foreground"
-              : "bg-destructive/10 border-destructive/30 text-destructive-foreground"
-          )}
+          variant={submitStatus.type === "success" ? "success" : "destructive"}
         >
           {submitStatus.type === "success" ? (
-            <CheckCircle2 className="h-5 w-5 shrink-0 text-success mt-0.5" aria-hidden="true" />
+            <CheckCircle2 className="h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" />
           ) : (
-            <AlertCircle className="h-5 w-5 shrink-0 text-destructive mt-0.5" aria-hidden="true" />
+            <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" />
           )}
-          <span>{submitStatus.message}</span>
-        </div>
+          <AlertDescription>{submitStatus.message}</AlertDescription>
+        </Alert>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-md" noValidate>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
           {/* Name */}
           <div className="space-y-xs">
-            <label htmlFor="name" className="block text-xs font-semibold text-foreground">
+            <Label htmlFor="goods-name">
               Full Name <span className="text-destructive">*</span>
-            </label>
-            <input
+            </Label>
+            <Input
               type="text"
-              id="name"
+              id="goods-name"
               name="name"
               required
               value={formData.name}
               onChange={handleChange}
               placeholder="e.g. Sarah Johnson"
-              className="w-full h-10 px-md rounded-input border border-input bg-background text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
 
           {/* Email */}
           <div className="space-y-xs">
-            <label htmlFor="email" className="block text-xs font-semibold text-foreground">
+            <Label htmlFor="goods-email">
               Email Address <span className="text-destructive">*</span>
-            </label>
-            <input
+            </Label>
+            <Input
               type="email"
-              id="email"
+              id="goods-email"
               name="email"
               required
               value={formData.email}
               onChange={handleChange}
               placeholder="e.g. sarah@example.com"
-              className="w-full h-10 px-md rounded-input border border-input bg-background text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
         </div>
@@ -174,150 +177,148 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
           {/* Phone */}
           <div className="space-y-xs">
-            <label htmlFor="phone" className="block text-xs font-semibold text-foreground">
-              Phone Number
-            </label>
-            <input
+            <Label htmlFor="goods-phone">Phone Number</Label>
+            <Input
               type="tel"
-              id="phone"
+              id="goods-phone"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
               placeholder="e.g. (555) 000-0000"
-              className="w-full h-10 px-md rounded-input border border-input bg-background text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
 
           {/* Item Category */}
           <div className="space-y-xs">
-            <label htmlFor="itemCategory" className="block text-xs font-semibold text-foreground">
+            <Label htmlFor="goods-itemCategory">
               Item Category <span className="text-destructive">*</span>
-            </label>
-            <select
-              id="itemCategory"
-              name="itemCategory"
-              required
+            </Label>
+            <Select
               value={formData.itemCategory}
-              onChange={handleChange}
-              className="w-full h-10 px-md rounded-input border border-input bg-background text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              onValueChange={handleSelectChange("itemCategory")}
             >
-              {ITEM_CATEGORIES.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger id="goods-itemCategory">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {ITEM_CATEGORIES.map((cat) => (
+                  <SelectItem key={cat} value={cat}>
+                    {cat}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
         {/* Item Description */}
         <div className="space-y-xs">
-          <label htmlFor="description" className="block text-xs font-semibold text-foreground">
-            Item Description & Details <span className="text-destructive">*</span>
-          </label>
-          <textarea
-            id="description"
+          <Label htmlFor="goods-description">
+            Item Description &amp; Details <span className="text-destructive">*</span>
+          </Label>
+          <Textarea
+            id="goods-description"
             name="description"
             required
             rows={3}
             value={formData.description}
             onChange={handleChange}
             placeholder="Describe the items (e.g. 1 set of stainless steel pots and pans, 2 winter jackets size M)."
-            className="w-full p-md rounded-input border border-input bg-background text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
+            className="resize-none"
           />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
           {/* Quantity */}
           <div className="space-y-xs">
-            <label htmlFor="quantity" className="block text-xs font-semibold text-foreground">
-              Estimated Quantity
-            </label>
-            <input
+            <Label htmlFor="goods-quantity">Estimated Quantity</Label>
+            <Input
               type="text"
-              id="quantity"
+              id="goods-quantity"
               name="quantity"
               value={formData.quantity}
               onChange={handleChange}
               placeholder="e.g. 3 boxes / 5 items"
-              className="w-full h-10 px-md rounded-input border border-input bg-background text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
 
           {/* Condition */}
           <div className="space-y-xs">
-            <label htmlFor="condition" className="block text-xs font-semibold text-foreground">
-              Item Condition
-            </label>
-            <select
-              id="condition"
-              name="condition"
+            <Label htmlFor="goods-condition">Item Condition</Label>
+            <Select
               value={formData.condition}
-              onChange={handleChange}
-              className="w-full h-10 px-md rounded-input border border-input bg-background text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              onValueChange={handleSelectChange("condition")}
             >
-              {CONDITION_OPTIONS.map((cond) => (
-                <option key={cond} value={cond}>
-                  {cond}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger id="goods-condition">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {CONDITION_OPTIONS.map((cond) => (
+                  <SelectItem key={cond} value={cond}>
+                    {cond}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Preferred Contact Method */}
           <div className="space-y-xs">
-            <label htmlFor="preferredContact" className="block text-xs font-semibold text-foreground">
-              Preferred Contact Method
-            </label>
-            <select
-              id="preferredContact"
-              name="preferredContact"
+            <Label htmlFor="goods-preferredContact">Preferred Contact Method</Label>
+            <Select
               value={formData.preferredContact}
-              onChange={handleChange}
-              className="w-full h-10 px-md rounded-input border border-input bg-background text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              onValueChange={handleSelectChange("preferredContact")}
             >
-              {CONTACT_METHOD_OPTIONS.map((method) => (
-                <option key={method} value={method}>
-                  {method}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger id="goods-preferredContact">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {CONTACT_METHOD_OPTIONS.map((method) => (
+                  <SelectItem key={method} value={method}>
+                    {method}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
         {/* Additional Notes */}
         <div className="space-y-xs">
-          <label htmlFor="notes" className="block text-xs font-semibold text-foreground">
-            Additional Notes (Optional)
-          </label>
-          <textarea
-            id="notes"
+          <Label htmlFor="goods-notes">Additional Notes (Optional)</Label>
+          <Textarea
+            id="goods-notes"
             name="notes"
             rows={2}
             value={formData.notes}
             onChange={handleChange}
             placeholder="Any drop-off preferences, dimensions, or questions."
-            className="w-full p-md rounded-input border border-input bg-background text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
+            className="resize-none"
           />
         </div>
 
-        {/* Privacy & Consent Acknowledgement */}
+        {/* Privacy & Consent */}
         <div className="flex items-start gap-xs pt-xs">
-          <input
-            type="checkbox"
-            id="consent"
-            name="consent"
-            required
+          <Checkbox
+            id="goods-consent"
             checked={formData.consent}
-            onChange={handleChange}
-            className="mt-1 h-4 w-4 rounded border-input text-primary focus-visible:ring-2 focus-visible:ring-ring"
+            onCheckedChange={(checked) =>
+              setFormData((prev) => ({ ...prev, consent: checked === true }))
+            }
+            required
+            className="mt-0.5"
           />
-          <label htmlFor="consent" className="text-xs text-muted-foreground leading-snug">
-            I acknowledge that my submission will be emailed to Bridge Global Network team to coordinate goods inspection and intake. <span className="text-destructive">*</span>
-          </label>
+          <Label
+            htmlFor="goods-consent"
+            className="text-xs text-muted-foreground leading-snug font-normal cursor-pointer"
+          >
+            I acknowledge that my submission will be emailed to Bridge Global Network team to
+            coordinate goods inspection and intake.{" "}
+            <span className="text-destructive">*</span>
+          </Label>
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <div className="pt-sm">
           <Button
             type="submit"

@@ -6,34 +6,59 @@ import { Logo } from "@/components/common/logo";
 import { ThemeToggle } from "@/components/common/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import {
   Heart,
   Menu,
   X,
-  ChevronDown,
   Package,
   ClipboardList,
   MessageSquare,
   Users,
   Building2,
-  Sparkles,
   HelpCircle,
   Calendar,
 } from "lucide-react";
 
+// ── Shared menu item inside a NavigationMenuContent panel ─────────────────────
+interface NavPanelItemProps {
+  href: string;
+  icon: React.ReactNode;
+  label: string;
+  description: string;
+}
+
+function NavPanelItem({ href, icon, label, description }: NavPanelItemProps) {
+  return (
+    <Link
+      href={href}
+      className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    >
+      <span className="mt-0.5 text-primary shrink-0 group-hover:scale-105 transition-transform">
+        {icon}
+      </span>
+      <div>
+        <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
+          {label}
+        </span>
+        <span className="text-xs text-muted-foreground block">{description}</span>
+      </div>
+    </Link>
+  );
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-  const [whatWeDoDropdownOpen, setWhatWeDoDropdownOpen] = React.useState(false);
-  const [giveDropdownOpen, setGiveDropdownOpen] = React.useState(false);
-  const [communityDropdownOpen, setCommunityDropdownOpen] = React.useState(false);
 
-  // Close dropdowns on escape key
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setWhatWeDoDropdownOpen(false);
-        setGiveDropdownOpen(false);
-        setCommunityDropdownOpen(false);
-      }
+      if (e.key === "Escape") setMobileMenuOpen(false);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -42,252 +67,114 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-md lg:px-xl">
+
         {/* Brand Logo */}
         <Link href="/" aria-label="Bridge Global Network Home">
           <Logo />
         </Link>
 
-        {/* Desktop Navigation Links & Grouped Dropdowns */}
-        <nav className="hidden md:flex items-center gap-md lg:gap-lg" aria-label="Main Navigation">
-          <Link
-            href="/"
-            className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button px-xs py-xs"
-          >
-            Home
-          </Link>
-          <Link
-            href="/about"
-            className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button px-xs py-xs"
-          >
-            About Us
-          </Link>
+        {/* Desktop Navigation — Radix NavigationMenu handles hover + keyboard natively */}
+        <div className="hidden md:block">
+          <NavigationMenu>
+            <NavigationMenuList>
 
-          {/* Group 1: What We Do Dropdown (Services & Events) */}
-          <div
-            className="relative"
-            onMouseEnter={() => setWhatWeDoDropdownOpen(true)}
-            onMouseLeave={() => setWhatWeDoDropdownOpen(false)}
-          >
-            <button
-              type="button"
-              onClick={() => setWhatWeDoDropdownOpen(!whatWeDoDropdownOpen)}
-              aria-expanded={whatWeDoDropdownOpen}
-              className="inline-flex items-center gap-[4px] text-sm font-medium text-foreground/80 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button px-xs py-xs"
-            >
-              <span>What We Do</span>
-              <ChevronDown
-                className={`h-4 w-4 transition-transform duration-200 ${
-                  whatWeDoDropdownOpen ? "rotate-180 text-primary" : ""
-                }`}
-                aria-hidden="true"
-              />
-            </button>
-
-            {whatWeDoDropdownOpen && (
-              <div
-                className="absolute top-full left-0 w-64 rounded-card border border-border bg-background p-xs shadow-dropdown space-y-[2px] z-50 pt-xs"
-                role="menu"
-                aria-orientation="vertical"
-              >
+              {/* Static links */}
+              <NavigationMenuItem>
                 <Link
-                  href="/services"
-                  role="menuitem"
-                  onClick={() => setWhatWeDoDropdownOpen(false)}
-                  className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group"
+                  href="/"
+                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button px-xs py-xs"
                 >
-                  <Building2 className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:scale-105 transition-transform" aria-hidden="true" />
-                  <div>
-                    <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
-                      Our Services
-                    </span>
-                    <span className="text-xs text-muted-foreground block">
-                      Refugee, health, legal &amp; women aid
-                    </span>
-                  </div>
+                  Home
                 </Link>
+              </NavigationMenuItem>
 
+              <NavigationMenuItem>
                 <Link
-                  href="/events"
-                  role="menuitem"
-                  onClick={() => setWhatWeDoDropdownOpen(false)}
-                  className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group"
+                  href="/about"
+                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button px-xs py-xs"
                 >
-                  <Calendar className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:scale-105 transition-transform" aria-hidden="true" />
-                  <div>
-                    <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
-                      Events &amp; Gatherings
-                    </span>
-                    <span className="text-xs text-muted-foreground block">
-                      Workshops, dinners &amp; webinars
-                    </span>
-                  </div>
+                  About Us
                 </Link>
-              </div>
-            )}
-          </div>
+              </NavigationMenuItem>
 
-          {/* Group 1: Ways to Give Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setGiveDropdownOpen(true)}
-            onMouseLeave={() => setGiveDropdownOpen(false)}
-          >
-            <button
-              type="button"
-              onClick={() => setGiveDropdownOpen(!giveDropdownOpen)}
-              aria-expanded={giveDropdownOpen}
-              className="inline-flex items-center gap-[4px] text-sm font-medium text-foreground/80 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button px-xs py-xs"
-            >
-              <span>Ways to Give</span>
-              <ChevronDown
-                className={`h-4 w-4 transition-transform duration-200 ${
-                  giveDropdownOpen ? "rotate-180 text-primary" : ""
-                }`}
-                aria-hidden="true"
-              />
-            </button>
-
-            {giveDropdownOpen && (
-              <div
-                className="absolute top-full left-0 w-64 rounded-card border border-border bg-background p-xs shadow-dropdown space-y-[2px] z-50 pt-xs"
-                role="menu"
-                aria-orientation="vertical"
-              >
-                <Link
-                  href="/donate"
-                  role="menuitem"
-                  onClick={() => setGiveDropdownOpen(false)}
-                  className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group"
-                >
-                  <Heart className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:scale-105 transition-transform" aria-hidden="true" />
-                  <div>
-                    <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
-                      Financial Giving
-                    </span>
-                    <span className="text-xs text-muted-foreground block">
-                      Make a tax-deductible gift
-                    </span>
+              {/* What We Do */}
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>What We Do</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="w-64 rounded-card border border-border bg-background shadow-dropdown p-xs space-y-[2px]">
+                    <NavPanelItem
+                      href="/services"
+                      icon={<Building2 className="h-4 w-4" aria-hidden="true" />}
+                      label="Our Services"
+                      description="Refugee, health, legal & women aid"
+                    />
+                    <NavPanelItem
+                      href="/events"
+                      icon={<Calendar className="h-4 w-4" aria-hidden="true" />}
+                      label="Events & Gatherings"
+                      description="Workshops, dinners & webinars"
+                    />
                   </div>
-                </Link>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
 
-                <Link
-                  href="/donate-goods"
-                  role="menuitem"
-                  onClick={() => setGiveDropdownOpen(false)}
-                  className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group"
-                >
-                  <Package className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:scale-105 transition-transform" aria-hidden="true" />
-                  <div>
-                    <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
-                      Donate Goods
-                    </span>
-                    <span className="text-xs text-muted-foreground block">
-                      Offer physical items &amp; supplies
-                    </span>
+              {/* Ways to Give */}
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Ways to Give</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="w-64 rounded-card border border-border bg-background shadow-dropdown p-xs space-y-[2px]">
+                    <NavPanelItem
+                      href="/donate"
+                      icon={<Heart className="h-4 w-4" aria-hidden="true" />}
+                      label="Financial Giving"
+                      description="Make a tax-deductible gift"
+                    />
+                    <NavPanelItem
+                      href="/donate-goods"
+                      icon={<Package className="h-4 w-4" aria-hidden="true" />}
+                      label="Donate Goods"
+                      description="Offer physical items & supplies"
+                    />
+                    <NavPanelItem
+                      href="/current-needs"
+                      icon={<ClipboardList className="h-4 w-4" aria-hidden="true" />}
+                      label="Current Needs"
+                      description="Real-time requested item list"
+                    />
                   </div>
-                </Link>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
 
-                <Link
-                  href="/current-needs"
-                  role="menuitem"
-                  onClick={() => setGiveDropdownOpen(false)}
-                  className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group"
-                >
-                  <ClipboardList className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:scale-105 transition-transform" aria-hidden="true" />
-                  <div>
-                    <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
-                      Current Needs
-                    </span>
-                    <span className="text-xs text-muted-foreground block">
-                      Real-time requested item list
-                    </span>
+              {/* Community */}
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Community</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="w-64 rounded-card border border-border bg-background shadow-dropdown p-xs space-y-[2px]">
+                    <NavPanelItem
+                      href="/get-involved"
+                      icon={<Users className="h-4 w-4" aria-hidden="true" />}
+                      label="Get Involved"
+                      description="Volunteer, mentor, or partner"
+                    />
+                    <NavPanelItem
+                      href="/testimonials"
+                      icon={<MessageSquare className="h-4 w-4" aria-hidden="true" />}
+                      label="Stories & Testimonials"
+                      description="Read authentic experiences"
+                    />
+                    <NavPanelItem
+                      href="/faqs"
+                      icon={<HelpCircle className="h-4 w-4" aria-hidden="true" />}
+                      label="Frequently Asked Questions"
+                      description="Clear answers & guidance"
+                    />
                   </div>
-                </Link>
-              </div>
-            )}
-          </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
 
-          {/* Group 2: Community Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setCommunityDropdownOpen(true)}
-            onMouseLeave={() => setCommunityDropdownOpen(false)}
-          >
-            <button
-              type="button"
-              onClick={() => setCommunityDropdownOpen(!communityDropdownOpen)}
-              aria-expanded={communityDropdownOpen}
-              className="inline-flex items-center gap-[4px] text-sm font-medium text-foreground/80 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button px-xs py-xs"
-            >
-              <span>Community</span>
-              <ChevronDown
-                className={`h-4 w-4 transition-transform duration-200 ${
-                  communityDropdownOpen ? "rotate-180 text-primary" : ""
-                }`}
-                aria-hidden="true"
-              />
-            </button>
-
-            {communityDropdownOpen && (
-              <div
-                className="absolute top-full left-0 w-64 rounded-card border border-border bg-background p-xs shadow-dropdown space-y-[2px] z-50 pt-xs"
-                role="menu"
-                aria-orientation="vertical"
-              >
-                <Link
-                  href="/get-involved"
-                  role="menuitem"
-                  onClick={() => setCommunityDropdownOpen(false)}
-                  className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group"
-                >
-                  <Users className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:scale-105 transition-transform" aria-hidden="true" />
-                  <div>
-                    <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
-                      Get Involved
-                    </span>
-                    <span className="text-xs text-muted-foreground block">
-                      Volunteer, mentor, or partner
-                    </span>
-                  </div>
-                </Link>
-
-                <Link
-                  href="/testimonials"
-                  role="menuitem"
-                  onClick={() => setCommunityDropdownOpen(false)}
-                  className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group"
-                >
-                  <MessageSquare className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:scale-105 transition-transform" aria-hidden="true" />
-                  <div>
-                    <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
-                      Stories &amp; Testimonials
-                    </span>
-                    <span className="text-xs text-muted-foreground block">
-                      Read authentic experiences
-                    </span>
-                  </div>
-                </Link>
-
-                <Link
-                  href="/faqs"
-                  role="menuitem"
-                  onClick={() => setCommunityDropdownOpen(false)}
-                  className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group"
-                >
-                  <HelpCircle className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:scale-105 transition-transform" aria-hidden="true" />
-                  <div>
-                    <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
-                      Frequently Asked Questions
-                    </span>
-                    <span className="text-xs text-muted-foreground block">
-                      Clear answers &amp; guidance
-                    </span>
-                  </div>
-                </Link>
-              </div>
-            )}
-          </div>
-        </nav>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
 
         {/* Desktop Action & Theme Toggle */}
         <div className="hidden md:flex items-center gap-sm">
@@ -325,7 +212,6 @@ export function Header() {
           className="md:hidden border-b border-border bg-background px-md py-md space-y-md shadow-card"
           aria-label="Mobile Navigation"
         >
-          {/* Main Pages */}
           <div className="space-y-xs">
             <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground block px-xs">
               Main Pages
@@ -353,7 +239,6 @@ export function Header() {
             </Link>
           </div>
 
-          {/* What We Do Group */}
           <div className="space-y-xs pt-xs border-t border-border/60">
             <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground block px-xs">
               What We Do
@@ -364,7 +249,7 @@ export function Header() {
               className="flex items-center gap-xs rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
             >
               <Building2 className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
-              <span>Our Services (/services)</span>
+              <span>Our Services</span>
             </Link>
             <Link
               href="/events"
@@ -372,11 +257,10 @@ export function Header() {
               className="flex items-center gap-xs rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
             >
               <Calendar className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
-              <span>Events &amp; Gatherings (/events)</span>
+              <span>Events &amp; Gatherings</span>
             </Link>
           </div>
 
-          {/* Ways to Give */}
           <div className="space-y-xs pt-xs border-t border-border/60">
             <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground block px-xs">
               Ways to Give
@@ -387,7 +271,7 @@ export function Header() {
               className="flex items-center gap-xs rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
             >
               <Heart className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
-              <span>Financial Giving (/donate)</span>
+              <span>Financial Giving</span>
             </Link>
             <Link
               href="/donate-goods"
@@ -395,7 +279,7 @@ export function Header() {
               className="flex items-center gap-xs rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
             >
               <Package className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
-              <span>Donate Goods (/donate-goods)</span>
+              <span>Donate Goods</span>
             </Link>
             <Link
               href="/current-needs"
@@ -403,11 +287,10 @@ export function Header() {
               className="flex items-center gap-xs rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
             >
               <ClipboardList className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
-              <span>Real-Time Current Needs</span>
+              <span>Current Needs</span>
             </Link>
           </div>
 
-          {/* Community & Stories */}
           <div className="space-y-xs pt-xs border-t border-border/60">
             <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground block px-xs">
               Community &amp; Stories
@@ -438,7 +321,6 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile CTA */}
           <div className="pt-sm border-t border-border">
             <Link
               href="/donate"
@@ -456,4 +338,3 @@ export function Header() {
     </header>
   );
 }
-

@@ -74,7 +74,7 @@ export function Footer() {
                   href="/services"
                   className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
                 >
-                  Our Services (/services)
+                  Our Services
                 </Link>
               </li>
               <li>
@@ -82,7 +82,7 @@ export function Footer() {
                   href="/events"
                   className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
                 >
-                  Events &amp; Gatherings (/events)
+                  Events &amp; Gatherings
                 </Link>
               </li>
               <li>
@@ -115,7 +115,7 @@ export function Footer() {
                   href="/donate"
                   className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
                 >
-                  Financial Giving (/donate)
+                  Financial Giving
                 </Link>
               </li>
               <li>
@@ -123,7 +123,7 @@ export function Footer() {
                   href="/donate-goods"
                   className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
                 >
-                  Donate Goods (/donate-goods)
+                  Donate Goods
                 </Link>
               </li>
               <li>
@@ -164,7 +164,7 @@ export function Footer() {
                   href="/contact"
                   className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
                 >
-                  Contact Us (/contact)
+                  Contact Us
                 </Link>
               </li>
             </ul>

@@ -4,6 +4,8 @@ import { Calendar, Clock, MapPin, Tag, ArrowRight } from "lucide-react";
 import { EventItem } from "@/data/events";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 export interface EventCardProps {
@@ -24,7 +26,7 @@ export function EventCard({ event, className }: EventCardProps) {
     published = true,
   } = event;
 
-  const categoryLabels = {
+  const categoryLabels: Record<string, string> = {
     workshop: "Workshop & Training",
     community: "Community Gathering",
     "volunteer-drive": "Volunteer Drive",
@@ -34,32 +36,25 @@ export function EventCard({ event, className }: EventCardProps) {
   const isUpcoming = status === "upcoming";
 
   return (
-    <article
+    <Card
       className={cn(
-        "rounded-card border border-border bg-background p-lg shadow-card flex flex-col justify-between space-y-md relative overflow-hidden transition-colors",
+        "flex flex-col justify-between overflow-hidden transition-colors",
         !isUpcoming && "opacity-75 bg-muted/20 border-dashed",
         !published && "opacity-50",
         className
       )}
     >
-      <div className="space-y-sm">
+      <CardContent className="pt-lg space-y-sm">
         {/* Category & Status Header */}
         <div className="flex flex-wrap items-center justify-between gap-xs">
-          <span className="inline-flex items-center gap-[4px] rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary border border-primary/20">
-            <Tag className="h-3 w-3 text-primary shrink-0" aria-hidden="true" />
+          <Badge variant="default">
+            <Tag className="h-3 w-3 shrink-0" aria-hidden="true" />
             {categoryLabels[category]}
-          </span>
+          </Badge>
 
-          <span
-            className={cn(
-              "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border",
-              isUpcoming
-                ? "bg-success/10 text-success border-success/30"
-                : "bg-muted text-muted-foreground border-border"
-            )}
-          >
+          <Badge variant={isUpcoming ? "success" : "secondary"}>
             {isUpcoming ? "Upcoming Event" : "Past Event"}
-          </span>
+          </Badge>
         </div>
 
         {/* Title */}
@@ -67,7 +62,7 @@ export function EventCard({ event, className }: EventCardProps) {
           {title}
         </Typography>
 
-        {/* Event Meta Info (Date, Time, Location) */}
+        {/* Event Meta Info */}
         <div className="space-y-xs pt-xs border-t border-border/40 text-xs text-muted-foreground">
           <div className="flex items-start gap-xs">
             <Calendar className="h-4 w-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
@@ -91,22 +86,27 @@ export function EventCard({ event, className }: EventCardProps) {
         <Typography variant="body-sm" className="text-muted-foreground leading-relaxed pt-xs">
           {description}
         </Typography>
-      </div>
+      </CardContent>
 
       {/* Registration CTA */}
-      <div className="pt-sm border-t border-border/60">
+      <CardFooter className="border-t border-border/60 pt-sm">
         {isUpcoming ? (
-          <Link href={registrationUrl} aria-label={`Register for ${title}`}>
+          <Link href={registrationUrl} aria-label={`Register for ${title}`} className="w-full">
             <Button variant="outline" className="w-full">
-              Register / Inquire <ArrowRight className="ml-xs h-4 w-4 text-primary" aria-hidden="true" />
+              Register / Inquire{" "}
+              <ArrowRight className="ml-xs h-4 w-4 text-primary" aria-hidden="true" />
             </Button>
           </Link>
         ) : (
-          <Button variant="ghost" disabled className="w-full text-xs text-muted-foreground cursor-not-allowed">
+          <Button
+            variant="ghost"
+            disabled
+            className="w-full text-xs text-muted-foreground cursor-not-allowed"
+          >
             Event Concluded
           </Button>
         )}
-      </div>
-    </article>
+      </CardFooter>
+    </Card>
   );
 }
