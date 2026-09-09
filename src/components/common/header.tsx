@@ -17,10 +17,12 @@ import {
   Building2,
   Sparkles,
   HelpCircle,
+  Calendar,
 } from "lucide-react";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [whatWeDoDropdownOpen, setWhatWeDoDropdownOpen] = React.useState(false);
   const [giveDropdownOpen, setGiveDropdownOpen] = React.useState(false);
   const [communityDropdownOpen, setCommunityDropdownOpen] = React.useState(false);
 
@@ -28,6 +30,7 @@ export function Header() {
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        setWhatWeDoDropdownOpen(false);
         setGiveDropdownOpen(false);
         setCommunityDropdownOpen(false);
       }
@@ -58,18 +61,70 @@ export function Header() {
           >
             About Us
           </Link>
-          <Link
-            href="/services"
-            className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button px-xs py-xs"
+
+          {/* Group 1: What We Do Dropdown (Services & Events) */}
+          <div
+            className="relative"
+            onMouseEnter={() => setWhatWeDoDropdownOpen(true)}
+            onMouseLeave={() => setWhatWeDoDropdownOpen(false)}
           >
-            Services
-          </Link>
-          <Link
-            href="/contact"
-            className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button px-xs py-xs"
-          >
-            Contact
-          </Link>
+            <button
+              type="button"
+              onClick={() => setWhatWeDoDropdownOpen(!whatWeDoDropdownOpen)}
+              aria-expanded={whatWeDoDropdownOpen}
+              className="inline-flex items-center gap-[4px] text-sm font-medium text-foreground/80 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button px-xs py-xs"
+            >
+              <span>What We Do</span>
+              <ChevronDown
+                className={`h-4 w-4 transition-transform duration-200 ${
+                  whatWeDoDropdownOpen ? "rotate-180 text-primary" : ""
+                }`}
+                aria-hidden="true"
+              />
+            </button>
+
+            {whatWeDoDropdownOpen && (
+              <div
+                className="absolute top-full left-0 w-64 rounded-card border border-border bg-background p-xs shadow-dropdown space-y-[2px] z-50 pt-xs"
+                role="menu"
+                aria-orientation="vertical"
+              >
+                <Link
+                  href="/services"
+                  role="menuitem"
+                  onClick={() => setWhatWeDoDropdownOpen(false)}
+                  className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group"
+                >
+                  <Building2 className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:scale-105 transition-transform" aria-hidden="true" />
+                  <div>
+                    <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
+                      Our Services
+                    </span>
+                    <span className="text-xs text-muted-foreground block">
+                      Refugee, health, legal &amp; women aid
+                    </span>
+                  </div>
+                </Link>
+
+                <Link
+                  href="/events"
+                  role="menuitem"
+                  onClick={() => setWhatWeDoDropdownOpen(false)}
+                  className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group"
+                >
+                  <Calendar className="h-4 w-4 text-primary shrink-0 mt-0.5 group-hover:scale-105 transition-transform" aria-hidden="true" />
+                  <div>
+                    <span className="text-sm font-semibold text-foreground block group-hover:text-primary">
+                      Events &amp; Gatherings
+                    </span>
+                    <span className="text-xs text-muted-foreground block">
+                      Workshops, dinners &amp; webinars
+                    </span>
+                  </div>
+                </Link>
+              </div>
+            )}
+          </div>
 
           {/* Group 1: Ways to Give Dropdown */}
           <div
@@ -290,18 +345,34 @@ export function Header() {
               About Us
             </Link>
             <Link
-              href="/services"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
-            >
-              Services
-            </Link>
-            <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
               className="block rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
             >
               Contact Us
+            </Link>
+          </div>
+
+          {/* What We Do Group */}
+          <div className="space-y-xs pt-xs border-t border-border/60">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground block px-xs">
+              What We Do
+            </span>
+            <Link
+              href="/services"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-xs rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
+            >
+              <Building2 className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
+              <span>Our Services (/services)</span>
+            </Link>
+            <Link
+              href="/events"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-xs rounded-button px-md py-xs text-sm font-medium text-foreground hover:bg-muted hover:text-primary"
+            >
+              <Calendar className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
+              <span>Events &amp; Gatherings (/events)</span>
             </Link>
           </div>
 

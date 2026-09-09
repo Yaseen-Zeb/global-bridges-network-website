@@ -63,12 +63,28 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Organization & Stories (2 Cols) */}
+          {/* Column 2: What We Do (3 Cols) */}
           <div className="lg:col-span-3 space-y-sm">
             <Typography variant="caption" className="text-foreground font-bold uppercase tracking-wider block">
-              Organization
+              What We Do
             </Typography>
             <ul className="space-y-xs text-sm">
+              <li>
+                <Link
+                  href="/services"
+                  className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
+                >
+                  Our Services (/services)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/events"
+                  className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
+                >
+                  Events &amp; Gatherings (/events)
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/about"
@@ -79,42 +95,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/services"
-                  className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
-                >
-                  Our Service Areas
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/testimonials"
                   className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
                 >
                   Stories &amp; Testimonials
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/faqs"
-                  className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
-                >
-                  Frequently Asked Questions
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/get-involved"
-                  className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
-                >
-                  Get Involved
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
-                >
-                  Contact Us
                 </Link>
               </li>
             </ul>
@@ -155,18 +139,37 @@ export function Footer() {
                   href="/get-involved"
                   className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
                 >
-                  Volunteer &amp; Partner
+                  Get Involved &amp; Volunteer
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Contact & Inquiries (2 Cols) */}
+          {/* Column 4: Help & Contact (2 Cols) */}
           <div className="lg:col-span-2 space-y-sm">
             <Typography variant="caption" className="text-foreground font-bold uppercase tracking-wider block">
-              Contact
+              Help &amp; Contact
             </Typography>
-            <div className="space-y-xs text-xs text-muted-foreground">
+            <ul className="space-y-xs text-sm">
+              <li>
+                <Link
+                  href="/faqs"
+                  className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
+                >
+                  Frequently Asked Questions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button py-[2px] block"
+                >
+                  Contact Us (/contact)
+                </Link>
+              </li>
+            </ul>
+
+            <div className="space-y-xs text-xs text-muted-foreground pt-xs">
               <div className="flex items-start gap-xs">
                 <Mail className="h-4 w-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
                 <a
@@ -176,9 +179,6 @@ export function Footer() {
                   info@globalbridgesnetwork.org
                 </a>
               </div>
-              <p className="text-[11px] leading-relaxed pt-xs text-muted-foreground">
-                Inquiries regarding partnerships, volunteer opportunities, and program support are welcomed.
-              </p>
             </div>
           </div>
         </div>
