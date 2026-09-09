@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { HelpCircle, Mail, MessageSquare, ArrowRight, Heart } from "lucide-react";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
@@ -24,11 +25,23 @@ export default function FAQsPage() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* 1. HERO SECTION */}
       <section
-        className="relative py-2xl px-md lg:py-3xl lg:px-xl border-b border-border bg-gradient-to-b from-background via-muted/30 to-background"
+        className="relative h-[380px] flex flex-col justify-center px-md lg:px-xl border-b border-border overflow-hidden"
         aria-labelledby="faqs-hero-heading"
       >
-        <div className="mx-auto max-w-4xl text-center space-y-md">
-          <div className="inline-flex items-center gap-xs rounded-full bg-primary/10 px-md py-xs text-xs font-semibold text-primary">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=1920&q=80&auto=format&fit=crop"
+            alt="FAQs Background"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-background/75 dark:bg-background/75" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-4xl text-center space-y-md">
+          <div className="inline-flex items-center gap-xs rounded-full bg-primary/20 px-md py-xs text-xs font-semibold text-primary backdrop-blur-md shadow-sm border border-primary/20">
             <HelpCircle className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
             <span>Help &amp; Guidance</span>
           </div>
@@ -36,14 +49,14 @@ export default function FAQsPage() {
           <Typography
             variant="h1"
             id="faqs-hero-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground drop-shadow-sm"
           >
             Frequently Asked Questions
           </Typography>
 
           <Typography
             variant="body"
-            className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
+            className="text-foreground/80 dark:text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
           >
             Find clear answers to common questions about our organization, service focus, financial donations, goods intake, and community volunteer opportunities.
           </Typography>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
 import { GoodsIntakeForm } from "@/components/donate/goods-intake-form";
@@ -84,20 +85,32 @@ export default function DonateGoodsPage() {
     <main className="min-h-screen bg-background flex flex-col">
       {/* 1. HERO SECTION */}
       <section
-        className="border-b border-border bg-muted/30 py-2xl px-md lg:py-3xl lg:px-xl"
+        className="relative h-[380px] flex flex-col justify-center px-md lg:px-xl border-b border-border overflow-hidden"
         aria-label="Donate goods banner"
       >
-        <div className="mx-auto max-w-4xl text-center space-y-md">
-          <div className="inline-flex items-center gap-xs rounded-full bg-primary/10 px-md py-xs text-xs font-semibold text-primary">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://plus.unsplash.com/premium_photo-1663051348217-88f4487a359f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDQ5fHx8ZW58MHx8fHx8"
+            alt="Donate Goods Background"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-background/75 dark:bg-background/75" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-4xl text-center space-y-md">
+          <div className="inline-flex items-center gap-xs rounded-full bg-primary/20 px-md py-xs text-xs font-semibold text-primary backdrop-blur-md shadow-sm border border-primary/20">
             <Package className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
             <span>Material Support & Goods Intake</span>
           </div>
 
-          <Typography variant="h1" className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+          <Typography variant="h1" className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground drop-shadow-sm">
             Donate Goods
           </Typography>
 
-          <Typography variant="body" className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          <Typography variant="body" className="text-foreground/80 dark:text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Supporters can offer useful, high-quality physical goods to help newly arrived refugee and immigrant families transform empty apartments into welcoming homes.
           </Typography>
         </div>

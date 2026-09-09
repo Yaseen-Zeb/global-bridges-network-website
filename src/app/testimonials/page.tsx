@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ShieldCheck,
   HeartHandshake,
@@ -35,11 +36,23 @@ export default function TestimonialsPage() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* 1. HERO SECTION */}
       <section
-        className="relative py-2xl px-md lg:py-3xl lg:px-xl border-b border-border bg-gradient-to-b from-background via-muted/30 to-background"
+        className="relative h-[380px] flex flex-col justify-center px-md lg:px-xl border-b border-border overflow-hidden"
         aria-labelledby="testimonials-hero-heading"
       >
-        <div className="mx-auto max-w-4xl text-center space-y-md">
-          <div className="inline-flex items-center gap-xs rounded-full bg-primary/10 px-md py-xs text-xs font-semibold text-primary">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1623852700794-6870b096fa1c?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Stories and Testimonials Background"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-background/75 dark:bg-background/75" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-4xl text-center space-y-md">
+          <div className="inline-flex items-center gap-xs rounded-full bg-primary/20 px-md py-xs text-xs font-semibold text-primary backdrop-blur-md shadow-sm border border-primary/20">
             <HeartHandshake className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
             <span>Voices of Hope</span>
           </div>
@@ -47,16 +60,16 @@ export default function TestimonialsPage() {
           <Typography
             variant="h1"
             id="testimonials-hero-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground drop-shadow-sm"
           >
             Stories &amp; Testimonials
           </Typography>
 
           <Typography
             variant="body"
-            className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
+            className="text-foreground/80 dark:text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
           >
-            Authentic experiences from arriving families, overseas women leaders, volunteer mentors, and community partners supported by Bridge Global Network.
+            Explore authentic stories of resilience, dignity, and community connection from individuals and partners across Bridge Global Network programs.
           </Typography>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Mail,
   MapPin,
@@ -34,11 +35,23 @@ export default function ContactPage() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* 1. HERO SECTION */}
       <section
-        className="relative py-2xl px-md lg:py-3xl lg:px-xl border-b border-border bg-gradient-to-b from-background via-muted/30 to-background"
+        className="relative h-[380px] flex flex-col justify-center px-md lg:px-xl border-b border-border overflow-hidden"
         aria-labelledby="contact-hero-heading"
       >
-        <div className="mx-auto max-w-4xl text-center space-y-md">
-          <div className="inline-flex items-center gap-xs rounded-full bg-primary/10 px-md py-xs text-xs font-semibold text-primary">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&q=80&auto=format&fit=crop"
+            alt="Contact Background"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-background/75 dark:bg-background/75" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-4xl text-center space-y-md">
+          <div className="inline-flex items-center gap-xs rounded-full bg-primary/20 px-md py-xs text-xs font-semibold text-primary backdrop-blur-md shadow-sm border border-primary/20">
             <Mail className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
             <span>Get in Touch</span>
           </div>
@@ -46,16 +59,16 @@ export default function ContactPage() {
           <Typography
             variant="h1"
             id="contact-hero-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground drop-shadow-sm"
           >
-            Contact Bridge Global Network
+            Contact Us
           </Typography>
 
           <Typography
             variant="body"
-            className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
+            className="text-foreground/80 dark:text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
           >
-            We welcome inquiries from individuals seeking support, volunteers, community partners, and supporters. Use our unified form below to reach out directly to our team.
+            Whether you are looking for assistance, interested in volunteering, or representing a partner organization, we would love to hear from you.
           </Typography>
         </div>
       </section>

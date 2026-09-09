@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Calendar, Users, Heart, ArrowRight, Building2 } from "lucide-react";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
@@ -24,11 +25,23 @@ export default function EventsPage() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* 1. HERO SECTION */}
       <section
-        className="relative py-2xl px-md lg:py-3xl lg:px-xl border-b border-border bg-gradient-to-b from-background via-muted/30 to-background"
+        className="relative h-[380px] flex flex-col justify-center px-md lg:px-xl border-b border-border overflow-hidden"
         aria-labelledby="events-hero-heading"
       >
-        <div className="mx-auto max-w-4xl text-center space-y-md">
-          <div className="inline-flex items-center gap-xs rounded-full bg-primary/10 px-md py-xs text-xs font-semibold text-primary">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1560439514-4e9645039924?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Events Background"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-background/75 dark:bg-background/75" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-4xl text-center space-y-md">
+          <div className="inline-flex items-center gap-xs rounded-full bg-primary/20 px-md py-xs text-xs font-semibold text-primary backdrop-blur-md shadow-sm border border-primary/20">
             <Calendar className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
             <span>What We Do • Community Gatherings</span>
           </div>
@@ -36,14 +49,14 @@ export default function EventsPage() {
           <Typography
             variant="h1"
             id="events-hero-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground drop-shadow-sm"
           >
             Events &amp; Community Gatherings
           </Typography>
 
           <Typography
             variant="body"
-            className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
+            className="text-foreground/80 dark:text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
           >
             Bringing together arriving families, volunteer mentors, grassroots leaders, and local community partners through orientation workshops, welcome dinners, and global webinars.
           </Typography>

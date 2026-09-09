@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
 import {
@@ -71,20 +72,32 @@ export default function GetInvolvedPage() {
     <main className="min-h-screen bg-background flex flex-col">
       {/* 1. HERO SECTION */}
       <section
-        className="border-b border-border bg-muted/30 py-2xl px-md lg:py-3xl lg:px-xl"
-        aria-label="Get Involved banner"
+        className="relative h-[380px] flex flex-col justify-center px-md lg:px-xl border-b border-border overflow-hidden"
+        aria-label="Get involved banner"
       >
-        <div className="mx-auto max-w-4xl text-center space-y-md">
-          <div className="inline-flex items-center gap-xs rounded-full bg-primary/10 px-md py-xs text-xs font-semibold text-primary">
-            <HeartHandshake className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://plus.unsplash.com/premium_photo-1770347180331-9e75822632c7?q=80&w=1457&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Get Involved Background"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-background/75 dark:bg-background/75" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-4xl text-center space-y-md">
+          <div className="inline-flex items-center gap-xs rounded-full bg-primary/20 px-md py-xs text-xs font-semibold text-primary backdrop-blur-md shadow-sm border border-primary/20">
+            <Handshake className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
             <span>Join Our Community Mission</span>
           </div>
 
-          <Typography variant="h1" className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+          <Typography variant="h1" className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground drop-shadow-sm">
             Get Involved
           </Typography>
 
-          <Typography variant="body" className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          <Typography variant="body" className="text-foreground/80 dark:text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             There are many meaningful ways to support newly arrived refugees, immigrants, and overseas women empowerment programs. Your time, voice, and physical donations make a tangible difference.
           </Typography>
         </div>
