@@ -13,6 +13,7 @@ export const CMS_TESTIMONIALS: Testimonial[] = [
     authorRole: "Resettlement Aid Recipient",
     category: "resettlement",
     date: "Spring 2025",
+    image: "https://images.unsplash.com/photo-1531123897727-8f129e1bf98a?auto=format&fit=crop&w=150&q=80",
     published: true,
   },
   {
@@ -23,6 +24,7 @@ export const CMS_TESTIMONIALS: Testimonial[] = [
     authorRole: "Overseas Women's Empowerment Initiative",
     category: "women-empowerment",
     date: "Winter 2024",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80",
     published: true,
   },
   {
@@ -33,6 +35,7 @@ export const CMS_TESTIMONIALS: Testimonial[] = [
     authorRole: "Health & Legal Navigation Client",
     category: "resettlement",
     date: "Fall 2024",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
     published: true,
   },
   {
@@ -43,6 +46,7 @@ export const CMS_TESTIMONIALS: Testimonial[] = [
     authorRole: "Community Integration Volunteer",
     category: "volunteers",
     date: "Early 2025",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
     published: true,
   },
   {
@@ -53,6 +57,7 @@ export const CMS_TESTIMONIALS: Testimonial[] = [
     authorRole: "Regional Non-Profit Partner",
     category: "partners",
     date: "Winter 2024",
+    image: "https://images.unsplash.com/photo-1524504388266-c9c40212ceea?auto=format&fit=crop&w=150&q=80",
     published: true,
   },
   {
@@ -63,6 +68,7 @@ export const CMS_TESTIMONIALS: Testimonial[] = [
     authorRole: "Education & Youth Support Participant",
     category: "resettlement",
     date: "Late 2024",
+    image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=150&q=80",
     published: true,
   },
 ];

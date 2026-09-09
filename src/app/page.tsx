@@ -15,8 +15,11 @@ import {
   Users,
   ArrowRight,
   CheckCircle2,
-  Quote,
 } from "lucide-react";
+import { CMS_TESTIMONIALS } from "@/data/testimonials";
+import { CMS_CURRENT_NEEDS } from "@/data/current-needs";
+import { TestimonialCard } from "@/components/testimonials/testimonial-card";
+import { CurrentNeedCard } from "@/components/needs/current-need-card";
 
 // CMS Content Placeholder: Service Areas Data Structure
 const SERVICE_AREAS = [
@@ -59,101 +62,52 @@ const SERVICE_AREAS = [
 ];
 
 // CMS Content Placeholder: Testimonials Data Structure
-const CMS_TESTIMONIALS = [
-  {
-    id: "test-1",
-    quote:
-      "When we arrived in a new country, Global Bridges Network helped us find housing and enrolled our children in school. They truly felt like family.",
-    author: "Aminah & Family",
-    role: "Resettlement Program Participant",
-  },
-  {
-    id: "test-2",
-    quote:
-      "The language and digital literacy classes gave me the confidence to apply for my first job here. I am so grateful for the patient mentorship.",
-    author: "David K.",
-    role: "Employment & Education Client",
-  },
-  {
-    id: "test-3",
-    quote:
-      "Participating in the overseas women's leadership program gave our local community group the tools and micro-grant support to launch our craft cooperative.",
-    author: "Fatima S.",
-    role: "Women Empowerment Grantee",
-  },
-];
 
-// CMS Content Placeholder: Current Needs Data Structure
-const CMS_CURRENT_NEEDS = [
-  {
-    id: "need-1",
-    title: "Winter Outerwear & Warm Blankets",
-    category: "High Priority",
-    description:
-      "Clean coats, jackets, and thermal blankets for families arriving during cold seasonal months.",
-  },
-  {
-    id: "need-2",
-    title: "Household Starter Kits",
-    category: "Essential Goods",
-    description:
-      "Cookware sets, dishware, fresh bed linens, and basic kitchen utensils for new home setups.",
-  },
-  {
-    id: "need-3",
-    title: "School Backpacks & Supplies",
-    category: "Youth Education",
-    description:
-      "New backpacks filled with notebooks, pens, markers, and calculators for incoming students.",
-  },
-];
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background flex flex-col">
       {/* 1. HERO SECTION */}
       <section
-        className="relative border-b border-border bg-muted/30 py-2xl px-md md:py-3xl lg:px-xl"
+        className="relative border-b border-border py-3xl px-md lg:py-[120px] lg:px-xl flex items-center justify-center overflow-hidden min-h-[85vh]"
         aria-label="Welcome banner"
       >
-        <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-xl items-center">
-          <div className="lg:col-span-7 space-y-md">
-            <AnimatedEyebrow />
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero-bg.png"
+            alt="Global Bridges Network Community"
+            fill
+            priority
+            className="object-cover"
+          />
+          {/* Overlay to ensure text readability */}
+          <div className="absolute inset-0 bg-background/80 dark:bg-background/90" />
+        </div>
 
-            <Typography variant="h1" className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-              Empowering Refugees & Immigrants, Building Stronger Communities
-            </Typography>
+        <div className="relative z-10 mx-auto max-w-4xl text-center space-y-lg flex flex-col items-center">
+          <AnimatedEyebrow />
 
-            <Typography variant="body" className="text-muted-foreground text-base sm:text-lg max-w-2xl leading-relaxed">
-              Bridge Global Network supports newly arrived refugees and immigrants with holistic resettlement, health navigation, legal assistance, and educational programs—while fostering sustainable women empowerment initiatives overseas.
-            </Typography>
+          <Typography variant="h1" className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground drop-shadow-sm">
+            Empowering Refugees & Immigrants, Building Stronger Communities
+          </Typography>
 
-            <div className="flex flex-wrap gap-md pt-sm items-center">
-              <Link href="/donate" aria-label="Donate to support Global Bridges Network programs">
-                <Button size="lg" variant="primary">
-                  <Heart className="mr-xs h-4 w-4" aria-hidden="true" />
-                  Donate
-                </Button>
-              </Link>
-              <Link href="/get-involved" aria-label="Get involved as a volunteer or community partner">
-                <Button size="lg" variant="outline">
-                  Get Involved
-                </Button>
-              </Link>
-            </div>
-          </div>
+          <Typography variant="body" className="text-foreground/80 dark:text-muted-foreground text-lg sm:text-xl max-w-3xl leading-relaxed">
+            Bridge Global Network supports newly arrived refugees and immigrants with holistic resettlement, health navigation, legal assistance, and educational programs—while fostering sustainable women empowerment initiatives overseas.
+          </Typography>
 
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-md aspect-[4/3] rounded-card overflow-hidden shadow-card border border-border bg-muted">
-              <Image
-                src="/images/hero-community.png"
-                alt="Diverse non-profit volunteers and staff welcoming a new immigrant and refugee family at a friendly community center"
-                fill
-                priority
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-              />
-            </div>
+          <div className="flex flex-wrap justify-center gap-md pt-md items-center">
+            <Link href="/donate" aria-label="Donate to support Global Bridges Network programs">
+              <Button size="lg" variant="primary" className="shadow-lg hover:shadow-xl transition-shadow text-base h-12 px-8">
+                <Heart className="mr-sm h-5 w-5" aria-hidden="true" />
+                Donate
+              </Button>
+            </Link>
+            <Link href="/get-involved" aria-label="Get involved as a volunteer or community partner">
+              <Button size="lg" variant="outline" className="bg-background/80 backdrop-blur-md shadow-lg hover:shadow-xl transition-shadow text-base h-12 px-8">
+                Get Involved
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -379,26 +333,8 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
-            {CMS_TESTIMONIALS.map((item) => (
-              <article
-                key={item.id}
-                className="rounded-card border border-border bg-background p-lg shadow-card flex flex-col justify-between space-y-md"
-              >
-                <div className="space-y-sm">
-                  <Quote className="h-6 w-6 text-primary/40" aria-hidden="true" />
-                  <Typography variant="body-sm" className="text-foreground italic leading-relaxed">
-                    &ldquo;{item.quote}&rdquo;
-                  </Typography>
-                </div>
-                <div className="border-t border-border pt-sm">
-                  <Typography variant="body-sm" className="font-semibold text-foreground">
-                    {item.author}
-                  </Typography>
-                  <Typography variant="caption" className="text-muted-foreground">
-                    {item.role}
-                  </Typography>
-                </div>
-              </article>
+            {CMS_TESTIMONIALS.slice(0, 3).map((testimonial) => (
+              <TestimonialCard key={testimonial.id} testimonial={testimonial} />
             ))}
           </div>
 
@@ -429,23 +365,8 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
-            {CMS_CURRENT_NEEDS.map((need) => (
-              <div
-                key={need.id}
-                className="rounded-card border border-border bg-background p-lg shadow-card space-y-sm flex flex-col justify-between"
-              >
-                <div className="space-y-xs">
-                  <span className="inline-block rounded-full bg-primary/10 px-sm py-0.5 text-xs font-semibold text-primary">
-                    {need.category}
-                  </span>
-                  <Typography variant="h3" className="text-lg font-semibold">
-                    {need.title}
-                  </Typography>
-                  <Typography variant="body-sm" className="text-muted-foreground">
-                    {need.description}
-                  </Typography>
-                </div>
-              </div>
+            {CMS_CURRENT_NEEDS.slice(0, 3).map((need) => (
+              <CurrentNeedCard key={need.id} need={need} />
             ))}
           </div>
 

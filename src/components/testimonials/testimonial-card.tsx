@@ -1,5 +1,4 @@
 import * as React from "react";
-import Image from "next/image";
 import { Quote } from "lucide-react";
 import { Typography } from "@/components/common/typography";
 import { Badge } from "@/components/ui/badge";
@@ -66,7 +65,7 @@ export function TestimonialCard({ testimonial, className }: TestimonialCardProps
         <footer className="pt-sm border-t border-border/60 flex items-center gap-sm">
           {image ? (
             <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border bg-muted">
-              <Image src={image} alt={authorName} fill className="object-cover" />
+              <img src={image} alt={authorName} className="object-cover w-full h-full" />
             </div>
           ) : (
             <div className="h-10 w-10 shrink-0 rounded-full bg-primary/10 border border-primary/20 text-primary flex items-center justify-center font-bold text-sm select-none">

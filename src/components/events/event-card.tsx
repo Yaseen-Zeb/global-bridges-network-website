@@ -44,6 +44,12 @@ export function EventCard({ event, className }: EventCardProps) {
         className
       )}
     >
+      {/* Optional Event Image */}
+      {event.image && (
+        <div className="relative h-48 w-full overflow-hidden border-b border-border bg-muted">
+          <img src={event.image} alt={title} className="object-cover w-full h-full" />
+        </div>
+      )}
       <CardContent className="pt-lg space-y-sm">
         {/* Category & Status Header */}
         <div className="flex flex-wrap items-center justify-between gap-xs">

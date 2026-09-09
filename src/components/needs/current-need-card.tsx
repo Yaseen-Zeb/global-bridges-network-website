@@ -1,5 +1,4 @@
 import * as React from "react";
-import Image from "next/image";
 import { Package, Clock, AlertTriangle, CheckCircle, Tag } from "lucide-react";
 import { CurrentNeed } from "@/data/current-needs";
 import { Typography } from "@/components/common/typography";
@@ -47,7 +46,7 @@ export function CurrentNeedCard({ need, className }: CurrentNeedCardProps) {
       {/* Optional Item Image */}
       {image && (
         <div className="relative h-44 w-full overflow-hidden border-b border-border bg-muted">
-          <Image src={image} alt={itemName} fill className="object-cover" />
+          <img src={image} alt={itemName} className="object-cover w-full h-full" />
         </div>
       )}
 
