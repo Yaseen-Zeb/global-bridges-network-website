@@ -173,8 +173,8 @@ export default function DonatePage() {
           {/* 5. Trust & Transparency Callout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-md pt-sm">
             <div className="rounded-card border border-border bg-background p-md shadow-card flex items-start gap-md">
-              <Lock className="h-5 w-5 text-primary shrink-0 mt-xs" aria-hidden="true" />
-              <div>
+              <Lock className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+              <div className="space-y-xs">
                 <Typography variant="h3" className="text-base font-semibold">
                   Donor Privacy Protection
                 </Typography>
@@ -185,8 +185,8 @@ export default function DonatePage() {
             </div>
 
             <div className="rounded-card border border-border bg-background p-md shadow-card flex items-start gap-md">
-              <CheckCircle2 className="h-5 w-5 text-success shrink-0 mt-xs" aria-hidden="true" />
-              <div>
+              <CheckCircle2 className="h-5 w-5 text-success shrink-0 mt-0.5" aria-hidden="true" />
+              <div className="space-y-xs">
                 <Typography variant="h3" className="text-base font-semibold">
                   Responsible Stewardship
                 </Typography>
@@ -215,17 +215,17 @@ export default function DonatePage() {
             {DONATION_FAQS.map((faq, index) => (
               <article
                 key={index}
-                className="rounded-card border border-border bg-background p-lg shadow-card space-y-xs"
+                className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-sm"
               >
-                <div className="flex items-center gap-xs text-foreground font-semibold">
-                  <HelpCircle className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
-                  <Typography variant="h3" className="text-base font-semibold">
+                <HelpCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <div className="space-y-xs">
+                  <Typography variant="h3" className="text-base font-semibold text-foreground leading-snug">
                     {faq.question}
                   </Typography>
+                  <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </Typography>
                 </div>
-                <Typography variant="body-sm" className="text-muted-foreground leading-relaxed pl-md">
-                  {faq.answer}
-                </Typography>
               </article>
             ))}
           </div>

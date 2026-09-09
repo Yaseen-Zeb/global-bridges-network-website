@@ -114,8 +114,8 @@ export function DonationWidget({
       </div>
 
       {/* Early Accessibility Testing Flag Notice */}
-      <div className="rounded-button bg-warning/10 border border-warning/20 p-xs text-[11px] text-warning-foreground text-center flex items-center justify-center gap-xs">
-        <AlertCircle className="h-3.5 w-3.5 shrink-0 text-warning" aria-hidden="true" />
+      <div className="rounded-button bg-warning/10 border border-warning/20 p-xs text-[11px] text-warning-foreground text-center flex items-start justify-center gap-xs">
+        <AlertCircle className="h-3.5 w-3.5 shrink-0 text-warning mt-0.5" aria-hidden="true" />
         <span>Developer Note: Conduct WCAG keyboard focus & iframe title testing once live Zeffy/Give Lively provider is selected.</span>
       </div>
     </div>
