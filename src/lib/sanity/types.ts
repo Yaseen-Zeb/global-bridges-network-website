@@ -101,3 +101,41 @@ export interface ContactInfo {
   officeHours?: string;
   socialLinks?: SocialLink[];
 }
+
+// ─── Team Member ──────────────────────────────────────────────────────────────
+
+export interface TeamMember {
+  _id: string;
+  _type: "teamMember";
+  _createdAt: string;
+  name: string;
+  title: string;
+  bio: string;
+  photoUrl?: string;
+  email?: string;
+  linkedin?: string;
+  order: number;
+  published: boolean;
+}
+
+// ─── Founding Story (Singleton) ───────────────────────────────────────────────
+
+export interface FoundingStory {
+  _id: "foundingStory";
+  _type: "foundingStory";
+  paragraphs: string[];
+}
+
+// ─── Service Area ─────────────────────────────────────────────────────────────
+
+export interface ServiceArea {
+  _id: string;
+  _type: "serviceArea";
+  _createdAt: string;
+  title: string;
+  description: string;
+  icon?: string;
+  order: number;
+  published: boolean;
+}
+

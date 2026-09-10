@@ -188,3 +188,49 @@ export const CONTACT_INFO_QUERY = groq`
     }
   }
 `;
+
+// ─── Team Members ─────────────────────────────────────────────────────────────
+
+/** All published team members, ordered by display order */
+export const TEAM_MEMBERS_QUERY = groq`
+  *[_type == "teamMember" && published == true] | order(order asc, _createdAt asc) {
+    _id,
+    _type,
+    _createdAt,
+    name,
+    title,
+    bio,
+    "photoUrl": photo.asset->url,
+    email,
+    linkedin,
+    order,
+    published
+  }
+`;
+
+// ─── Founding Story (Singleton) ───────────────────────────────────────────────
+
+/** The single Founding Story document */
+export const FOUNDING_STORY_QUERY = groq`
+  *[_type == "foundingStory" && _id == "foundingStory"][0] {
+    _id,
+    _type,
+    paragraphs
+  }
+`;
+
+// ─── Service Areas ────────────────────────────────────────────────────────────
+
+/** All published service areas, ordered by display order */
+export const SERVICE_AREAS_QUERY = groq`
+  *[_type == "serviceArea" && published == true] | order(order asc, _createdAt asc) {
+    _id,
+    _type,
+    _createdAt,
+    title,
+    description,
+    icon,
+    order,
+    published
+  }
+`;
