@@ -57,10 +57,7 @@ export function Footer() {
               Bridge Global Network connects communities across borders, welcoming refugees and immigrants with dignity while supporting overseas women empowerment initiatives.
             </Typography>
 
-            <div className="rounded-button bg-background border border-border p-xs flex items-center gap-xs text-xs text-muted-foreground shadow-xs">
-              <ShieldCheck className="h-4 w-4 text-success shrink-0" aria-hidden="true" />
-              <span>501(c)(3) Non-Profit Organization • Tax-Deductible</span>
-            </div>
+
           </div>
 
           {/* Column 2: What We Do (3 Cols) */}

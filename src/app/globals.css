@@ -84,3 +84,19 @@
   to   { height: 0; }
 }
 
+/* ── Sonner Toast Overrides ───────────────────────────────────────────────── */
+
+/* Move the close (×) button to the top-RIGHT inside the toast */
+[data-sonner-toast] [data-close-button] {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  left: auto !important;
+  transform: none !important;
+}
+
+/* Align the status icon (✓ / ✗ / spinner) to the top of the toast */
+[data-sonner-toast] [data-icon] {
+  align-self: flex-start !important;
+  margin-top: 2px !important;
+}

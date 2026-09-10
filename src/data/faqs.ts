@@ -23,7 +23,7 @@ export const CMS_FAQS: FAQItem[] = [
     category: "general",
     question: "Is Bridge Global Network an accredited non-profit organization?",
     answer:
-      "Bridge Global Network is structured as a 501(c)(3) non-profit organization. Contributions support our charitable mission and are tax-deductible.",
+      "Bridge Global Network is structured as a registered non-profit organization. Contributions support our charitable mission of empowering refugees, immigrants, and overseas women.",
   },
   {
     id: "faq-gen-3",
@@ -60,9 +60,9 @@ export const CMS_FAQS: FAQItem[] = [
   {
     id: "faq-don-1",
     category: "donations",
-    question: "Are financial donations tax-deductible?",
+    question: "Are financial donations accepted?",
     answer:
-      "Yes. Financial contributions directly advance our non-profit mission and are tax-deductible. Donors receive a summary receipt for tax documentation.",
+      "Yes. Financial contributions directly advance our non-profit mission. Donors receive a summary receipt upon request for their own records.",
   },
   {
     id: "faq-don-2",

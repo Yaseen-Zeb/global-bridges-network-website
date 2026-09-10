@@ -1,6 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Send, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,9 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Typography } from "@/components/common/typography";
-import { CheckCircle2, AlertCircle, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ITEM_CATEGORIES = [
@@ -30,81 +33,77 @@ const ITEM_CATEGORIES = [
 const CONDITION_OPTIONS = ["New", "Like New", "Gently Used"];
 const CONTACT_METHOD_OPTIONS = ["Email", "Phone", "Either (Email or Phone)"];
 
+const goodsFormSchema = z.object({
+  name: z.string().trim().min(2, "Full name must be at least 2 characters."),
+  email: z.string().trim().email("Please enter a valid email address."),
+  phone: z.string().trim().optional(),
+  itemCategory: z.string().min(1, "Please select an item category."),
+  description: z
+    .string()
+    .trim()
+    .min(10, "Item description must be at least 10 characters."),
+  quantity: z.string().trim().optional(),
+  condition: z.string().min(1, "Please select an item condition."),
+  preferredContact: z.string().min(1, "Please select a preferred contact method."),
+  notes: z.string().trim().optional(),
+  consent: z.boolean().refine((val) => val === true, {
+    message: "You must acknowledge the consent statement to submit.",
+  }),
+});
+
+type GoodsFormData = z.infer<typeof goodsFormSchema>;
+
 export function GoodsIntakeForm({ className }: { className?: string }) {
-  const [formData, setFormData] = React.useState({
-    name: "",
-    email: "",
-    phone: "",
-    itemCategory: ITEM_CATEGORIES[0],
-    description: "",
-    quantity: "",
-    condition: CONDITION_OPTIONS[1],
-    preferredContact: CONTACT_METHOD_OPTIONS[0],
-    notes: "",
-    consent: false,
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<GoodsFormData>({
+    resolver: zodResolver(goodsFormSchema),
+    reValidateMode: "onSubmit",
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      itemCategory: ITEM_CATEGORIES[0],
+      description: "",
+      quantity: "",
+      condition: CONDITION_OPTIONS[1],
+      preferredContact: CONTACT_METHOD_OPTIONS[0],
+      notes: "",
+      consent: false,
+    },
   });
 
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [submitStatus, setSubmitStatus] = React.useState<{
-    type: "success" | "error";
-    message: string;
-  } | null>(null);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  // Radix Select uses onValueChange instead of native onChange
-  const handleSelectChange = (field: string) => (value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
+  const onSubmit = async (data: GoodsFormData) => {
+    const toastId = toast.loading("Submitting your goods offer...");
     try {
       const res = await fetch("/api/donate-goods", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
-      const data = await res.json();
+      const result = await res.json();
 
-      if (res.ok && data.success) {
-        setSubmitStatus({
-          type: "success",
-          message: data.message || "Your goods offer has been submitted successfully!",
+      if (res.ok && result.success) {
+        toast.success("Goods Offer Submitted!", {
+          id: toastId,
+          description: result.message || "Thank you! Our team will review your offer and reach out shortly.",
         });
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          itemCategory: ITEM_CATEGORIES[0],
-          description: "",
-          quantity: "",
-          condition: CONDITION_OPTIONS[1],
-          preferredContact: CONTACT_METHOD_OPTIONS[0],
-          notes: "",
-          consent: false,
-        });
+        reset();
       } else {
-        setSubmitStatus({
-          type: "error",
-          message: data.error || "Failed to submit form. Please try again.",
+        toast.error("Submission Failed", {
+          id: toastId,
+          description: result.error || "Failed to submit form. Please check the fields and try again.",
         });
       }
     } catch {
-      setSubmitStatus({
-        type: "error",
-        message: "Network error occurred. Please check your connection and try again.",
+      toast.error("Network Error", {
+        id: toastId,
+        description: "A network error occurred. Please check your connection and try again.",
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -115,7 +114,7 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
         className
       )}
     >
-      <div className="space-y-xs">
+      <div className="space-y-xs border-b border-border pb-md">
         <Typography variant="h2" className="text-2xl font-bold">
           Submit Your Goods Offer
         </Typography>
@@ -125,21 +124,7 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
         </Typography>
       </div>
 
-      {submitStatus && (
-        <Alert
-          role="alert"
-          variant={submitStatus.type === "success" ? "success" : "destructive"}
-        >
-          {submitStatus.type === "success" ? (
-            <CheckCircle2 className="h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" />
-          ) : (
-            <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" />
-          )}
-          <AlertDescription>{submitStatus.message}</AlertDescription>
-        </Alert>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-md" noValidate>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-md" noValidate>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
           {/* Name */}
           <div className="space-y-xs">
@@ -147,14 +132,19 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
               Full Name <span className="text-destructive">*</span>
             </Label>
             <Input
-              type="text"
               id="goods-name"
-              name="name"
-              required
-              value={formData.name}
-              onChange={handleChange}
+              type="text"
               placeholder="e.g. Sarah Johnson"
+              aria-invalid={errors.name ? "true" : "false"}
+              aria-describedby={errors.name ? "goods-name-error" : undefined}
+              className={cn(errors.name && "border-destructive focus-visible:ring-destructive")}
+              {...register("name")}
             />
+            {errors.name && (
+              <p id="goods-name-error" className="text-xs font-medium text-destructive">
+                {errors.name.message}
+              </p>
+            )}
           </div>
 
           {/* Email */}
@@ -163,28 +153,34 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
               Email Address <span className="text-destructive">*</span>
             </Label>
             <Input
-              type="email"
               id="goods-email"
-              name="email"
-              required
-              value={formData.email}
-              onChange={handleChange}
+              type="email"
               placeholder="e.g. sarah@example.com"
+              aria-invalid={errors.email ? "true" : "false"}
+              aria-describedby={errors.email ? "goods-email-error" : undefined}
+              className={cn(errors.email && "border-destructive focus-visible:ring-destructive")}
+              {...register("email")}
             />
+            {errors.email && (
+              <p id="goods-email-error" className="text-xs font-medium text-destructive">
+                {errors.email.message}
+              </p>
+            )}
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
           {/* Phone */}
           <div className="space-y-xs">
-            <Label htmlFor="goods-phone">Phone Number</Label>
+            <Label htmlFor="goods-phone">
+              Phone Number{" "}
+              <span className="text-muted-foreground font-normal">(Optional)</span>
+            </Label>
             <Input
-              type="tel"
               id="goods-phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
+              type="tel"
               placeholder="e.g. (555) 000-0000"
+              {...register("phone")}
             />
           </div>
 
@@ -193,21 +189,36 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
             <Label htmlFor="goods-itemCategory">
               Item Category <span className="text-destructive">*</span>
             </Label>
-            <Select
-              value={formData.itemCategory}
-              onValueChange={handleSelectChange("itemCategory")}
-            >
-              <SelectTrigger id="goods-itemCategory">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {ITEM_CATEGORIES.map((cat) => (
-                  <SelectItem key={cat} value={cat}>
-                    {cat}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Controller
+              name="itemCategory"
+              control={control}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger
+                    id="goods-itemCategory"
+                    aria-invalid={errors.itemCategory ? "true" : "false"}
+                    aria-describedby={errors.itemCategory ? "goods-itemCategory-error" : undefined}
+                    className={cn(
+                      errors.itemCategory && "border-destructive focus:ring-destructive"
+                    )}
+                  >
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ITEM_CATEGORIES.map((cat) => (
+                      <SelectItem key={cat} value={cat}>
+                        {cat}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.itemCategory && (
+              <p id="goods-itemCategory-error" className="text-xs font-medium text-destructive">
+                {errors.itemCategory.message}
+              </p>
+            )}
           </div>
         </div>
 
@@ -218,68 +229,82 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
           </Label>
           <Textarea
             id="goods-description"
-            name="description"
-            required
             rows={3}
-            value={formData.description}
-            onChange={handleChange}
             placeholder="Describe the items (e.g. 1 set of stainless steel pots and pans, 2 winter jackets size M)."
-            className="resize-none"
+            aria-invalid={errors.description ? "true" : "false"}
+            aria-describedby={errors.description ? "goods-description-error" : undefined}
+            className={cn(
+              "resize-none",
+              errors.description && "border-destructive focus-visible:ring-destructive"
+            )}
+            {...register("description")}
           />
+          {errors.description && (
+            <p id="goods-description-error" className="text-xs font-medium text-destructive">
+              {errors.description.message}
+            </p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
           {/* Quantity */}
           <div className="space-y-xs">
-            <Label htmlFor="goods-quantity">Estimated Quantity</Label>
+            <Label htmlFor="goods-quantity">
+              Estimated Quantity{" "}
+              <span className="text-muted-foreground font-normal">(Optional)</span>
+            </Label>
             <Input
-              type="text"
               id="goods-quantity"
-              name="quantity"
-              value={formData.quantity}
-              onChange={handleChange}
+              type="text"
               placeholder="e.g. 3 boxes / 5 items"
+              {...register("quantity")}
             />
           </div>
 
           {/* Condition */}
           <div className="space-y-xs">
             <Label htmlFor="goods-condition">Item Condition</Label>
-            <Select
-              value={formData.condition}
-              onValueChange={handleSelectChange("condition")}
-            >
-              <SelectTrigger id="goods-condition">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {CONDITION_OPTIONS.map((cond) => (
-                  <SelectItem key={cond} value={cond}>
-                    {cond}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Controller
+              name="condition"
+              control={control}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger id="goods-condition">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {CONDITION_OPTIONS.map((cond) => (
+                      <SelectItem key={cond} value={cond}>
+                        {cond}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
           </div>
 
           {/* Preferred Contact Method */}
           <div className="space-y-xs">
             <Label htmlFor="goods-preferredContact">Preferred Contact Method</Label>
-            <Select
-              value={formData.preferredContact}
-              onValueChange={handleSelectChange("preferredContact")}
-            >
-              <SelectTrigger id="goods-preferredContact">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {CONTACT_METHOD_OPTIONS.map((method) => (
-                  <SelectItem key={method} value={method}>
-                    {method}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Controller
+              name="preferredContact"
+              control={control}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger id="goods-preferredContact">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {CONTACT_METHOD_OPTIONS.map((method) => (
+                      <SelectItem key={method} value={method}>
+                        {method}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
           </div>
         </div>
 
@@ -288,34 +313,44 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
           <Label htmlFor="goods-notes">Additional Notes (Optional)</Label>
           <Textarea
             id="goods-notes"
-            name="notes"
             rows={2}
-            value={formData.notes}
-            onChange={handleChange}
             placeholder="Any drop-off preferences, dimensions, or questions."
             className="resize-none"
+            {...register("notes")}
           />
         </div>
 
         {/* Privacy & Consent */}
-        <div className="flex items-start gap-xs pt-xs">
-          <Checkbox
-            id="goods-consent"
-            checked={formData.consent}
-            onCheckedChange={(checked) =>
-              setFormData((prev) => ({ ...prev, consent: checked === true }))
-            }
-            required
-            className="mt-0.5"
-          />
-          <Label
-            htmlFor="goods-consent"
-            className="text-xs text-muted-foreground leading-snug font-normal cursor-pointer"
-          >
-            I acknowledge that my submission will be emailed to Bridge Global Network team to
-            coordinate goods inspection and intake.{" "}
-            <span className="text-destructive">*</span>
-          </Label>
+        <div className="space-y-xs pt-xs">
+          <div className="flex items-start gap-xs">
+            <Controller
+              name="consent"
+              control={control}
+              render={({ field }) => (
+                <Checkbox
+                  id="goods-consent"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  aria-invalid={errors.consent ? "true" : "false"}
+                  aria-describedby={errors.consent ? "goods-consent-error" : undefined}
+                  className="mt-0.5"
+                />
+              )}
+            />
+            <Label
+              htmlFor="goods-consent"
+              className="text-xs text-muted-foreground leading-relaxed cursor-pointer font-normal"
+            >
+              I acknowledge that my submission will be emailed to Bridge Global Network team to
+              coordinate goods inspection and intake.{" "}
+              <span className="text-destructive">*</span>
+            </Label>
+          </div>
+          {errors.consent && (
+            <p id="goods-consent-error" className="text-xs font-medium text-destructive pl-5">
+              {errors.consent.message}
+            </p>
+          )}
         </div>
 
         {/* Submit */}
@@ -324,11 +359,14 @@ export function GoodsIntakeForm({ className }: { className?: string }) {
             type="submit"
             variant="primary"
             size="lg"
-            disabled={isSubmitting || !formData.consent}
+            disabled={isSubmitting}
             className="w-full sm:w-auto"
           >
             {isSubmitting ? (
-              "Submitting Offer..."
+              <>
+                <Loader2 className="mr-xs h-4 w-4 animate-spin" aria-hidden="true" />
+                Submitting Offer...
+              </>
             ) : (
               <>
                 <Send className="mr-xs h-4 w-4" aria-hidden="true" />

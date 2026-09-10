@@ -127,7 +127,7 @@ export function Header() {
                       href="/donate"
                       icon={<Heart className="h-4 w-4" aria-hidden="true" />}
                       label="Financial Giving"
-                      description="Make a tax-deductible gift"
+                      description="Support our mission with a financial gift"
                     />
                     <NavPanelItem
                       href="/donate-goods"

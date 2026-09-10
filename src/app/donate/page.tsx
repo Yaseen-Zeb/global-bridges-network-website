@@ -20,20 +20,20 @@ import {
 export const metadata: Metadata = {
   title: "Donate | Bridge Global Network",
   description:
-    "Support Bridge Global Network with tax-deductible financial contributions to empower newly arrived refugees, immigrants, and overseas women leadership initiatives.",
+    "Support Bridge Global Network with financial contributions to empower newly arrived refugees, immigrants, and overseas women leadership initiatives.",
   openGraph: {
     title: "Donate | Bridge Global Network",
     description:
-      "Support Bridge Global Network with tax-deductible financial contributions.",
+      "Support Bridge Global Network with financial contributions.",
   },
 };
 
 // General Donation FAQs
 const DONATION_FAQS = [
   {
-    question: "Is my donation tax-deductible?",
+    question: "How is my donation used?",
     answer:
-      "Yes. Bridge Global Network is a registered 501(c)(3) non-profit organization. Financial contributions are tax-deductible to the fullest extent permitted by law.",
+      "All financial contributions directly advance our non-profit mission — funding resettlement support, healthcare navigation, educational resources, and overseas women empowerment programs.",
   },
   {
     question: "Can I choose between a one-time and monthly recurring gift?",
@@ -155,35 +155,11 @@ export default function DonatePage() {
         </div>
       </section>
 
-      {/* 4. TAX-DEDUCTIBILITY & 5. TRUST / TRANSPARENCY SECTIONS */}
-      <section className="py-2xl px-md lg:px-xl border-b border-border" aria-labelledby="tax-trust-heading">
-        <div className="mx-auto max-w-4xl space-y-lg">
-          <div className="rounded-card border border-primary/20 bg-primary/5 p-lg sm:p-xl shadow-card space-y-md text-center">
-            <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto">
-              <ShieldCheck className="h-6 w-6" aria-hidden="true" />
-            </div>
 
-            <div className="space-y-xs">
-              <Typography variant="h2" id="tax-trust-heading" className="text-2xl font-bold">
-                Tax-Deductible 501(c)(3) Organization
-              </Typography>
-              <Typography variant="body" className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Bridge Global Network is a registered 501(c)(3) tax-exempt organization. Your contributions are tax-deductible to the extent permitted by law.
-              </Typography>
-            </div>
 
-            {/* EIN Placeholder */}
-            <div className="inline-block rounded-button bg-background border border-border px-md py-sm shadow-xs">
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
-                Employer Identification Number (EIN)
-              </span>
-              <span className="text-base font-bold text-foreground font-mono mt-xs block">
-                [EIN Pending Client Provision]
-              </span>
-            </div>
-          </div>
-
-          {/* 5. Trust & Transparency Callout */}
+      {/* 5. TRUST & TRANSPARENCY CALLOUT */}
+      <section className="py-2xl px-md lg:px-xl border-b border-border" aria-labelledby="trust-heading">
+        <div className="mx-auto max-w-5xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-md pt-sm">
             <div className="rounded-card border border-border bg-background p-md shadow-card flex items-start gap-md">
               <Lock className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />

@@ -23,11 +23,11 @@ import {
 export const metadata: Metadata = {
   title: "About Us | Bridge Global Network",
   description:
-    "Learn about Bridge Global Network's mission, vision, founding story, 501(c)(3) non-profit status, and leadership team dedicated to empowering refugees, immigrants, and women worldwide.",
+    "Learn about Bridge Global Network's mission, vision, founding story, and leadership team dedicated to empowering refugees, immigrants, and women worldwide.",
   openGraph: {
     title: "About Us | Bridge Global Network",
     description:
-      "Learn about Bridge Global Network's mission, vision, founding story, 501(c)(3) status, and leadership team.",
+      "Learn about Bridge Global Network's mission, vision, founding story, and leadership team.",
   },
 };
 
@@ -333,34 +333,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 7. 501(c)(3) INFORMATION */}
-      <section className="py-2xl px-md lg:px-xl border-b border-border" aria-labelledby="tax-status-heading">
-        <div className="mx-auto max-w-4xl">
-          <div className="rounded-card border border-primary/20 bg-primary/5 p-lg sm:p-xl shadow-card space-y-md text-center">
-            <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto">
-              <ShieldCheck className="h-6 w-6" aria-hidden="true" />
-            </div>
 
-            <div className="space-y-xs">
-              <Typography variant="h2" id="tax-status-heading" className="text-2xl font-bold">
-                501(c)(3) Non-Profit Organization Status
-              </Typography>
-              <Typography variant="body" className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Bridge Global Network is registered as a tax-exempt 501(c)(3) non-profit organization. All financial contributions are tax-deductible to the fullest extent allowed by law.
-              </Typography>
-            </div>
-
-            <div className="inline-block rounded-button bg-background border border-border px-md py-sm shadow-xs">
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
-                Employer Identification Number (EIN)
-              </span>
-              <span className="text-base font-bold text-foreground font-mono mt-xs block">
-                [EIN Pending Client Provision]
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 8. CALL TO ACTION */}
       <section className="py-2xl px-md lg:py-3xl lg:px-xl bg-primary text-primary-foreground" aria-labelledby="about-cta-heading">

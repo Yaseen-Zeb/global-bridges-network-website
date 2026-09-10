@@ -265,7 +265,7 @@ export default function Home() {
                   Donate Financial Support
                 </Typography>
                 <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
-                  Your tax-deductible financial contributions directly fund emergency housing aid, legal assistance, and overseas micro-grants for women.
+                  Your financial contributions directly fund emergency housing aid, legal assistance, and overseas micro-grants for women.
                 </Typography>
               </div>
               <Link href="/donate" aria-label="Donate funds to Global Bridges Network" className="w-full">

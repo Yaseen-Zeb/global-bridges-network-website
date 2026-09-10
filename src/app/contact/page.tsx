@@ -138,14 +138,6 @@ export default function ContactPage() {
                   </div>
                 </div>
               </article>
-
-              {/* Privacy Safeguard Notice */}
-              <div className="rounded-card border border-primary/20 bg-muted/20 p-md shadow-xs flex items-start gap-sm">
-                <ShieldCheck className="h-5 w-5 text-success shrink-0 mt-0.5" aria-hidden="true" />
-                <Typography variant="body-sm" className="text-muted-foreground text-xs leading-relaxed">
-                  <strong>Zero Database Promise:</strong> Contact form submissions are dispatched statelessly to our shared email inbox with 0 database or CRM storage.
-                </Typography>
-              </div>
             </div>
 
             {/* Unified Inquiry Form Column (7 Cols) */}
@@ -208,7 +200,7 @@ export default function ContactPage() {
                   Financial Giving
                 </Typography>
                 <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
-                  Make a tax-deductible financial contribution to advance emergency family assistance and overseas micro-grants.
+                  Make a financial contribution to advance emergency family assistance and overseas micro-grants.
                 </Typography>
               </div>
               <Link href="/donate">

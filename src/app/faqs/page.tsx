@@ -10,7 +10,7 @@ import { FAQAccordionSection } from "@/components/faqs/faq-accordion-section";
 export const metadata: Metadata = {
   title: "Frequently Asked Questions | Bridge Global Network",
   description:
-    "Find answers to common questions about Bridge Global Network's services, refugee resettlement support, tax-deductible donations, goods intake, and volunteer opportunities.",
+    "Find answers to common questions about Bridge Global Network's services, refugee resettlement support, financial donations, goods intake, and volunteer opportunities.",
   openGraph: {
     title: "Frequently Asked Questions | Bridge Global Network",
     description:
@@ -135,7 +135,7 @@ export default function FAQsPage() {
             variant="body"
             className="text-primary-foreground/80 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
           >
-            Your tax-deductible financial support and donated goods help arriving families settle with dignity and empower overseas women leaders.
+            Your financial support and donated goods help arriving families settle with dignity and empower overseas women leaders.
           </Typography>
 
           <div className="flex flex-wrap gap-md justify-center pt-md">

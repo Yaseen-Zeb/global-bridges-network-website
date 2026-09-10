@@ -110,7 +110,7 @@ export function DonationWidget({
       {/* Trust & Guarantee Subtext */}
       <div className="flex items-center justify-center gap-xs text-xs text-muted-foreground pt-xs">
         <ShieldCheck className="h-4 w-4 text-success shrink-0" aria-hidden="true" />
-        <span>Tax-Deductible 501(c)(3) Donation • Donor Privacy Guaranteed</span>
+        <span>Secure Donation • Donor Privacy Guaranteed</span>
       </div>
 
       {/* Early Accessibility Testing Flag Notice */}

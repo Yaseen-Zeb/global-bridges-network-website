@@ -4,7 +4,8 @@ import * as React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Send, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,7 +19,6 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { INQUIRY_CATEGORIES } from "@/data/contact-info";
 import { cn } from "@/lib/utils";
 
@@ -36,11 +36,6 @@ const contactFormSchema = z.object({
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export function ContactForm() {
-  const [submitStatus, setSubmitStatus] = React.useState<{
-    type: "idle" | "loading" | "success" | "error";
-    message?: string;
-  }>({ type: "idle" });
-
   const {
     register,
     handleSubmit,
@@ -49,6 +44,7 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
+    reValidateMode: "onSubmit",
     defaultValues: {
       name: "",
       email: "",
@@ -60,7 +56,7 @@ export function ContactForm() {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    setSubmitStatus({ type: "loading" });
+    const toastId = toast.loading("Sending your message...");
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -69,21 +65,21 @@ export function ContactForm() {
       });
       const result = await response.json();
       if (response.ok && result.success) {
-        setSubmitStatus({
-          type: "success",
-          message: result.message || "Thank you! Your message has been sent to our team.",
+        toast.success("Message Sent!", {
+          id: toastId,
+          description: result.message || "Thank you! Your message has been sent to our team.",
         });
         reset();
       } else {
-        setSubmitStatus({
-          type: "error",
-          message: result.error || "Failed to send message. Please check fields and try again.",
+        toast.error("Submission Failed", {
+          id: toastId,
+          description: result.error || "Failed to send message. Please check fields and try again.",
         });
       }
     } catch {
-      setSubmitStatus({
-        type: "error",
-        message: "A network error occurred while sending your message. Please try again later.",
+      toast.error("Network Error", {
+        id: toastId,
+        description: "A network error occurred while sending your message. Please try again later.",
       });
     }
   };
@@ -99,26 +95,6 @@ export function ContactForm() {
           inbox.
         </Typography>
       </div>
-
-      {/* Status banners */}
-      {submitStatus.type === "success" && (
-        <Alert role="status" aria-live="polite" variant="success">
-          <CheckCircle2 className="h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" />
-          <div className="space-y-xs">
-            <AlertTitle>Message Sent Successfully!</AlertTitle>
-            <AlertDescription>{submitStatus.message}</AlertDescription>
-          </div>
-        </Alert>
-      )}
-      {submitStatus.type === "error" && (
-        <Alert role="alert" aria-live="assertive" variant="destructive">
-          <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" />
-          <div className="space-y-xs">
-            <AlertTitle>Submission Error</AlertTitle>
-            <AlertDescription>{submitStatus.message}</AlertDescription>
-          </div>
-        </Alert>
-      )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-md" noValidate>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
