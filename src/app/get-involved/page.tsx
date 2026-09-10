@@ -152,9 +152,7 @@ export default function GetInvolvedPage() {
             })}
           </div>
 
-          <div className="text-center text-xs text-muted-foreground italic">
-            * Note for Client: Specific volunteer schedules, volunteer roles, and drive registration forms can be connected via CMS as programs expand.
-          </div>
+
         </div>
       </section>
 

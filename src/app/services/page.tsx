@@ -172,9 +172,7 @@ export default function ServicesPage() {
             })}
           </div>
 
-          <div className="text-center text-xs text-muted-foreground italic">
-            * Note for Client: Additional detailed program guidelines, eligibility criteria, and regional schedules can be expanded in the CMS as programs grow.
-          </div>
+
         </div>
       </section>
 

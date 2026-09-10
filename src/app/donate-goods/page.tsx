@@ -233,9 +233,7 @@ export default function DonateGoodsPage() {
             </div>
           </div>
 
-          <div className="text-center text-xs text-muted-foreground italic">
-            * Note for Client: Accepted and excluded item lists are managed in CMS array format (`CMS_ACCEPTED_GOODS` & `CMS_UNACCEPTED_GOODS`) for easy updates by founders.
-          </div>
+
         </div>
       </section>
 

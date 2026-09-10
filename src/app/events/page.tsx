@@ -81,9 +81,7 @@ export default async function EventsPage() {
           {/* Accessible Filter Tabs & Events Grid */}
           <EventFilterGrid events={events} />
 
-          <div className="text-center text-xs text-muted-foreground italic pt-sm">
-            * Note for Client: Events are managed in CMS dataset format (`CMS_EVENTS`) and support status controls (upcoming, past, published).
-          </div>
+
         </div>
       </section>
 

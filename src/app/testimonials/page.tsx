@@ -109,9 +109,7 @@ export default async function TestimonialsPage() {
           {/* Accessible Category Filter & Testimonials Grid */}
           <TestimonialFilterGrid testimonials={testimonials} />
 
-          <div className="text-center text-xs text-muted-foreground italic pt-sm">
-            * Note for Client: Testimonials are managed in CMS array format (`CMS_TESTIMONIALS`) and support publishing status controls.
-          </div>
+
         </div>
       </section>
 

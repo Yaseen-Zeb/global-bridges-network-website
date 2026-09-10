@@ -112,12 +112,6 @@ export function DonationWidget({
         <ShieldCheck className="h-4 w-4 text-success shrink-0" aria-hidden="true" />
         <span>Secure Donation • Donor Privacy Guaranteed</span>
       </div>
-
-      {/* Early Accessibility Testing Flag Notice */}
-      <div className="rounded-button bg-warning/10 border border-warning/20 p-xs text-[11px] text-warning-foreground text-center flex items-start justify-center gap-xs">
-        <AlertCircle className="h-3.5 w-3.5 shrink-0 text-warning" aria-hidden="true" />
-        <span>Developer Note: Conduct WCAG keyboard focus & iframe title testing once live Zeffy/Give Lively provider is selected.</span>
-      </div>
     </div>
   );
 }

@@ -81,9 +81,7 @@ export default async function FAQsPage() {
           {/* Accessible Accordion & Category Filter Component */}
           <FAQAccordionSection faqs={faqs} />
 
-          <div className="text-center text-xs text-muted-foreground italic pt-sm">
-            * Note for Client: FAQs are managed in CMS dataset format (`CMS_FAQS`) across 5 categories (General, Services, Donations, Donate Goods, Get Involved).
-          </div>
+
         </div>
       </section>
 

@@ -90,9 +90,7 @@ export default async function CurrentNeedsPage() {
           {/* Interactive Needs Grid & Empty State Handler */}
           <CurrentNeedsGrid needs={needs} />
 
-          <div className="text-center text-xs text-muted-foreground italic pt-sm">
-            * Note for Client: This page is manually maintained via headless CMS data (`CMS_CURRENT_NEEDS`). It is not auto-populated from intake form submissions.
-          </div>
+
         </div>
       </section>
 

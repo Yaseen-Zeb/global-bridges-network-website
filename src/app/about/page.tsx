@@ -208,9 +208,7 @@ export default function AboutPage() {
             <Typography variant="body" className="text-muted-foreground leading-relaxed">
               Expanding beyond local resettlement services, our organization partnered directly with grassroots leaders overseas to launch targeted women empowerment programs, equipping women with micro-grants, vocational skills, and leadership tools.
             </Typography>
-            <div className="rounded-button bg-muted/60 p-sm text-xs text-muted-foreground italic border border-border/50">
-              * Note for Client: Additional specific founding timeline facts and historical milestones can be populated here via the CMS upon final approval.
-            </div>
+
           </article>
         </div>
       </section>
@@ -327,9 +325,7 @@ export default function AboutPage() {
             ))}
           </div>
 
-          <div className="text-center text-xs text-muted-foreground italic">
-            * Note for Client: Founder names, portraits, and bios are structured in CMS data format for final client verification.
-          </div>
+
         </div>
       </section>
 
