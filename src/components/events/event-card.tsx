@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { Calendar, Clock, MapPin, Tag, ArrowRight } from "lucide-react";
-import { EventItem } from "@/data/events";
+import { EventItem } from "@/lib/sanity/types";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,10 +21,13 @@ export function EventCard({ event, className }: EventCardProps) {
     date,
     time,
     location,
-    status = "upcoming",
-    registrationUrl = "/contact",
+    status,
+    registrationUrl,
     published = true,
   } = event;
+
+  const resolvedStatus = status ?? "upcoming";
+  const resolvedRegistrationUrl = registrationUrl ?? "/contact";
 
   const categoryLabels: Record<string, string> = {
     workshop: "Workshop & Training",
@@ -33,7 +36,7 @@ export function EventCard({ event, className }: EventCardProps) {
     webinar: "Online Webinar",
   };
 
-  const isUpcoming = status === "upcoming";
+  const isUpcoming = resolvedStatus === "upcoming";
 
   return (
     <Card
@@ -45,9 +48,9 @@ export function EventCard({ event, className }: EventCardProps) {
       )}
     >
       {/* Optional Event Image */}
-      {event.image && (
+      {event.imageUrl && (
         <div className="relative h-48 w-full overflow-hidden border-b border-border bg-muted">
-          <img src={event.image} alt={title} className="object-cover w-full h-full" />
+          <img src={event.imageUrl} alt={title} className="object-cover w-full h-full" />
         </div>
       )}
       <CardContent className="pt-lg space-y-sm">
@@ -97,7 +100,7 @@ export function EventCard({ event, className }: EventCardProps) {
       {/* Registration CTA */}
       <CardFooter className="border-t border-border/60 pt-sm">
         {isUpcoming ? (
-          <Link href={registrationUrl} aria-label={`Register for ${title}`} className="w-full">
+          <Link href={resolvedRegistrationUrl} aria-label={`Register for ${title}`} className="w-full">
             <Button variant="outline" className="w-full">
               Register / Inquire{" "}
               <ArrowRight className="ml-xs h-4 w-4 text-primary" aria-hidden="true" />

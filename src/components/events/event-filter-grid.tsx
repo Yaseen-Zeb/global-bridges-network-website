@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { CalendarX, ArrowRight } from "lucide-react";
-import { EventItem } from "@/data/events";
+import { EventItem } from "@/lib/sanity/types";
 import { EventCard } from "./event-card";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
@@ -70,7 +70,7 @@ export function EventFilterGrid({ events }: EventFilterGridProps) {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg"
         >
           {filteredEvents.map((item) => (
-            <EventCard key={item.id} event={item} />
+            <EventCard key={item._id} event={item} />
           ))}
         </div>
       ) : (
@@ -81,18 +81,27 @@ export function EventFilterGrid({ events }: EventFilterGridProps) {
           </div>
 
           <div className="space-y-xs">
-            <Typography variant="h3" className="text-xl font-bold text-foreground">
+            <Typography
+              variant="h3"
+              className="text-xl font-bold text-foreground"
+            >
               No Events Found in This Category
             </Typography>
-            <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
-              We are currently planning upcoming welcome dinners, workshops, and community drives. Check back soon or contact our team to inquire about hosting an event.
+            <Typography
+              variant="body-sm"
+              className="text-muted-foreground leading-relaxed"
+            >
+              We are currently planning upcoming welcome dinners, workshops, and
+              community drives. Check back soon or contact our team to inquire
+              about hosting an event.
             </Typography>
           </div>
 
           <div className="pt-xs">
             <Link href="/contact">
               <Button variant="primary" size="md">
-                Inquire / Host an Event <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
+                Inquire / Host an Event{" "}
+                <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
               </Button>
             </Link>
           </div>

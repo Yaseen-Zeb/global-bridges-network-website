@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Calendar, Users, Heart, ArrowRight, Building2 } from "lucide-react";
+import { Calendar, Heart, ArrowRight, Building2 } from "lucide-react";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
-import { CMS_EVENTS } from "@/data/events";
+import { client } from "@/lib/sanity/client";
+import { EVENTS_QUERY } from "@/lib/sanity/queries";
+import type { EventItem } from "@/lib/sanity/types";
 import { EventFilterGrid } from "@/components/events/event-filter-grid";
 
 export const metadata: Metadata = {
@@ -20,7 +22,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const events: EventItem[] = await client.fetch(EVENTS_QUERY);
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* 1. HERO SECTION */}
@@ -76,7 +79,7 @@ export default function EventsPage() {
           </div>
 
           {/* Accessible Filter Tabs & Events Grid */}
-          <EventFilterGrid events={CMS_EVENTS} />
+          <EventFilterGrid events={events} />
 
           <div className="text-center text-xs text-muted-foreground italic pt-sm">
             * Note for Client: Events are managed in CMS dataset format (`CMS_EVENTS`) and support status controls (upcoming, past, published).
