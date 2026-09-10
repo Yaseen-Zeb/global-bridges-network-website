@@ -53,7 +53,7 @@ export function EventCard({ event, className }: EventCardProps) {
           <img src={event.imageUrl} alt={title} className="object-cover w-full h-full" />
         </div>
       )}
-      <CardContent className="pt-lg space-y-sm">
+      <CardContent className="pt-lg flex flex-col flex-1">
         {/* Category & Status Header */}
         <div className="flex flex-wrap items-center justify-between gap-xs">
           <Badge variant="default">
@@ -67,12 +67,12 @@ export function EventCard({ event, className }: EventCardProps) {
         </div>
 
         {/* Title */}
-        <Typography variant="h3" className="text-xl font-bold text-foreground leading-snug">
+        <Typography variant="h3" className="text-xl font-bold text-foreground leading-snug mt-sm">
           {title}
         </Typography>
 
         {/* Event Meta Info */}
-        <div className="space-y-xs pt-xs border-t border-border/40 text-xs text-muted-foreground">
+        <div className="space-y-xs pt-sm border-t border-border/40 text-xs text-muted-foreground mt-sm">
           <div className="flex items-center gap-xs">
             <Calendar className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
             <span className="font-semibold text-foreground">{date}</span>
@@ -91,8 +91,8 @@ export function EventCard({ event, className }: EventCardProps) {
           </div>
         </div>
 
-        {/* Description */}
-        <Typography variant="body-sm" className="text-muted-foreground leading-relaxed pt-xs">
+        {/* Description — flex-1 absorbs extra space so footer CTA always aligns */}
+        <Typography variant="body-sm" className="text-muted-foreground leading-relaxed pt-xs mt-sm flex-1">
           {description}
         </Typography>
       </CardContent>

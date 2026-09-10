@@ -50,34 +50,32 @@ export function CurrentNeedCard({ need, className }: CurrentNeedCardProps) {
         </div>
       )}
 
-      <CardContent className="pt-lg space-y-sm flex flex-col justify-between flex-1">
-        <div className="space-y-sm">
-          {/* Category & Priority Badge Row */}
-          <div className="flex flex-wrap items-center justify-between gap-xs">
-            <Badge variant="secondary">
-              <Tag className="h-3 w-3 text-muted-foreground" aria-hidden="true" />
-              {category}
-            </Badge>
+      <CardContent className="pt-lg flex flex-col flex-1">
+        {/* Category & Priority Badge Row */}
+        <div className="flex flex-wrap items-center justify-between gap-xs">
+          <Badge variant="secondary">
+            <Tag className="h-3 w-3 text-muted-foreground" aria-hidden="true" />
+            {category}
+          </Badge>
 
-            <Badge variant={priorityVariant[priority]}>
-              <AlertTriangle className="h-3 w-3" aria-hidden="true" />
-              {priorityLabels[priority]}
-            </Badge>
-          </div>
+          <Badge variant={priorityVariant[priority]}>
+            <AlertTriangle className="h-3 w-3" aria-hidden="true" />
+            {priorityLabels[priority]}
+          </Badge>
+        </div>
 
-          {/* Item Title */}
-          <div className="flex items-start gap-sm pt-xs">
-            <Package className="h-5 w-5 text-primary shrink-0 mt-1" aria-hidden="true" />
-            <Typography variant="h3" className="text-lg font-bold text-foreground leading-snug">
-              {itemName}
-            </Typography>
-          </div>
-
-          {/* Description */}
-          <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
-            {description}
+        {/* Item Title */}
+        <div className="flex items-start gap-sm pt-sm">
+          <Package className="h-5 w-5 text-primary shrink-0 mt-1" aria-hidden="true" />
+          <Typography variant="h3" className="text-lg font-bold text-foreground leading-snug">
+            {itemName}
           </Typography>
         </div>
+
+        {/* Description — flex-1 pushes footer to bottom */}
+        <Typography variant="body-sm" className="text-muted-foreground leading-relaxed mt-sm flex-1">
+          {description}
+        </Typography>
 
         {/* Meta Footer */}
         <footer className="pt-sm border-t border-border/60 flex flex-wrap items-center justify-between gap-xs text-xs text-muted-foreground">

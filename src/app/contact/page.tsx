@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -11,6 +12,12 @@ import {
   Heart,
   Package,
   ArrowRight,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Youtube,
+  Globe,
 } from "lucide-react";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
@@ -139,9 +146,49 @@ export default async function ContactPage() {
                   </div>
                 </div>
               </article>
-            </div>
+
+              {/* Social Links */}
+              {contactInfo?.socialLinks && contactInfo.socialLinks.length > 0 && (
+                <article className="rounded-card border border-border bg-background p-lg shadow-card">
+                  <Typography variant="h3" className="text-base font-semibold mb-sm">
+                    Follow &amp; Connect
+                  </Typography>
+                  <div className="flex flex-wrap gap-sm">
+                    {contactInfo.socialLinks.map((link: { platform: string; url: string }, i: number) => {
+                      const icons: Record<string, React.ReactNode> = {
+                        facebook: <Facebook className="h-4 w-4" />,
+                        instagram: <Instagram className="h-4 w-4" />,
+                        linkedin: <Linkedin className="h-4 w-4" />,
+                        twitter: <Twitter className="h-4 w-4" />,
+                        youtube: <Youtube className="h-4 w-4" />,
+                      };
+                      const labels: Record<string, string> = {
+                        facebook: "Facebook",
+                        instagram: "Instagram",
+                        linkedin: "LinkedIn",
+                        twitter: "Twitter / X",
+                        youtube: "YouTube",
+                      };
+                      return (
+                        <a
+                          key={i}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Visit our ${labels[link.platform] ?? link.platform} page`}
+                          className="inline-flex items-center gap-xs px-md py-xs rounded-button border border-border bg-muted/40 hover:bg-primary/10 hover:border-primary/40 hover:text-primary text-muted-foreground text-xs font-medium transition-colors"
+                        >
+                          {icons[link.platform] ?? <Globe className="h-4 w-4" />}
+                          <span>{labels[link.platform] ?? link.platform}</span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </article>
+              )}
 
             {/* Unified Inquiry Form Column (7 Cols) */}
+            </div>
             <div className="lg:col-span-7">
               <ContactForm />
             </div>

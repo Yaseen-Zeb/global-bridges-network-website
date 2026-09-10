@@ -30,7 +30,8 @@ export function TestimonialCard({ testimonial, className }: TestimonialCardProps
       )}
 
       <CardContent className="pt-lg space-y-sm flex flex-col justify-between h-full">
-        <div className="space-y-sm">
+        {/* Quote block — flex-1 pushes author footer to the bottom */}
+        <div className="flex-1 space-y-sm">
           {/* Quote Icon Header */}
           <div className="flex items-start justify-between">
             <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
