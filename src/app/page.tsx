@@ -16,8 +16,9 @@ import {
   ArrowRight,
   CheckCircle2,
 } from "lucide-react";
-import { CMS_TESTIMONIALS } from "@/data/testimonials";
-import { CMS_CURRENT_NEEDS } from "@/data/current-needs";
+import { client } from "@/lib/sanity/client";
+import { TESTIMONIALS_QUERY, CURRENT_NEEDS_QUERY } from "@/lib/sanity/queries";
+import type { Testimonial, CurrentNeed } from "@/lib/sanity/types";
 import { TestimonialCard } from "@/components/testimonials/testimonial-card";
 import { CurrentNeedCard } from "@/components/needs/current-need-card";
 
@@ -64,7 +65,9 @@ const SERVICE_AREAS = [
 // CMS Content Placeholder: Testimonials Data Structure
 
 
-export default function Home() {
+export default async function Home() {
+  const testimonials: Testimonial[] = await client.fetch(TESTIMONIALS_QUERY);
+  const currentNeeds: CurrentNeed[] = await client.fetch(CURRENT_NEEDS_QUERY);
   return (
     <main className="min-h-screen bg-background flex flex-col">
       {/* 1. HERO SECTION */}
@@ -332,19 +335,32 @@ export default function Home() {
             </Typography>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
-            {CMS_TESTIMONIALS.slice(0, 3).map((testimonial) => (
-              <TestimonialCard key={testimonial.id} testimonial={testimonial} />
-            ))}
-          </div>
+          {testimonials.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
+                {testimonials.slice(0, 3).map((testimonial) => (
+                  <TestimonialCard key={testimonial._id} testimonial={testimonial} />
+                ))}
+              </div>
 
-          <div className="text-center pt-md">
-            <Link href="/testimonials" aria-label="Read all community testimonials and stories">
-              <Button variant="link" size="md" className="text-primary font-semibold">
-                Read All Community Stories <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
-              </Button>
-            </Link>
-          </div>
+              <div className="text-center pt-md">
+                <Link href="/testimonials" aria-label="Read all community testimonials and stories">
+                  <Button variant="link" size="md" className="text-primary font-semibold">
+                    Read All Community Stories <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
+                  </Button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-xl rounded-card border border-border bg-background p-lg max-w-2xl mx-auto">
+              <Typography variant="h3" className="text-lg font-semibold text-foreground">
+                Community Stories Coming Soon
+              </Typography>
+              <Typography variant="body-sm" className="text-muted-foreground mt-xs">
+                Check back later to read inspiring stories from those we serve.
+              </Typography>
+            </div>
+          )}
         </div>
       </section>
 
@@ -364,19 +380,32 @@ export default function Home() {
             </Typography>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
-            {CMS_CURRENT_NEEDS.slice(0, 3).map((need) => (
-              <CurrentNeedCard key={need.id} need={need} />
-            ))}
-          </div>
+          {currentNeeds.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
+                {currentNeeds.slice(0, 3).map((need) => (
+                  <CurrentNeedCard key={need._id} need={need} />
+                ))}
+              </div>
 
-          <div className="text-center pt-md">
-            <Link href="/current-needs" aria-label="View complete list of current resource needs">
-              <Button variant="outline" size="lg">
-                View Current Needs <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
-              </Button>
-            </Link>
-          </div>
+              <div className="text-center pt-md">
+                <Link href="/current-needs" aria-label="View complete list of current resource needs">
+                  <Button variant="outline" size="lg">
+                    View Current Needs <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
+                  </Button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-xl rounded-card border border-border bg-background p-lg max-w-2xl mx-auto">
+              <Typography variant="h3" className="text-lg font-semibold text-foreground">
+                All Immediate Item Needs Currently Met!
+              </Typography>
+              <Typography variant="body-sm" className="text-muted-foreground mt-xs">
+                Thanks to the tremendous generosity of our community, all current requested goods have been fulfilled.
+              </Typography>
+            </div>
+          )}
         </div>
       </section>
 

@@ -4,7 +4,9 @@ import Image from "next/image";
 import { HelpCircle, Mail, MessageSquare, ArrowRight, Heart } from "lucide-react";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
-import { CMS_FAQS } from "@/data/faqs";
+import { client } from "@/lib/sanity/client";
+import { FAQS_QUERY } from "@/lib/sanity/queries";
+import type { FAQItem as FAQItemType } from "@/lib/sanity/types";
 import { FAQAccordionSection } from "@/components/faqs/faq-accordion-section";
 
 export const metadata: Metadata = {
@@ -20,7 +22,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function FAQsPage() {
+export default async function FAQsPage() {
+  const faqs: FAQItemType[] = await client.fetch(FAQS_QUERY);
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* 1. HERO SECTION */}
@@ -76,7 +79,7 @@ export default function FAQsPage() {
           </div>
 
           {/* Accessible Accordion & Category Filter Component */}
-          <FAQAccordionSection faqs={CMS_FAQS} />
+          <FAQAccordionSection faqs={faqs} />
 
           <div className="text-center text-xs text-muted-foreground italic pt-sm">
             * Note for Client: FAQs are managed in CMS dataset format (`CMS_FAQS`) across 5 categories (General, Services, Donations, Donate Goods, Get Involved).

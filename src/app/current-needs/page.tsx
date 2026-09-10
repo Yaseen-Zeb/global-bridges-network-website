@@ -11,7 +11,9 @@ import {
 } from "lucide-react";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
-import { CMS_CURRENT_NEEDS } from "@/data/current-needs";
+import { client } from "@/lib/sanity/client";
+import { CURRENT_NEEDS_QUERY } from "@/lib/sanity/queries";
+import type { CurrentNeed as CurrentNeedType } from "@/lib/sanity/types";
 import { CurrentNeedsGrid } from "@/components/needs/current-needs-grid";
 
 export const metadata: Metadata = {
@@ -27,7 +29,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CurrentNeedsPage() {
+export default async function CurrentNeedsPage() {
+  const needs: CurrentNeedType[] = await client.fetch(CURRENT_NEEDS_QUERY);
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* 1. HERO SECTION */}
@@ -85,7 +88,7 @@ export default function CurrentNeedsPage() {
           </div>
 
           {/* Interactive Needs Grid & Empty State Handler */}
-          <CurrentNeedsGrid needs={CMS_CURRENT_NEEDS} />
+          <CurrentNeedsGrid needs={needs} />
 
           <div className="text-center text-xs text-muted-foreground italic pt-sm">
             * Note for Client: This page is manually maintained via headless CMS data (`CMS_CURRENT_NEEDS`). It is not auto-populated from intake form submissions.

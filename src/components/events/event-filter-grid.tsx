@@ -97,14 +97,7 @@ export function EventFilterGrid({ events }: EventFilterGridProps) {
             </Typography>
           </div>
 
-          <div className="pt-xs">
-            <Link href="/contact">
-              <Button variant="primary" size="md">
-                Inquire / Host an Event{" "}
-                <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
-              </Button>
-            </Link>
-          </div>
+
         </div>
       )}
     </div>

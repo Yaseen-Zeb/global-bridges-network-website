@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Package, Clock, AlertTriangle, CheckCircle, Tag } from "lucide-react";
-import { CurrentNeed } from "@/data/current-needs";
+import { CurrentNeed } from "@/lib/sanity/types";
 import { Typography } from "@/components/common/typography";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -18,7 +18,7 @@ export function CurrentNeedCard({ need, className }: CurrentNeedCardProps) {
     category,
     quantity,
     priority = "medium",
-    image,
+    imageUrl,
     lastUpdated,
     active = true,
   } = need;
@@ -44,9 +44,9 @@ export function CurrentNeedCard({ need, className }: CurrentNeedCardProps) {
       )}
     >
       {/* Optional Item Image */}
-      {image && (
+      {imageUrl && (
         <div className="relative h-44 w-full overflow-hidden border-b border-border bg-muted">
-          <img src={image} alt={itemName} className="object-cover w-full h-full" />
+          <img src={imageUrl} alt={itemName} className="object-cover w-full h-full" />
         </div>
       )}
 

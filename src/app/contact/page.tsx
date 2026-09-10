@@ -14,7 +14,9 @@ import {
 } from "lucide-react";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
-import { CONTACT_INFO } from "@/data/contact-info";
+import { client } from "@/lib/sanity/client";
+import { CONTACT_INFO_QUERY } from "@/lib/sanity/queries";
+import type { ContactInfo as ContactInfoType } from "@/lib/sanity/types";
 import { ContactForm } from "@/components/contact/contact-form";
 
 export const metadata: Metadata = {
@@ -30,7 +32,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const contactInfo: ContactInfoType = await client.fetch(CONTACT_INFO_QUERY);
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* 1. HERO SECTION */}
@@ -93,13 +96,11 @@ export default function ContactPage() {
                 <MapPin className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
                 <div className="space-y-xs">
                   <Typography variant="h3" className="text-base font-semibold">
-                    {CONTACT_INFO.addressTitle}
+                    Registered Office & Administration
                   </Typography>
-                  {CONTACT_INFO.addressDetails.map((line, idx) => (
-                    <Typography key={idx} variant="body-sm" className="text-muted-foreground leading-relaxed">
-                      {line}
-                    </Typography>
-                  ))}
+                  <Typography variant="body-sm" className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                    {contactInfo?.address || "Address details upon inquiry response."}
+                  </Typography>
                 </div>
               </article>
 
@@ -111,10 +112,10 @@ export default function ContactPage() {
                     Shared Email Inbox
                   </Typography>
                   <a
-                    href={`mailto:${CONTACT_INFO.email}`}
+                    href={`mailto:${contactInfo?.email}`}
                     className="text-sm font-semibold text-primary hover:underline block"
                   >
-                    {CONTACT_INFO.email}
+                    {contactInfo?.email || "info@globalbridgesnetwork.org"}
                   </a>
                   <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
                     Monitored daily by our administrative team. Response time is typically 1-2 business days.
@@ -127,14 +128,14 @@ export default function ContactPage() {
                 <PhoneCall className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
                 <div className="space-y-xs">
                   <Typography variant="h3" className="text-base font-semibold">
-                    {CONTACT_INFO.phoneTitle}
+                    Administrative & Support Inquiries
                   </Typography>
-                  <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
-                    {CONTACT_INFO.phoneDetails}
+                  <Typography variant="body-sm" className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                    {contactInfo?.phone || "Inquiries monitored via shared email inbox"}
                   </Typography>
                   <div className="flex items-center gap-xs pt-xs text-xs text-muted-foreground font-medium">
                     <Clock className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
-                    <span>{CONTACT_INFO.officeHours}</span>
+                    <span>{contactInfo?.officeHours || "Monday - Friday: 9:00 AM - 5:00 PM (EST)"}</span>
                   </div>
                 </div>
               </article>

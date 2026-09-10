@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { FAQItem } from "@/data/faqs";
+import { FAQItem } from "@/lib/sanity/types";
 import {
   Accordion,
   AccordionItem,
@@ -84,9 +84,9 @@ export function FAQAccordionSection({ faqs }: FAQAccordionSectionProps) {
       {/* Accessible Accordion Component */}
       <div className="max-w-4xl mx-auto">
         {filteredFaqs.length > 0 ? (
-          <Accordion type="single" defaultValue={filteredFaqs[0]?.id}>
+          <Accordion type="single" defaultValue={filteredFaqs[0]?._id}>
             {filteredFaqs.map((faq) => (
-              <AccordionItem key={faq.id} value={faq.id}>
+              <AccordionItem key={faq._id} value={faq._id}>
                 <AccordionTrigger>{faq.question}</AccordionTrigger>
                 <AccordionContent>
                   <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">

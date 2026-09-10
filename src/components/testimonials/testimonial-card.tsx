@@ -5,16 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-export interface Testimonial {
-  id: string;
-  quote: string;
-  authorName: string;
-  authorRole?: string;
-  category?: "resettlement" | "women-empowerment" | "volunteers" | "partners";
-  date?: string;
-  image?: string;
-  published?: boolean;
-}
+import { Testimonial } from "@/lib/sanity/types";
 
 export interface TestimonialCardProps {
   testimonial: Testimonial;
@@ -22,7 +13,7 @@ export interface TestimonialCardProps {
 }
 
 export function TestimonialCard({ testimonial, className }: TestimonialCardProps) {
-  const { quote, authorName, authorRole, date, image, published = true } = testimonial;
+  const { quote, authorName, authorRole, date, imageUrl, published = true } = testimonial;
 
   return (
     <Card
@@ -63,9 +54,9 @@ export function TestimonialCard({ testimonial, className }: TestimonialCardProps
 
         {/* Author & Role Meta */}
         <footer className="pt-sm border-t border-border/60 flex items-center gap-sm">
-          {image ? (
+          {imageUrl ? (
             <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border bg-muted">
-              <img src={image} alt={authorName} className="object-cover w-full h-full" />
+              <img src={imageUrl} alt={authorName} className="object-cover w-full h-full" />
             </div>
           ) : (
             <div className="h-10 w-10 shrink-0 rounded-full bg-primary/10 border border-primary/20 text-primary flex items-center justify-center font-bold text-sm select-none">

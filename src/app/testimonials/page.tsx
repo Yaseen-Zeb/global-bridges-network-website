@@ -14,9 +14,11 @@ import {
 import { AnimatedEyebrow } from "@/components/common/animated-eyebrow";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
-import { Testimonial } from "@/components/testimonials/testimonial-card";
+
 import { TestimonialFilterGrid } from "@/components/testimonials/testimonial-filter-grid";
-import { CMS_TESTIMONIALS } from "@/data/testimonials";
+import { client } from "@/lib/sanity/client";
+import { TESTIMONIALS_QUERY } from "@/lib/sanity/queries";
+import type { Testimonial as TestimonialType } from "@/lib/sanity/types";
 
 export const metadata: Metadata = {
   title: "Stories & Testimonials | Bridge Global Network",
@@ -31,7 +33,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TestimonialsPage() {
+export default async function TestimonialsPage() {
+  const testimonials: TestimonialType[] = await client.fetch(TESTIMONIALS_QUERY);
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* 1. HERO SECTION */}
@@ -104,7 +107,7 @@ export default function TestimonialsPage() {
           </div>
 
           {/* Accessible Category Filter & Testimonials Grid */}
-          <TestimonialFilterGrid testimonials={CMS_TESTIMONIALS} />
+          <TestimonialFilterGrid testimonials={testimonials} />
 
           <div className="text-center text-xs text-muted-foreground italic pt-sm">
             * Note for Client: Testimonials are managed in CMS array format (`CMS_TESTIMONIALS`) and support publishing status controls.

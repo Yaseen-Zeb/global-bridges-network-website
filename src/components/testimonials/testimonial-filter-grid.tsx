@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Testimonial, TestimonialCard } from "./testimonial-card";
+import { TestimonialCard } from "./testimonial-card";
+import { Testimonial } from "@/lib/sanity/types";
 import { Typography } from "@/components/common/typography";
 
 export interface TestimonialFilterGridProps {
@@ -63,7 +64,7 @@ export function TestimonialFilterGrid({ testimonials }: TestimonialFilterGridPro
       >
         {filteredTestimonials.length > 0 ? (
           filteredTestimonials.map((item) => (
-            <TestimonialCard key={item.id} testimonial={item} />
+            <TestimonialCard key={item._id} testimonial={item} />
           ))
         ) : (
           <div className="col-span-full text-center py-2xl rounded-card border border-border bg-background p-lg space-y-xs">

@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { PackageCheck, ArrowRight, Heart } from "lucide-react";
-import { CurrentNeed } from "@/data/current-needs";
+import { CurrentNeed } from "@/lib/sanity/types";
 import { CurrentNeedCard } from "./current-need-card";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
@@ -73,7 +73,7 @@ export function CurrentNeedsGrid({ needs }: CurrentNeedsGridProps) {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg"
         >
           {filteredNeeds.map((item) => (
-            <CurrentNeedCard key={item.id} need={item} />
+            <CurrentNeedCard key={item._id} need={item} />
           ))}
         </div>
       ) : (
@@ -92,19 +92,7 @@ export function CurrentNeedsGrid({ needs }: CurrentNeedsGridProps) {
             </Typography>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-sm pt-xs">
-            <Link href="/donate-goods">
-              <Button variant="primary" size="md">
-                Offer Goods for Future Needs <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
-              </Button>
-            </Link>
-            <Link href="/donate">
-              <Button variant="outline" size="md">
-                <Heart className="mr-xs h-4 w-4 text-primary" aria-hidden="true" />
-                Support Financially
-              </Button>
-            </Link>
-          </div>
+
         </div>
       )}
     </div>
