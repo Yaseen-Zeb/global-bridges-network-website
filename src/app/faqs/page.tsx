@@ -52,7 +52,7 @@ export default async function FAQsPage() {
           <Typography
             variant="h1"
             id="faqs-hero-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground drop-shadow-sm"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground"
           >
             Frequently Asked Questions
           </Typography>

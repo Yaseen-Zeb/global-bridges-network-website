@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 export const typographyVariants = cva("text-foreground", {
   variants: {
     variant: {
-      h1: "text-4xl font-extrabold tracking-tight lg:text-5xl",
-      h2: "text-3xl font-semibold tracking-tight",
+      h1: "text-3xl font-bold tracking-tight lg:text-4xl",
+      h2: "text-2xl font-semibold tracking-tight lg:text-3xl",
       h3: "text-2xl font-semibold tracking-tight",
       body: "text-base font-normal leading-7",
       "body-sm": "text-sm font-normal leading-6",

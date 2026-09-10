@@ -113,7 +113,7 @@ export default function ServicesPage() {
             <span>Connecting Communities & Empowering Lives</span>
           </div>
 
-          <Typography variant="h1" className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground drop-shadow-sm">
+          <Typography variant="h1" className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
             Our Services
           </Typography>
 

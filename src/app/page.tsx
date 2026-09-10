@@ -91,7 +91,7 @@ export default async function Home() {
         <div className="relative z-10 mx-auto max-w-4xl text-center space-y-lg flex flex-col items-center">
           <AnimatedEyebrow />
 
-          <Typography variant="h1" className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground drop-shadow-sm">
+          <Typography variant="h1" className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
             Empowering Refugees & Immigrants, Building Stronger Communities
           </Typography>
 
