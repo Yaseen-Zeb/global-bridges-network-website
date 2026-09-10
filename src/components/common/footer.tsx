@@ -20,16 +20,23 @@ export function Footer() {
       <div className="border-b border-border bg-background py-xl px-md lg:px-xl">
         <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-lg">
           <div className="space-y-xs text-center md:text-left max-w-xl">
-            <Typography variant="h3" className="text-xl font-bold text-foreground">
+            <Typography
+              variant="h3"
+              className="text-xl font-bold text-foreground"
+            >
               Empower Communities Across Borders
             </Typography>
             <Typography variant="body-sm" className="text-muted-foreground">
-              Whether through financial support, donating essential goods, or volunteering your time, your involvement transforms lives.
+              Whether through financial support, donating essential goods, or
+              volunteering your time, your involvement transforms lives.
             </Typography>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-sm shrink-0">
-            <Link href="/donate" aria-label="Donate funds to Bridge Global Network">
+            <Link
+              href="/donate"
+              aria-label="Donate funds to Bridge Global Network"
+            >
               <Button variant="primary" size="md">
                 <Heart className="mr-xs h-4 w-4" aria-hidden="true" />
                 Donate Now
@@ -37,7 +44,10 @@ export function Footer() {
             </Link>
             <Link href="/donate-goods" aria-label="Donate essential goods">
               <Button variant="outline" size="md">
-                <Package className="mr-xs h-4 w-4 text-primary" aria-hidden="true" />
+                <Package
+                  className="mr-xs h-4 w-4 text-primary"
+                  aria-hidden="true"
+                />
                 Donate Goods
               </Button>
             </Link>
@@ -53,16 +63,22 @@ export function Footer() {
             <Link href="/" aria-label="Bridge Global Network Home">
               <Logo />
             </Link>
-            <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
-              Bridge Global Network connects communities across borders, welcoming refugees and immigrants with dignity while supporting overseas women empowerment initiatives.
+            <Typography
+              variant="body-sm"
+              className="text-muted-foreground leading-relaxed"
+            >
+              Bridge Global Network connects communities across borders,
+              welcoming refugees and immigrants with dignity while supporting
+              overseas women empowerment initiatives.
             </Typography>
-
-
           </div>
 
           {/* Column 2: What We Do (3 Cols) */}
           <div className="lg:col-span-3 space-y-sm">
-            <Typography variant="caption" className="text-foreground font-bold uppercase tracking-wider block">
+            <Typography
+              variant="caption"
+              className="text-foreground font-bold uppercase tracking-wider block"
+            >
               What We Do
             </Typography>
             <ul className="space-y-xs text-sm">
@@ -103,7 +119,10 @@ export function Footer() {
 
           {/* Column 3: Support & Giving (3 Cols) */}
           <div className="lg:col-span-3 space-y-sm">
-            <Typography variant="caption" className="text-foreground font-bold uppercase tracking-wider block">
+            <Typography
+              variant="caption"
+              className="text-foreground font-bold uppercase tracking-wider block"
+            >
               Support &amp; Giving
             </Typography>
             <ul className="space-y-xs text-sm">
@@ -144,7 +163,10 @@ export function Footer() {
 
           {/* Column 4: Help & Contact (2 Cols) */}
           <div className="lg:col-span-2 space-y-sm">
-            <Typography variant="caption" className="text-foreground font-bold uppercase tracking-wider block">
+            <Typography
+              variant="caption"
+              className="text-foreground font-bold uppercase tracking-wider block"
+            >
               Help &amp; Contact
             </Typography>
             <ul className="space-y-xs text-sm">
@@ -168,7 +190,10 @@ export function Footer() {
 
             <div className="space-y-xs text-xs text-muted-foreground pt-xs">
               <div className="flex items-center gap-xs">
-                <Mail className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
+                <Mail
+                  className="h-4 w-4 text-primary shrink-0"
+                  aria-hidden="true"
+                />
                 <a
                   href="mailto:info@globalbridgesnetwork.org"
                   className="hover:text-primary transition-colors underline-offset-2 hover:underline"
@@ -184,10 +209,12 @@ export function Footer() {
       {/* Bottom Sub-Footer Bar */}
       <div className="border-t border-border bg-background py-md px-md lg:px-xl">
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-sm text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Bridge Global Network. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} Bridge Global Network. All rights
+            reserved.
+          </p>
 
           <div className="flex items-center gap-md">
-            <span className="italic text-[11px]">Dignity-First Non-Profit Advocacy</span>
             <button
               type="button"
               onClick={scrollToTop}
