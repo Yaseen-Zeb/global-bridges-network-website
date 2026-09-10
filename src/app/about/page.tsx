@@ -89,7 +89,7 @@ export default async function AboutPage() {
           </Typography>
 
           <Typography variant="body" className="text-foreground/80 dark:text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Bridge Global Network is an international platform dedicated to empowering refugees, immigrants, and overseas communities through holistic resettlement, education, healthcare navigation, and sustainable women empowerment initiatives.
+            Bridge Global Network empowers refugees, immigrants, and communities worldwide through resettlement, education, healthcare, and women's empowerment initiatives.
           </Typography>
         </div>
       </section>
@@ -117,7 +117,7 @@ export default async function AboutPage() {
                   Our Mission
                 </Typography>
                 <Typography variant="body" className="text-muted-foreground leading-relaxed">
-                  To walk alongside newly arrived refugees and immigrants with dignity and compassion—providing essential resettlement, health, legal, and educational resources while advancing sustainable women empowerment programs worldwide.
+                  To support newly arrived refugees and immigrants with dignity, providing essential resources while advancing global women's empowerment.
                 </Typography>
               </div>
             </article>
@@ -132,7 +132,7 @@ export default async function AboutPage() {
                   Our Vision
                 </Typography>
                 <Typography variant="body" className="text-muted-foreground leading-relaxed">
-                  A connected global community where refugees, immigrants, and women everywhere have access to safety, equal opportunity, self-sufficiency, and the tools to build a thriving future.
+                  A connected global community where refugees, immigrants, and women have access to safety, opportunity, and the tools for a thriving future.
                 </Typography>
               </div>
             </article>
@@ -313,7 +313,7 @@ export default async function AboutPage() {
             Join Us in Building Global Bridges
           </Typography>
           <Typography variant="body" className="text-primary-foreground/80 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Whether you donate essential goods, contribute financial support, or volunteer your time, your involvement empowers families and transforms lives.
+            Your donations and volunteer time directly empower families and transform lives.
           </Typography>
 
           <div className="flex flex-wrap justify-center gap-md pt-md">

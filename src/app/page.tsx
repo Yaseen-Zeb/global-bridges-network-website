@@ -96,7 +96,7 @@ export default async function Home() {
           </Typography>
 
           <Typography variant="body" className="text-foreground/80 dark:text-muted-foreground text-lg sm:text-xl max-w-3xl leading-relaxed">
-            Bridge Global Network supports newly arrived refugees and immigrants with holistic resettlement, health navigation, legal assistance, and educational programs—while fostering sustainable women empowerment initiatives overseas.
+            We support newly arrived refugees and immigrants with essential resettlement, health, and legal services, while fostering women's empowerment overseas.
           </Typography>
 
           <div className="flex flex-wrap justify-center gap-md pt-md items-center">
@@ -125,7 +125,7 @@ export default async function Home() {
             Dedicated to Dignity, Opportunity, and Self-Sufficiency
           </Typography>
           <Typography variant="body" className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-            At Bridge Global Network, we believe everyone deserves safety, dignity, and a fair chance to thrive. We walk alongside refugees and immigrants as they rebuild their lives locally, while partnering with grassroots organizations to empower women and girls through skill-building programs overseas.
+            We believe everyone deserves a fair chance to thrive. We walk alongside refugees rebuilding their lives locally, and partner globally to empower women and girls.
           </Typography>
           <div className="pt-sm">
             <Link href="/about" aria-label="Learn more about Global Bridges Network history and mission">
@@ -198,7 +198,7 @@ export default async function Home() {
                 A Personal, Dignity-First Approach to Global & Local Support
               </Typography>
               <Typography variant="body" className="text-muted-foreground leading-relaxed">
-                Navigating a new language, legal framework, and culture can be overwhelming. We measure our purpose through the strength of community partnerships, individual growth, and sustainable support networks that welcome families warmly and foster lasting independence.
+                Navigating a new culture can be overwhelming. We focus on strong community partnerships and sustainable support to welcome families and foster independence.
               </Typography>
             </div>
 
@@ -416,7 +416,7 @@ export default async function Home() {
             Together, We Can Build Stronger Bridges
           </Typography>
           <Typography variant="body" className="text-primary-foreground/80 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Your compassion provides newly arrived refugees and immigrants with a warm welcome and essential tools—while powering women&apos;s empowerment overseas.
+            Your compassion provides newcomers with a warm welcome and essential tools, while powering women's empowerment worldwide.
           </Typography>
 
           <div className="flex flex-wrap justify-center gap-md pt-md">
