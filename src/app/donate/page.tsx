@@ -162,7 +162,7 @@ export default function DonatePage() {
         <div className="mx-auto max-w-5xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-md pt-sm">
             <div className="rounded-card border border-border bg-background p-md shadow-card flex items-start gap-md">
-              <Lock className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+              <Lock className="h-5 w-5 text-primary shrink-0" aria-hidden="true" />
               <div className="space-y-xs">
                 <Typography variant="h3" className="text-base font-semibold">
                   Donor Privacy Protection
@@ -174,7 +174,7 @@ export default function DonatePage() {
             </div>
 
             <div className="rounded-card border border-border bg-background p-md shadow-card flex items-start gap-md">
-              <CheckCircle2 className="h-5 w-5 text-success shrink-0 mt-0.5" aria-hidden="true" />
+              <CheckCircle2 className="h-5 w-5 text-success shrink-0" aria-hidden="true" />
               <div className="space-y-xs">
                 <Typography variant="h3" className="text-base font-semibold">
                   Responsible Stewardship
@@ -206,7 +206,7 @@ export default function DonatePage() {
                 key={index}
                 className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-sm"
               >
-                <HelpCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <HelpCircle className="h-5 w-5 text-primary shrink-0" aria-hidden="true" />
                 <div className="space-y-xs">
                   <Typography variant="h3" className="text-base font-semibold text-foreground leading-snug">
                     {faq.question}

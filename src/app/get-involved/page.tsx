@@ -215,7 +215,7 @@ export default function GetInvolvedPage() {
 
             <div className="lg:col-span-6 space-y-md">
               <div className="rounded-card border border-border bg-background p-md shadow-card flex items-start gap-md">
-                <CheckCircle2 className="h-6 w-6 text-success shrink-0 mt-0.5" aria-hidden="true" />
+                <CheckCircle2 className="h-6 w-6 text-success shrink-0" aria-hidden="true" />
                 <div className="space-y-xs">
                   <Typography variant="h3" className="text-base font-semibold">
                     Flexible Engagement
@@ -227,7 +227,7 @@ export default function GetInvolvedPage() {
               </div>
 
               <div className="rounded-card border border-border bg-background p-md shadow-card flex items-start gap-md">
-                <CheckCircle2 className="h-6 w-6 text-success shrink-0 mt-0.5" aria-hidden="true" />
+                <CheckCircle2 className="h-6 w-6 text-success shrink-0" aria-hidden="true" />
                 <div className="space-y-xs">
                   <Typography variant="h3" className="text-base font-semibold">
                     Group & Organization Drives
@@ -239,7 +239,7 @@ export default function GetInvolvedPage() {
               </div>
 
               <div className="rounded-card border border-border bg-background p-md shadow-card flex items-start gap-md">
-                <CheckCircle2 className="h-6 w-6 text-success shrink-0 mt-0.5" aria-hidden="true" />
+                <CheckCircle2 className="h-6 w-6 text-success shrink-0" aria-hidden="true" />
                 <div className="space-y-xs">
                   <Typography variant="h3" className="text-base font-semibold">
                     Direct Community Impact

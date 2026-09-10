@@ -93,7 +93,7 @@ export default async function ContactPage() {
             <div className="lg:col-span-5 space-y-md">
               {/* Registered Address */}
               <article className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-md">
-                <MapPin className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <MapPin className="h-6 w-6 text-primary shrink-0" aria-hidden="true" />
                 <div className="space-y-xs">
                   <Typography variant="h3" className="text-base font-semibold">
                     Registered Office & Administration
@@ -106,7 +106,7 @@ export default async function ContactPage() {
 
               {/* Shared Email */}
               <article className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-md">
-                <Mail className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <Mail className="h-6 w-6 text-primary shrink-0" aria-hidden="true" />
                 <div className="space-y-xs">
                   <Typography variant="h3" className="text-base font-semibold">
                     Shared Email Inbox
@@ -125,7 +125,7 @@ export default async function ContactPage() {
 
               {/* Phone & Office Hours */}
               <article className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-md">
-                <PhoneCall className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <PhoneCall className="h-6 w-6 text-primary shrink-0" aria-hidden="true" />
                 <div className="space-y-xs">
                   <Typography variant="h3" className="text-base font-semibold">
                     Administrative & Support Inquiries

@@ -167,8 +167,8 @@ export function Footer() {
             </ul>
 
             <div className="space-y-xs text-xs text-muted-foreground pt-xs">
-              <div className="flex items-start gap-xs">
-                <Mail className="h-4 w-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+              <div className="flex items-center gap-xs">
+                <Mail className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
                 <a
                   href="mailto:info@globalbridgesnetwork.org"
                   className="hover:text-primary transition-colors underline-offset-2 hover:underline"

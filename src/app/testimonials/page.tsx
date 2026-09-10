@@ -81,7 +81,7 @@ export default async function TestimonialsPage() {
       <section className="py-lg px-md lg:px-xl border-b border-border bg-muted/20" aria-label="Privacy and Dignity Statement">
         <div className="mx-auto max-w-4xl">
           <div className="rounded-card border border-primary/20 bg-background p-md sm:p-lg shadow-card flex items-start gap-md">
-            <ShieldCheck className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+            <ShieldCheck className="h-6 w-6 text-primary shrink-0" aria-hidden="true" />
             <div className="space-y-xs">
               <Typography variant="h3" className="text-base font-semibold text-foreground">
                 Participant Privacy &amp; Dignity Safeguards
@@ -129,7 +129,7 @@ export default async function TestimonialsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
             <article className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-md">
-              <Users className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+              <Users className="h-6 w-6 text-primary shrink-0" aria-hidden="true" />
               <div className="space-y-xs">
                 <Typography variant="h3" className="text-base font-semibold">
                   Arriving Families
@@ -141,7 +141,7 @@ export default async function TestimonialsPage() {
             </article>
 
             <article className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-md">
-              <Globe className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+              <Globe className="h-6 w-6 text-primary shrink-0" aria-hidden="true" />
               <div className="space-y-xs">
                 <Typography variant="h3" className="text-base font-semibold">
                   Overseas Leaders
@@ -153,7 +153,7 @@ export default async function TestimonialsPage() {
             </article>
 
             <article className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-md">
-              <HeartHandshake className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+              <HeartHandshake className="h-6 w-6 text-primary shrink-0" aria-hidden="true" />
               <div className="space-y-xs">
                 <Typography variant="h3" className="text-base font-semibold">
                   Volunteer Mentors
@@ -165,7 +165,7 @@ export default async function TestimonialsPage() {
             </article>
 
             <article className="rounded-card border border-border bg-background p-lg shadow-card flex items-start gap-md">
-              <Building2 className="h-6 w-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+              <Building2 className="h-6 w-6 text-primary shrink-0" aria-hidden="true" />
               <div className="space-y-xs">
                 <Typography variant="h3" className="text-base font-semibold">
                   Civic Partners

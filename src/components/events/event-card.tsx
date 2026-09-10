@@ -73,20 +73,20 @@ export function EventCard({ event, className }: EventCardProps) {
 
         {/* Event Meta Info */}
         <div className="space-y-xs pt-xs border-t border-border/40 text-xs text-muted-foreground">
-          <div className="flex items-start gap-xs">
-            <Calendar className="h-4 w-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+          <div className="flex items-center gap-xs">
+            <Calendar className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
             <span className="font-semibold text-foreground">{date}</span>
           </div>
 
           {time && (
-            <div className="flex items-start gap-xs">
-              <Clock className="h-4 w-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+            <div className="flex items-center gap-xs">
+              <Clock className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
               <span>{time}</span>
             </div>
           )}
 
-          <div className="flex items-start gap-xs">
-            <MapPin className="h-4 w-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+          <div className="flex items-center gap-xs">
+            <MapPin className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
             <span>{location}</span>
           </div>
         </div>
