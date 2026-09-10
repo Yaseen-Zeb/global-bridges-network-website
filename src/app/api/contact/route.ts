@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { transporter } from "@/lib/mailer";
+import { createClient } from "next-sanity";
+
+const sanityClient = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production",
+  apiVersion: "2024-01-01",
+  useCdn: false, // always fresh for admin-configured values
+});
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters."),
@@ -18,15 +26,25 @@ const contactSchema = z.object({
  * STRICT REQUIREMENT: ZERO persistence, ZERO database, ZERO CRM storage.
  * Dispatches contact payload directly via SMTP to the configured recipient inbox.
  *
- * Recipient is controlled by CONTACT_RECIPIENT_EMAIL in .env.local
+ * Recipient email is managed by the admin in Sanity Studio → Contact Information
+ * (contactRecipientEmail field), falling back to the primary email, then env var.
  */
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const data = contactSchema.parse(body);
 
+    // Fetch recipient email from Sanity (admin-configurable)
+    const contactInfo = await sanityClient.fetch<{
+      email?: string;
+      contactRecipientEmail?: string;
+    }>(`*[_type == "contactInfo" && _id == "contactInfo"][0]{ email, contactRecipientEmail }`);
+
     const recipientEmail =
-      process.env.CONTACT_RECIPIENT_EMAIL ?? "info@bridgeglobalnetwork.org";
+      contactInfo?.contactRecipientEmail ??
+      contactInfo?.email ??
+      process.env.CONTACT_RECIPIENT_EMAIL ??
+      "info@bridgeglobalnetwork.org";
 
     await transporter.sendMail({
       from: `"Bridge Global Network Website" <${process.env.SMTP_USER}>`,

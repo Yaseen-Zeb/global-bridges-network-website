@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { transporter } from "@/lib/mailer";
+import { createClient } from "next-sanity";
+
+const sanityClient = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production",
+  apiVersion: "2024-01-01",
+  useCdn: false, // always fresh for admin-configured values
+});
 
 const goodsSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters."),
@@ -22,15 +30,25 @@ const goodsSchema = z.object({
  * STRICT REQUIREMENT: ZERO persistence, ZERO database, ZERO CRM storage.
  * Dispatches goods offer payload directly via SMTP to the configured recipient inbox.
  *
- * Recipient is controlled by DONATE_GOODS_RECIPIENT_EMAIL in .env.local
+ * Recipient email is managed by the admin in Sanity Studio → Contact Information
+ * (donateGoodsRecipientEmail field), falling back to the primary email, then env var.
  */
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const data = goodsSchema.parse(body);
 
+    // Fetch recipient email from Sanity (admin-configurable)
+    const contactInfo = await sanityClient.fetch<{
+      email?: string;
+      donateGoodsRecipientEmail?: string;
+    }>(`*[_type == "contactInfo" && _id == "contactInfo"][0]{ email, donateGoodsRecipientEmail }`);
+
     const recipientEmail =
-      process.env.DONATE_GOODS_RECIPIENT_EMAIL ?? "donations@bridgeglobalnetwork.org";
+      contactInfo?.donateGoodsRecipientEmail ??
+      contactInfo?.email ??
+      process.env.DONATE_GOODS_RECIPIENT_EMAIL ??
+      "donations@bridgeglobalnetwork.org";
 
     await transporter.sendMail({
       from: `"Bridge Global Network Website" <${process.env.SMTP_USER}>`,
