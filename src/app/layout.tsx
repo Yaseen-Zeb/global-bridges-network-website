@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   },
   description:
     "Bridge Global Network connects communities across borders, assisting incoming refugees and immigrants with resettlement, health, legal, education, and employment support while advancing women empowerment initiatives.",
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/icon", type: "image/png" }
+    ],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
     title: "Bridge Global Network | Empowering Refugees, Immigrants & Women Worldwide",
     description:

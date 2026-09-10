@@ -1,5 +1,4 @@
 import * as React from "react";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 interface LogoProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -8,45 +7,51 @@ interface LogoProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function Logo({ className, showSubtitle = true, ...props }: LogoProps) {
   return (
-    <div className={cn("inline-flex items-center gap-xs select-none", className)} {...props}>
-      {/* Interconnected Bridge & Globe Icon */}
-      <svg
-        width="38"
-        height="38"
-        viewBox="0 0 40 40"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="shrink-0"
-        aria-hidden="true"
-      >
-        <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2.5" className="text-primary/20" />
-        {/* Bridge Arc */}
-        <path
-          d="M 8 26 C 12 14, 28 14, 32 26"
-          stroke="hsl(var(--primary))"
-          strokeWidth="3.5"
-          strokeLinecap="round"
-        />
-        {/* Globe Meridian */}
-        <path
-          d="M 20 4 C 28 12, 28 28, 20 36"
-          stroke="hsl(var(--accent-coral))"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-        {/* Connection Nodes */}
-        <circle cx="20" cy="16" r="3" fill="hsl(var(--primary))" />
-        <circle cx="12" cy="23" r="2.5" fill="hsl(var(--accent-coral))" />
-        <circle cx="28" cy="23" r="2.5" fill="hsl(var(--accent-coral))" />
-      </svg>
+    <div className={cn("inline-flex items-center gap-2.5 select-none group cursor-pointer", className)} {...props}>
+      {/* High-Resolution Emblem Icon */}
+      <div className="relative w-10 h-10 shrink-0 rounded-full bg-slate-900 dark:bg-slate-950 p-1 flex items-center justify-center border border-slate-700/60 shadow-md transition-transform group-hover:scale-105">
+        <svg
+          width="36"
+          height="36"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full"
+          aria-hidden="true"
+        >
+          {/* Outer Ring */}
+          <circle cx="20" cy="20" r="18" stroke="#334155" strokeWidth="2" />
 
-      <div className="flex flex-col leading-tight">
-        <span className="text-xl font-extrabold tracking-wider text-primary uppercase">
+          {/* Globe Meridian Arc (Orange) */}
+          <path
+            d="M 18 5 C 28 13, 27 27, 17 35"
+            stroke="#E05638"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+
+          {/* Bridge Arch (Vibrant Blue) */}
+          <path
+            d="M 9 27 C 12 15, 28 15, 31 27"
+            stroke="hsl(var(--primary))"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+          />
+
+          {/* Connection Points (Coral / Orange Nodes) */}
+          <circle cx="8.5" cy="28" r="2.5" fill="#E05638" />
+          <circle cx="31" cy="27.5" r="2.5" fill="#E05638" />
+        </svg>
+      </div>
+
+      {/* Brand Name & Subtitle */}
+      <div className="flex flex-col justify-center leading-none">
+        <span className="text-xl font-black tracking-wider text-primary uppercase drop-shadow-xs">
           BRIDGE
         </span>
         {showSubtitle && (
-          <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase -mt-1">
-            Global Network
+          <span className="text-[10px] font-extrabold tracking-[0.2em] text-muted-foreground uppercase mt-0.5">
+            GLOBAL NETWORK
           </span>
         )}
       </div>
