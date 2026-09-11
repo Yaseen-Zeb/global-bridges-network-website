@@ -9,11 +9,11 @@ export const alertVariants = cva(
       variant: {
         default: "bg-background text-foreground border-border",
         success:
-          "bg-success/10 border-success/30 text-success-foreground [&>svg]:text-success",
+          "bg-success/10 border-success/30 text-success [&>svg]:text-success",
         destructive:
-          "bg-destructive/10 border-destructive/30 text-destructive-foreground [&>svg]:text-destructive",
+          "bg-destructive/10 border-destructive/30 text-destructive [&>svg]:text-destructive",
         warning:
-          "bg-warning/10 border-warning/30 text-warning-foreground [&>svg]:text-warning-foreground",
+          "bg-warning/10 border-warning/30 text-warning [&>svg]:text-warning",
       },
     },
     defaultVariants: {

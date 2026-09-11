@@ -14,7 +14,7 @@ export const badgeVariants = cva(
         success:
           "bg-success/10 text-success border border-success/20 dark:text-success",
         warning:
-          "bg-warning/10 text-warning-foreground border border-warning/20",
+          "bg-warning/10 text-warning border border-warning/20",
         destructive:
           "bg-destructive/10 text-destructive border border-destructive/20",
         outline:
