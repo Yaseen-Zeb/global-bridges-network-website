@@ -1,116 +1,73 @@
 "use client";
 
 import * as React from "react";
-import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/common/typography";
-import { Heart, RefreshCw, CreditCard, ShieldCheck, AlertCircle } from "lucide-react";
+import { ShieldCheck, Heart, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface DonationWidgetProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * The third-party donation provider implementation key.
-   * Defaults to "placeholder" until Zeffy or Give Lively integration is finalized.
+   * The Zeffy donation form URL.
+   * Admin can update this from Sanity Studio → Contact Information.
    */
-  provider?: "placeholder" | "zeffy" | "givelively";
-  /**
-   * Initial frequency tab selection.
-   */
-  defaultFrequency?: "one-time" | "monthly";
+  zeffyUrl: string;
 }
 
 export function DonationWidget({
-  provider = "placeholder",
-  defaultFrequency = "one-time",
+  zeffyUrl,
   className,
   ...props
 }: DonationWidgetProps) {
-  const [frequency, setFrequency] = React.useState<"one-time" | "monthly">(defaultFrequency);
+  const [loaded, setLoaded] = React.useState(false);
 
   return (
     <div
       className={cn(
-        "rounded-card border-2 border-primary/20 bg-background p-lg sm:p-xl shadow-card space-y-lg focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background transition-all",
+        "rounded-card border border-border bg-background shadow-card space-y-md overflow-hidden",
         className
       )}
       {...props}
     >
-      {/* Frequency Selector Tabs */}
-      <div className="flex items-center justify-center p-xs rounded-button bg-muted/60 border border-border max-w-sm mx-auto">
-        <button
-          type="button"
-          onClick={() => setFrequency("one-time")}
-          className={cn(
-            "flex-1 py-xs px-md text-sm font-semibold rounded-button transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
-            frequency === "one-time"
-              ? "bg-primary text-primary-foreground shadow-xs"
-              : "text-muted-foreground hover:text-foreground"
-          )}
-          aria-pressed={frequency === "one-time"}
-        >
-          One-Time Gift
-        </button>
-        <button
-          type="button"
-          onClick={() => setFrequency("monthly")}
-          className={cn(
-            "flex-1 py-xs px-md text-sm font-semibold rounded-button transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
-            frequency === "monthly"
-              ? "bg-primary text-primary-foreground shadow-xs"
-              : "text-muted-foreground hover:text-foreground"
-          )}
-          aria-pressed={frequency === "monthly"}
-        >
-          Monthly Partner
-        </button>
+      {/* Zeffy Embedded Donation Form */}
+      <div className="relative w-full min-h-[600px]">
+        {/* Loading skeleton */}
+        {!loaded && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-md bg-muted/30 animate-pulse">
+            <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+              <Heart className="h-6 w-6" aria-hidden="true" />
+            </div>
+            <Typography variant="body-sm" className="text-muted-foreground">
+              Loading secure donation form…
+            </Typography>
+          </div>
+        )}
+
+        <iframe
+          src={zeffyUrl}
+          title="Bridge Global Network — Donate via Zeffy"
+          className="w-full border-0"
+          style={{ minHeight: "600px" }}
+          allow="payment"
+          loading="lazy"
+          onLoad={() => setLoaded(true)}
+        />
       </div>
 
-      {/* Provider Abstraction Layer */}
-      {provider === "placeholder" ? (
-        <div
-          tabIndex={0}
-          role="region"
-          aria-label="Donation Processing Container (Placeholder)"
-          className="border-2 border-dashed border-primary/30 rounded-card p-lg sm:p-xl bg-muted/20 text-center space-y-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      {/* Trust Footer */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-sm px-lg pb-lg text-xs text-muted-foreground">
+        <div className="flex items-center gap-xs">
+          <ShieldCheck className="h-4 w-4 text-success shrink-0" aria-hidden="true" />
+          <span>100% Secure • Zero Platform Fees</span>
+        </div>
+        <span className="hidden sm:inline">•</span>
+        <a
+          href={zeffyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-xs text-primary hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button"
         >
-          <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto">
-            {frequency === "monthly" ? (
-              <RefreshCw className="h-6 w-6" aria-hidden="true" />
-            ) : (
-              <Heart className="h-6 w-6" aria-hidden="true" />
-            )}
-          </div>
-
-          <div className="space-y-xs max-w-md mx-auto">
-            <Typography variant="h3" className="text-xl font-bold">
-              {frequency === "monthly" ? "Monthly Recurring Gift" : "One-Time Donation"}
-            </Typography>
-            <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
-              Third-party donation provider container (Zeffy / Give Lively). Once selected, the secure payment processing widget will load seamlessly inside this container.
-            </Typography>
-          </div>
-
-          <div className="inline-flex items-center gap-xs rounded-button bg-background border border-border px-md py-xs text-xs text-muted-foreground shadow-xs">
-            <CreditCard className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
-            <span>Secure 256-Bit SSL Encrypted Processing Container</span>
-          </div>
-        </div>
-      ) : (
-        /* Future third-party provider iframe insertion container */
-        <div className="w-full min-h-[450px]">
-          <iframe
-            src={provider === "zeffy" ? "https://www.zeffy.com" : "https://www.givelively.org"}
-            title="Bridge Global Network Donation Checkout"
-            className="w-full h-full min-h-[450px] border-0 rounded-card"
-            allow="payment"
-            tabIndex={0}
-          />
-        </div>
-      )}
-
-      {/* Trust & Guarantee Subtext */}
-      <div className="flex items-center justify-center gap-xs text-xs text-muted-foreground pt-xs">
-        <ShieldCheck className="h-4 w-4 text-success shrink-0" aria-hidden="true" />
-        <span>Secure Donation • Donor Privacy Guaranteed</span>
+          Open in new tab <ExternalLink className="h-3 w-3" aria-hidden="true" />
+        </a>
       </div>
     </div>
   );

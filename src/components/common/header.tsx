@@ -39,7 +39,7 @@ function NavPanelItem({ href, icon, label, description }: NavPanelItemProps) {
       href={href}
       className="flex items-start gap-sm p-sm rounded-button hover:bg-muted/80 transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
-      <span className="text-primary shrink-0 group-hover:scale-105 transition-transform">
+      <span className="text-primary shrink-0 group-hover:scale-105 transition-transform pt-[3px]">
         {icon}
       </span>
       <div>

@@ -6,16 +6,15 @@ import { Button } from "@/components/ui/button";
 import { DonationWidget } from "@/components/donate/donation-widget";
 import {
   Heart,
-  ShieldCheck,
   Lock,
   FileCheck,
   HelpCircle,
   Users,
   Mail,
-  ArrowRight,
   Globe2,
   CheckCircle2,
 } from "lucide-react";
+import { client } from "@/lib/sanity/client";
 
 export const metadata: Metadata = {
   title: "Donate | Bridge Global Network",
@@ -36,18 +35,25 @@ const DONATION_FAQS = [
       "All financial contributions directly advance our non-profit mission — funding resettlement support, healthcare navigation, educational resources, and overseas women empowerment programs.",
   },
   {
-    question: "Can I choose between a one-time and monthly recurring gift?",
+    question: "Are there any platform fees?",
     answer:
-      "Yes. Our donation widget allows you to select either a one-time gift or a monthly recurring partnership to provide ongoing support for our programs.",
+      "No. We use Zeffy, a 100% free donation platform for nonprofits. Your entire contribution goes directly to our programs.",
   },
   {
     question: "How are online donations processed securely?",
     answer:
-      "Online donations are processed through accredited third-party payment platforms utilizing industry-standard 256-bit SSL encryption. We never store credit card details on our servers.",
+      "Donations are processed through Zeffy's secure payment platform with industry-standard encryption. We never store your payment details.",
   },
 ];
 
-export default function DonatePage() {
+export default async function DonatePage() {
+  // Fetch the Zeffy URL from Sanity (admin-configurable)
+  const contactInfo = await client.fetch<{ donationFormUrl?: string }>(
+    `*[_type == "contactInfo" && _id == "contactInfo"][0]{ donationFormUrl }`
+  );
+
+  const zeffyUrl = contactInfo?.donationFormUrl ?? null;
+
   return (
     <main className="min-h-screen bg-background flex flex-col">
       {/* 1. HERO SECTION */}
@@ -78,25 +84,32 @@ export default function DonatePage() {
           </Typography>
 
           <Typography variant="body" className="text-foreground/80 dark:text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Your generous financial contributions help us provide essential resettlement guidance, healthcare navigation, educational resources, and overseas women empowerment programs.
+            Your generous contributions help us provide essential resettlement guidance, healthcare navigation, and women's empowerment programs.
           </Typography>
         </div>
       </section>
 
-      {/* 2. DONATION WIDGET AREA */}
+      {/* 2. DONATION WIDGET — Zeffy Embed */}
       <section className="py-2xl px-md lg:px-xl border-b border-border" aria-labelledby="donation-widget-heading">
-        <div className="mx-auto max-w-3xl space-y-md">
+        <div className="mx-auto max-w-5xl space-y-md">
           <div className="text-center space-y-xs">
             <Typography variant="caption" className="text-primary font-semibold tracking-wider uppercase">
               Make a Gift
             </Typography>
             <Typography variant="h2" id="donation-widget-heading">
-              Select Your Contribution
+              Donate Securely via Zeffy
             </Typography>
           </div>
 
-          {/* Reusable DonationWidget Component (Placeholder Abstraction) */}
-          <DonationWidget provider="placeholder" defaultFrequency="one-time" />
+          {zeffyUrl ? (
+            <DonationWidget zeffyUrl={zeffyUrl} />
+          ) : (
+            <div className="text-center py-xl rounded-card border border-border bg-background p-lg">
+              <Typography variant="body-sm" className="text-muted-foreground">
+                Our donation form is being set up. Please check back soon.
+              </Typography>
+            </div>
+          )}
         </div>
       </section>
 
@@ -121,10 +134,10 @@ export default function DonatePage() {
                 <Users className="h-5 w-5" aria-hidden="true" />
               </div>
               <Typography variant="h3" className="text-lg font-bold">
-                Resettlement & Arrival Aid
+                Resettlement &amp; Arrival Aid
               </Typography>
               <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
-                Assisting newly arrived refugee and immigrant families with housing placement, basic setup, and neighborhood orientation.
+                Assisting newly arrived families with housing placement, basic setup, and neighborhood orientation.
               </Typography>
             </article>
 
@@ -133,10 +146,10 @@ export default function DonatePage() {
                 <FileCheck className="h-5 w-5" aria-hidden="true" />
               </div>
               <Typography variant="h3" className="text-lg font-bold">
-                Health & Legal Navigation
+                Health &amp; Legal Navigation
               </Typography>
               <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
-                Guiding clients through medical clinic systems, wellness resources, and connections to pro-bono legal assistance.
+                Guiding clients through medical systems, wellness resources, and connections to legal assistance.
               </Typography>
             </article>
 
@@ -148,16 +161,14 @@ export default function DonatePage() {
                 Overseas Women Grants
               </Typography>
               <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
-                Partnering with grassroots leaders overseas to support micro-grants, vocational training, and women&apos;s leadership programs.
+                Partnering with grassroots leaders to support micro-grants, vocational training, and women&apos;s leadership programs.
               </Typography>
             </article>
           </div>
         </div>
       </section>
 
-
-
-      {/* 5. TRUST & TRANSPARENCY CALLOUT */}
+      {/* 4. TRUST & TRANSPARENCY */}
       <section className="py-2xl px-md lg:px-xl border-b border-border" aria-labelledby="trust-heading">
         <div className="mx-auto max-w-5xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-md pt-sm">
@@ -188,12 +199,12 @@ export default function DonatePage() {
         </div>
       </section>
 
-      {/* 6. FAQ PREVIEW */}
+      {/* 5. FAQ */}
       <section className="py-2xl px-md lg:px-xl bg-muted/20 border-b border-border" aria-labelledby="faq-heading">
         <div className="mx-auto max-w-4xl space-y-xl">
           <div className="text-center max-w-2xl mx-auto space-y-xs">
             <Typography variant="caption" className="text-primary font-semibold tracking-wider uppercase">
-              Questions & Answers
+              Questions &amp; Answers
             </Typography>
             <Typography variant="h2" id="faq-heading">
               Frequently Asked Questions
@@ -221,7 +232,7 @@ export default function DonatePage() {
         </div>
       </section>
 
-      {/* 7. FINAL CTA */}
+      {/* 6. FINAL CTA */}
       <section className="py-2xl px-md lg:py-3xl lg:px-xl bg-primary text-primary-foreground" aria-labelledby="donate-cta-heading">
         <div className="mx-auto max-w-4xl text-center space-y-md">
           <Typography variant="h2" id="donate-cta-heading" className="text-3xl sm:text-4xl text-primary-foreground font-bold">
