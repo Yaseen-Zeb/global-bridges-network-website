@@ -45,5 +45,14 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
     "typescript": "^5.7.2"
+  },
+  "overrides": {
+    "next": "$next",
+    "@sanity/visual-editing": {
+      "next": "$next"
+    },
+    "next-sanity": {
+      "next": "$next"
+    }
   }
 }
