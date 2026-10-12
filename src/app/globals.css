@@ -7,22 +7,22 @@
     --background: 0 0% 100%;
     --foreground: 0 0% 7%;
 
-    /* Brand blue (#1F8AC6) */
-    --primary: 201 73% 45%;
+    /* Brand blue (#208BC1) */
+    --primary: 200 72% 44%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 95%;
-    --secondary-foreground: 201 73% 45%;
+    --secondary-foreground: 200 72% 44%;
 
     --muted: 0 0% 95%;
     --muted-foreground: 0 0% 38%;
 
-    /* Brand green (#7DB46C) — "Find Support" actions */
-    --accent: 104 33% 56%;
+    /* Brand green (#76B467) — "Find Support" actions, founders journey */
+    --accent: 108 34% 55%;
     --accent-foreground: 0 0% 100%;
 
-    /* Eyebrow / kicker yellow */
-    --highlight: 41 90% 58%;
+    /* Eyebrow / kicker yellow (#F9C148) */
+    --highlight: 41 94% 63%;
 
     /* Light gray panels behind card copy */
     --surface: 0 0% 95%;
@@ -40,7 +40,7 @@
 
     --border: 0 0% 88%;
     --input: 0 0% 88%;
-    --ring: 201 73% 45%;
+    --ring: 200 72% 44%;
 
     --destructive: 7 48% 52%;
     --destructive-foreground: 0 0% 100%;

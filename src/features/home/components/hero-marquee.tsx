@@ -29,7 +29,7 @@ export function HeroMarquee({ panels }: HeroMarqueeProps) {
                 alt=""
                 width={panel.width}
                 height={panel.height}
-                priority={copy === 0 && i < 2}
+                priority={i < 2}
                 sizes="(min-width: 768px) 60vw, 100vw"
                 className="h-full w-auto max-w-none object-cover"
               />

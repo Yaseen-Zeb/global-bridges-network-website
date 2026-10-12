@@ -58,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${ibmPlexSans.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${ibmPlexSans.variable}`} suppressHydrationWarning>
       <body className="font-sans">
         <Providers>
           <Header />

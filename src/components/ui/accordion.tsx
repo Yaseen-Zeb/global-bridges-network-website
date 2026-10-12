@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { ChevronDown, CircleMinus, CirclePlus } from "lucide-react";
+import { ChevronDown, ChevronUp, CircleMinus, CirclePlus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // ── Root ─────────────────────────────────────────────────────────────────────
@@ -53,7 +53,7 @@ export function Accordion({
   );
 }
 
-export type AccordionVariant = "default" | "dark";
+export type AccordionVariant = "default" | "dark" | "line";
 
 // ── Item ─────────────────────────────────────────────────────────────────────
 export interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -70,7 +70,9 @@ export function AccordionItem({ value, variant = "default", className, children,
         "rounded-card border transition-all duration-300",
         variant === "dark"
           ? "faq-glow relative border-ink-border bg-ink-card text-ink-foreground"
-          : "overflow-hidden border-border bg-background shadow-xs transition-colors",
+          : variant === "line"
+            ? "rounded-none border-0 border-b border-border"
+            : "overflow-hidden border-border bg-background shadow-xs transition-colors",
         className
       )}
       {...props}
@@ -88,6 +90,26 @@ export interface AccordionTriggerProps
 }
 
 export function AccordionTrigger({ variant = "default", className, children, ...props }: AccordionTriggerProps) {
+  if (variant === "line") {
+    return (
+      <AccordionPrimitive.Header className="flex">
+        <AccordionPrimitive.Trigger
+          className={cn(
+            "flex w-full items-center justify-between gap-md py-md text-left font-heading text-base font-semibold text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring select-none group lg:text-lg",
+            className
+          )}
+          {...(props as React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>)}
+        >
+          <span className="leading-snug">{children}</span>
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition-colors duration-300 group-data-[state=open]:bg-primary group-data-[state=open]:text-primary-foreground">
+            <ChevronUp className="h-3.5 w-3.5 group-data-[state=open]:hidden" aria-hidden="true" />
+            <ChevronDown className="hidden h-3.5 w-3.5 group-data-[state=open]:block" aria-hidden="true" />
+          </span>
+        </AccordionPrimitive.Trigger>
+      </AccordionPrimitive.Header>
+    );
+  }
+
   if (variant === "dark") {
     return (
       <AccordionPrimitive.Header className="flex">
@@ -138,6 +160,7 @@ export function AccordionContent({ variant = "default", className, children, ...
       className={cn(
         "overflow-hidden text-sm",
         variant === "dark" ? "text-ink-muted" : "text-muted-foreground",
+        variant === "line" && "text-xs leading-5 sm:text-sm",
         "data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up",
         className
       )}
@@ -146,7 +169,11 @@ export function AccordionContent({ variant = "default", className, children, ...
       <div
         className={cn(
           "leading-relaxed",
-          variant === "dark" ? "px-md pb-md" : "px-lg pb-lg pt-xs border-t border-border/40"
+          variant === "dark"
+            ? "px-md pb-md"
+            : variant === "line"
+              ? "pb-md pr-xl"
+              : "px-lg pb-lg pt-xs border-t border-border/40"
         )}
       >
         {children}

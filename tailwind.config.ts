@@ -95,6 +95,16 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        // Steady one-way pans for the About hero slideshow. The fixed 1.08 scale gives
+        // enough overflow that the 3% shift never reveals an edge.
+        "pan-right": {
+          from: { transform: "scale(1.08) translate3d(-3%, 0, 0)" },
+          to: { transform: "scale(1.08) translate3d(3%, 0, 0)" },
+        },
+        "pan-left": {
+          from: { transform: "scale(1.08) translate3d(3%, 0, 0)" },
+          to: { transform: "scale(1.08) translate3d(-3%, 0, 0)" },
+        },
         marquee: {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-50%)" },
@@ -108,6 +118,9 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         marquee: "marquee 60s linear infinite",
+        "spin-slow": "spin 12s linear infinite",
+        "pan-right": "pan-right 9s linear both",
+        "pan-left": "pan-left 9s linear both",
         "fade-up": "fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both",
       },
     },
