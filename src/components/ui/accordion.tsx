@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, CircleMinus, CirclePlus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // ── Root ─────────────────────────────────────────────────────────────────────
@@ -53,18 +53,24 @@ export function Accordion({
   );
 }
 
+export type AccordionVariant = "default" | "dark";
+
 // ── Item ─────────────────────────────────────────────────────────────────────
 export interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
+  variant?: AccordionVariant;
   children: React.ReactNode;
 }
 
-export function AccordionItem({ value, className, children, ...props }: AccordionItemProps) {
+export function AccordionItem({ value, variant = "default", className, children, ...props }: AccordionItemProps) {
   return (
     <AccordionPrimitive.Item
       value={value}
       className={cn(
-        "rounded-card border border-border bg-background shadow-xs overflow-hidden transition-colors",
+        "rounded-card border transition-all duration-300",
+        variant === "dark"
+          ? "faq-glow relative border-ink-border bg-ink-card text-ink-foreground"
+          : "overflow-hidden border-border bg-background shadow-xs transition-colors",
         className
       )}
       {...props}
@@ -77,10 +83,29 @@ export function AccordionItem({ value, className, children, ...props }: Accordio
 // ── Trigger ───────────────────────────────────────────────────────────────────
 export interface AccordionTriggerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: AccordionVariant;
   children: React.ReactNode;
 }
 
-export function AccordionTrigger({ className, children, ...props }: AccordionTriggerProps) {
+export function AccordionTrigger({ variant = "default", className, children, ...props }: AccordionTriggerProps) {
+  if (variant === "dark") {
+    return (
+      <AccordionPrimitive.Header className="flex">
+        <AccordionPrimitive.Trigger
+          className={cn(
+            "flex w-full items-center justify-between gap-md p-md text-left text-sm text-ink-foreground transition-colors hover:text-ink-foreground/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring select-none group sm:text-base",
+            className
+          )}
+          {...(props as React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>)}
+        >
+          <span className="leading-snug">{children}</span>
+          <CirclePlus className="h-5 w-5 shrink-0 group-data-[state=open]:hidden" aria-hidden="true" />
+          <CircleMinus className="hidden h-5 w-5 shrink-0 group-data-[state=open]:block" aria-hidden="true" />
+        </AccordionPrimitive.Trigger>
+      </AccordionPrimitive.Header>
+    );
+  }
+
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -103,20 +128,27 @@ export function AccordionTrigger({ className, children, ...props }: AccordionTri
 
 // ── Content ───────────────────────────────────────────────────────────────────
 export interface AccordionContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: AccordionVariant;
   children: React.ReactNode;
 }
 
-export function AccordionContent({ className, children, ...props }: AccordionContentProps) {
+export function AccordionContent({ variant = "default", className, children, ...props }: AccordionContentProps) {
   return (
     <AccordionPrimitive.Content
       className={cn(
-        "overflow-hidden text-sm text-muted-foreground",
+        "overflow-hidden text-sm",
+        variant === "dark" ? "text-ink-muted" : "text-muted-foreground",
         "data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up",
         className
       )}
       {...(props as React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>)}
     >
-      <div className="px-lg pb-lg pt-xs border-t border-border/40 leading-relaxed">
+      <div
+        className={cn(
+          "leading-relaxed",
+          variant === "dark" ? "px-md pb-md" : "px-lg pb-lg pt-xs border-t border-border/40"
+        )}
+      >
         {children}
       </div>
     </AccordionPrimitive.Content>

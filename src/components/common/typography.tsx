@@ -5,9 +5,13 @@ import { cn } from "@/lib/utils";
 export const typographyVariants = cva("text-foreground", {
   variants: {
     variant: {
-      h1: "text-3xl font-bold tracking-tight lg:text-4xl",
-      h2: "text-2xl font-semibold tracking-tight lg:text-3xl",
-      h3: "text-2xl font-semibold tracking-tight",
+      display: "font-heading text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl",
+      h1: "font-heading text-3xl font-bold tracking-tight lg:text-4xl",
+      h2: "font-heading text-2xl font-semibold tracking-tight lg:text-3xl",
+      h3: "font-heading text-2xl font-semibold tracking-tight",
+      title: "font-heading text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl",
+      "card-title": "font-heading text-xl font-bold leading-snug",
+      eyebrow: "text-xs font-semibold uppercase tracking-widest text-highlight",
       body: "text-base font-normal leading-7",
       "body-sm": "text-sm font-normal leading-6",
       caption: "text-xs font-medium text-muted-foreground",
@@ -22,6 +26,10 @@ export const typographyVariants = cva("text-foreground", {
 type TypographyElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div" | "label";
 
 const defaultElementMap: Record<NonNullable<VariantProps<typeof typographyVariants>["variant"]>, TypographyElement> = {
+  display: "h1",
+  title: "h2",
+  "card-title": "h3",
+  eyebrow: "span",
   h1: "h1",
   h2: "h2",
   h3: "h3",

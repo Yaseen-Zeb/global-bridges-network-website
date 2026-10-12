@@ -19,6 +19,12 @@ const config: Config = {
         xl: "2rem",
         "2xl": "3rem",
         "3xl": "4rem",
+        "4xl": "6rem",
+        "5xl": "8rem",
+      },
+      fontFamily: {
+        sans: ["var(--font-body)", "system-ui", "sans-serif"],
+        heading: ["var(--font-heading)", "system-ui", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",
@@ -34,6 +40,22 @@ const config: Config = {
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        highlight: "hsl(var(--highlight))",
+        surface: {
+          DEFAULT: "hsl(var(--surface))",
+          foreground: "hsl(var(--surface-foreground))",
+        },
+        ink: {
+          DEFAULT: "hsl(var(--ink))",
+          foreground: "hsl(var(--ink-foreground))",
+          card: "hsl(var(--ink-card))",
+          border: "hsl(var(--ink-border))",
+          muted: "hsl(var(--ink-muted))",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -55,6 +77,8 @@ const config: Config = {
         card: "0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02)",
         dropdown: "0 10px 30px -5px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.05)",
         modal: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        header: "0 1px 0 0 hsl(var(--border)), 0 4px 16px -8px rgba(0, 0, 0, 0.12)",
+        banner: "0 32px 48px -24px rgba(0, 0, 0, 0.45)",
       },
       borderRadius: {
         card: "var(--radius-card, 1rem)",
@@ -71,10 +95,20 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(2rem)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        marquee: "marquee 60s linear infinite",
+        "fade-up": "fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both",
       },
     },
   },
