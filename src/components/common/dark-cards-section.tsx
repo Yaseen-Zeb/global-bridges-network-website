@@ -1,16 +1,27 @@
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
 
+export interface DarkCard {
+  /** Optional stable key (Sanity _key); falls back to the title. */
+  _key?: string;
+  /** Line breaks are kept. */
+  title: string;
+  description: string;
+}
+
 interface DarkCardsSectionProps {
   id: string;
   eyebrow: string;
-  title: string[];
-  description: string;
-  items: { title: string[]; description: string }[];
+  /** Line breaks are kept. */
+  title: string;
+  description?: string;
+  items: DarkCard[];
 }
 
 /** Black section with a split header and a grid of dark cards that turn blue on hover. */
 export function DarkCardsSection({ id, eyebrow, title, description, items }: DarkCardsSectionProps) {
+  if (items.length === 0) return null;
+
   return (
     <section
       aria-labelledby={`${id}-heading`}
@@ -22,30 +33,28 @@ export function DarkCardsSection({ id, eyebrow, title, description, items }: Dar
             <Typography variant="overline" as="p">
               {eyebrow}
             </Typography>
-            <Typography variant="h2" id={`${id}-heading`} className="text-ink-foreground">
-              {title[0]}
-              <br />
-              {title[1]}
+            <Typography variant="h2" id={`${id}-heading`} className="whitespace-pre-line text-ink-foreground">
+              {title}
             </Typography>
           </Reveal>
-          <Reveal direction="right" delay={150} className="md:max-w-md">
-            <Typography variant="body-sm" className="text-ink-muted md:text-right">
-              {description}
-            </Typography>
-          </Reveal>
+          {description && (
+            <Reveal direction="right" delay={150} className="md:max-w-md">
+              <Typography variant="body-sm" className="text-ink-muted md:text-right">
+                {description}
+              </Typography>
+            </Reveal>
+          )}
         </div>
 
         <ul className="grid grid-cols-1 gap-md md:grid-cols-3">
           {items.map((item, index) => (
-            <li key={item.title.join(" ")}>
+            <li key={item._key ?? item.title}>
               <Reveal
                 delay={(index % 3) * 120}
                 className="h-full space-y-sm bg-ink-foreground/10 p-lg transition-colors duration-500 hover:bg-primary"
               >
-                <Typography variant="h4-semibold" className="text-ink-foreground">
-                  {item.title[0]}
-                  <br />
-                  {item.title[1]}
+                <Typography variant="h4-semibold" className="whitespace-pre-line text-ink-foreground">
+                  {item.title}
                 </Typography>
                 <Typography variant="caption" as="p" className="text-ink-foreground/80">
                   {item.description}

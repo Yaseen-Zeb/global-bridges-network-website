@@ -162,6 +162,13 @@ export interface ImpactWays {
   cards?: ImpactCard[] | null;
 }
 
+export interface SupportWays {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  cards?: { _key: string; title: string; description: string }[] | null;
+}
+
 // ─── Legal pages ──────────────────────────────────────────────────────────────
 
 export interface LegalSection {

@@ -25,20 +25,20 @@ export const SERVICE_AREAS = {
 
 export const APPROACH = {
   eyebrow: "Our Approach",
-  title: ["Resource Navigation &", "Community Referral"],
+  title: "Resource Navigation &\nCommunity Referral",
   description:
     "Starting over in a new community can be challenging. We help individuals and families find the right services, understand their options, and access support with confidence.",
   items: [
     {
-      title: ["Resource", "Navigation"],
+      title: "Resource\nNavigation",
       description: "Helping individuals and families find trusted legal, healthcare, education, and community services.",
     },
     {
-      title: ["Cultural &", "Language Support"],
+      title: "Cultural &\nLanguage Support",
       description: "Fostering clear communication and welcoming guidance for diverse backgrounds.",
     },
     {
-      title: ["Grassroots", "Grants"],
+      title: "Grassroots\nGrants",
       description: "Supporting local women leaders overseas with grants that help strengthen their communities.",
     },
   ],

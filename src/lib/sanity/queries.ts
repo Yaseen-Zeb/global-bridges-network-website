@@ -166,6 +166,16 @@ export const IMPACT_WAYS_QUERY = groq`
   }
 `;
 
+/** "Interested in Supporting Our Work?" (singleton). */
+export const SUPPORT_WAYS_QUERY = groq`
+  *[_type == "supportWays" && _id == "supportWays"][0] {
+    eyebrow,
+    title,
+    description,
+    cards[] { _key, title, description }
+  }
+`;
+
 // ─── Legal pages ──────────────────────────────────────────────────────────────
 
 /** $id: "privacyPolicy" | "termsAndConditions" */
