@@ -46,6 +46,7 @@ const config: Config = {
           foreground: "hsl(var(--accent-foreground))",
         },
         highlight: "hsl(var(--highlight))",
+        navy: "hsl(var(--navy))",
         surface: {
           DEFAULT: "hsl(var(--surface))",
           foreground: "hsl(var(--surface-foreground))",

@@ -28,6 +28,9 @@
     --surface: 0 0% 95%;
     --surface-foreground: 0 0% 7%;
 
+    /* Deep navy photo overlay (#152942) — contact panel */
+    --navy: 213 52% 17%;
+
     /* Dark FAQ section */
     --ink: 0 0% 0%;
     --ink-foreground: 0 0% 100%;
