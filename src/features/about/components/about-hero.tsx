@@ -1,6 +1,6 @@
 import { Parallax } from "@/components/common/parallax";
 import { Typography } from "@/components/common/typography";
-import { HeroSlideshow } from "@/features/about/components/hero-slideshow";
+import { HeroSlideshow } from "@/components/common/hero-slideshow";
 import { ABOUT_HERO } from "@/features/about/data/about-content";
 
 export function AboutHero() {
