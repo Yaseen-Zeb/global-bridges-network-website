@@ -31,8 +31,8 @@ const goodsSchema = z.object({
  * STRICT REQUIREMENT: ZERO persistence, ZERO database, ZERO CRM storage.
  * Dispatches goods offer payload directly via SMTP to the configured recipient inbox.
  *
- * Recipient email is managed by the admin in Sanity Studio → Contact Information
- * (donateGoodsRecipientEmail field), falling back to the primary email, then env var.
+ * Recipient email is managed by the admin in Sanity Studio → Contact & Site Settings
+ * (donateGoodsRecipientEmail field), falling back to the primary email.
  */
 export async function POST(request: Request) {
   try {
@@ -45,11 +45,15 @@ export async function POST(request: Request) {
       donateGoodsRecipientEmail?: string;
     }>(`*[_type == "contactInfo" && _id == "contactInfo"][0]{ email, donateGoodsRecipientEmail }`);
 
-    const recipientEmail =
-      contactInfo?.donateGoodsRecipientEmail ??
-      contactInfo?.email ??
-      process.env.DONATE_GOODS_RECIPIENT_EMAIL ??
-      "donations@globalbridgesnetwork.org";
+    // Recipients are managed only in Sanity → Contact & Site Settings.
+    const recipientEmail = contactInfo?.donateGoodsRecipientEmail || contactInfo?.email;
+    if (!recipientEmail) {
+      console.error("[/api/donate-goods] No recipient email: set it in Sanity → Contact & Site Settings.");
+      return NextResponse.json(
+        { success: false, error: "Our inbox isn't configured right now. Please email us directly." },
+        { status: 500 }
+      );
+    }
 
     await transporter.sendMail({
       from: `"Global Bridges Network Website" <${process.env.SMTP_USER}>`,

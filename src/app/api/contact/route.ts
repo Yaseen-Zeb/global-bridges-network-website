@@ -27,8 +27,8 @@ const contactSchema = z.object({
  * STRICT REQUIREMENT: ZERO persistence, ZERO database, ZERO CRM storage.
  * Dispatches contact payload directly via SMTP to the configured recipient inbox.
  *
- * Recipient email is managed by the admin in Sanity Studio → Contact Information
- * (contactRecipientEmail field), falling back to the primary email, then env var.
+ * Recipient email is managed by the admin in Sanity Studio → Contact & Site Settings
+ * (contactRecipientEmail field), falling back to the primary email.
  */
 export async function POST(request: Request) {
   try {
@@ -41,11 +41,15 @@ export async function POST(request: Request) {
       contactRecipientEmail?: string;
     }>(`*[_type == "contactInfo" && _id == "contactInfo"][0]{ email, contactRecipientEmail }`);
 
-    const recipientEmail =
-      contactInfo?.contactRecipientEmail ??
-      contactInfo?.email ??
-      process.env.CONTACT_RECIPIENT_EMAIL ??
-      "info@globalbridgesnetwork.org";
+    // Recipients are managed only in Sanity → Contact & Site Settings.
+    const recipientEmail = contactInfo?.contactRecipientEmail || contactInfo?.email;
+    if (!recipientEmail) {
+      console.error("[/api/contact] No recipient email: set it in Sanity → Contact & Site Settings.");
+      return NextResponse.json(
+        { success: false, error: "Our inbox isn't configured right now. Please email us directly." },
+        { status: 500 }
+      );
+    }
 
     await transporter.sendMail({
       from: `"Global Bridges Network Website" <${process.env.SMTP_USER}>`,
