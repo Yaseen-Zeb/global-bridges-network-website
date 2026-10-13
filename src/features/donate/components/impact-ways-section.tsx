@@ -13,8 +13,8 @@ const ICONS: Record<(typeof IMPACT_WAYS.items)[number]["icon"], LucideIcon> = {
 };
 
 /**
- * Stacked cards: each one is sticky with a slightly larger top offset, so while
- * scrolling the next card slides up and over the previous one.
+ * Stacked cards: all stick at the same offset, so while scrolling each new card
+ * slides up and completely covers the previous one (no edges peeking out).
  */
 export function ImpactWaysSection() {
   return (
@@ -35,10 +35,10 @@ export function ImpactWaysSection() {
         </Reveal>
 
         <ol className="space-y-md">
-          {IMPACT_WAYS.items.map((way, index) => {
+          {IMPACT_WAYS.items.map((way) => {
             const Icon = ICONS[way.icon];
             return (
-              <li key={way.icon} className="sticky" style={{ top: `calc(6rem + ${index * 1.5}rem)` }}>
+              <li key={way.icon} className="sticky top-3xl lg:top-4xl">
                 <article className="group relative isolate flex min-h-[22rem] items-end overflow-hidden border-4 border-background bg-ink shadow-modal sm:min-h-[26rem] lg:min-h-[28rem]">
                   <Image
                     src={way.image.src}
