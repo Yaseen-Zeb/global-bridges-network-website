@@ -98,7 +98,7 @@ export function BridgeSteps({ steps }: { steps: Step[] }) {
               <Typography variant="body" as="h3" className="font-medium">
                 {step.number} - {step.title}
               </Typography>
-              <Typography variant="caption" as="p" className="font-normal leading-5">
+              <Typography variant="caption" as="p">
                 {step.description}
               </Typography>
             </div>

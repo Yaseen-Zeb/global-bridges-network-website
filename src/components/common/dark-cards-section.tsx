@@ -19,10 +19,10 @@ export function DarkCardsSection({ id, eyebrow, title, description, items }: Dar
       <div className="mx-auto max-w-6xl space-y-2xl">
         <div className="flex flex-col gap-md md:flex-row md:items-end md:justify-between">
           <Reveal direction="left" className="space-y-xs">
-            <Typography variant="eyebrow" as="p">
+            <Typography variant="overline" as="p">
               {eyebrow}
             </Typography>
-            <Typography variant="title" id={`${id}-heading`} className="text-ink-foreground lg:text-4xl">
+            <Typography variant="h2" id={`${id}-heading`} className="text-ink-foreground">
               {title[0]}
               <br />
               {title[1]}
@@ -42,12 +42,12 @@ export function DarkCardsSection({ id, eyebrow, title, description, items }: Dar
                 delay={(index % 3) * 120}
                 className="h-full space-y-sm bg-ink-foreground/10 p-lg transition-colors duration-500 hover:bg-primary"
               >
-                <Typography variant="card-title" className="font-semibold text-ink-foreground">
+                <Typography variant="h4-semibold" className="text-ink-foreground">
                   {item.title[0]}
                   <br />
                   {item.title[1]}
                 </Typography>
-                <Typography variant="caption" as="p" className="font-normal leading-5 text-ink-foreground/80">
+                <Typography variant="caption" as="p" className="text-ink-foreground/80">
                   {item.description}
                 </Typography>
               </Reveal>

@@ -19,10 +19,10 @@ export function MissionVisionSection() {
             delay={index * 150}
             className="space-y-sm bg-background px-lg py-2xl text-center shadow-card lg:px-2xl"
           >
-            <Typography variant="eyebrow" as="p">
+            <Typography variant="overline" as="p">
               {item.eyebrow}
             </Typography>
-            <Typography variant="h2" className="font-bold">
+            <Typography variant="h3">
               {item.title[0]}
               <br />
               {item.title[1]}

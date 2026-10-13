@@ -12,10 +12,10 @@ export function ServiceAreasSection() {
         {/* Intro stays pinned while the service list scrolls past on desktop. */}
         <div className="lg:sticky lg:top-3xl lg:self-start">
           <Reveal direction="left" className="space-y-sm">
-            <Typography variant="eyebrow" as="p">
+            <Typography variant="overline" as="p">
               {SERVICE_AREAS.eyebrow}
             </Typography>
-            <Typography variant="title" id="service-areas-heading" className="lg:text-4xl">
+            <Typography variant="h2" id="service-areas-heading">
               {SERVICE_AREAS.title[0]}
               <br />
               {SERVICE_AREAS.title[1]}
@@ -44,15 +44,15 @@ export function ServiceAreasSection() {
                 </Reveal>
 
                 <Reveal direction="right" delay={120} className="max-w-sm space-y-sm">
-                  <Typography variant="card-title" className="font-semibold">
+                  <Typography variant="h4-semibold">
                     {area.title}
                   </Typography>
-                  <Typography variant="caption" as="p" className="font-normal leading-5">
+                  <Typography variant="caption" as="p">
                     {area.description}
                   </Typography>
                   <Link
                     href={area.link.href}
-                    className="group/link inline-flex items-center gap-xs text-sm font-semibold text-accent transition-colors hover:text-accent/80"
+                    className="group/link inline-flex items-center gap-xs text-body-sm font-semibold text-accent transition-colors hover:text-accent/80"
                   >
                     {area.link.label}
                     <ArrowRight

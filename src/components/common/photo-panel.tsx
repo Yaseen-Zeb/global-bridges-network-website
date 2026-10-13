@@ -58,12 +58,12 @@ export function PhotoPanel({ id, eyebrow, title, image, contactInfo, children }:
           <div className="flex flex-col justify-between gap-2xl py-md lg:py-lg">
             <div className="space-y-sm">
               {eyebrow && (
-                <Typography variant="eyebrow" as="p" className="animate-fade-up motion-safe-only">
+                <Typography variant="overline" as="p" className="animate-fade-up motion-safe-only">
                   {eyebrow}
                 </Typography>
               )}
               <Typography
-                variant="title"
+                variant="h1"
                 as="h1"
                 id={`${id}-heading`}
                 className="text-ink-foreground animate-fade-up motion-safe-only"
@@ -83,11 +83,11 @@ export function PhotoPanel({ id, eyebrow, title, image, contactInfo, children }:
                   <Reveal direction="left" delay={200 + index * 120} className="flex items-start gap-sm">
                     <Icon className="mt-xs h-5 w-5 shrink-0 text-ink-foreground" aria-hidden="true" />
                     <div>
-                      <Typography variant="caption" as="p" className="font-normal text-ink-foreground/75">
+                      <Typography variant="caption" as="p" className="text-ink-foreground/75">
                         {label}
                       </Typography>
                       {href ? (
-                        <a href={href} className="whitespace-pre-line text-sm text-ink-foreground transition-colors hover:text-highlight">
+                        <a href={href} className="whitespace-pre-line text-body-sm text-ink-foreground transition-colors hover:text-highlight">
                           {value}
                         </a>
                       ) : (

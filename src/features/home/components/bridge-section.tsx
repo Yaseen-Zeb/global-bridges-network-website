@@ -9,10 +9,10 @@ export function BridgeSection() {
       <div className="mx-auto max-w-6xl space-y-2xl">
         <div className="flex flex-col gap-lg md:flex-row md:items-end md:justify-between">
           <Reveal direction="left" className="space-y-sm">
-            <Typography variant="eyebrow" as="p">
+            <Typography variant="overline" as="p">
               {BRIDGE.eyebrow}
             </Typography>
-            <Typography variant="title" id="bridge-heading" className="text-primary-foreground lg:text-4xl">
+            <Typography variant="h2" id="bridge-heading" className="text-primary-foreground">
               {BRIDGE.title[0]}
               <br />
               {BRIDGE.title[1]}

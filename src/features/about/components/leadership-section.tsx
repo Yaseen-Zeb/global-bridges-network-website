@@ -8,10 +8,10 @@ export function LeadershipSection() {
     <section aria-labelledby="leadership-heading" className="bg-background px-md py-3xl lg:px-xl lg:py-4xl">
       <div className="mx-auto max-w-5xl space-y-2xl">
         <Reveal className="mx-auto max-w-md space-y-sm text-center">
-          <Typography variant="eyebrow" as="p">
+          <Typography variant="overline" as="p">
             {LEADERSHIP.eyebrow}
           </Typography>
-          <Typography variant="title" id="leadership-heading" className="lg:text-4xl">
+          <Typography variant="h2" id="leadership-heading">
             {LEADERSHIP.title[0]}
             <br />
             {LEADERSHIP.title[1]}
@@ -41,10 +41,10 @@ export function LeadershipSection() {
                   <Typography variant="body-sm" as="p" className="font-semibold text-primary">
                     {member.role}
                   </Typography>
-                  <Typography variant="card-title">{member.name}</Typography>
+                  <Typography variant="h4-semibold">{member.name}</Typography>
                   <div className="space-y-sm">
                     {member.bio.map((paragraph) => (
-                      <Typography key={paragraph.slice(0, 32)} variant="caption" as="p" className="font-normal leading-5">
+                      <Typography key={paragraph.slice(0, 32)} variant="caption" as="p">
                         {paragraph}
                       </Typography>
                     ))}

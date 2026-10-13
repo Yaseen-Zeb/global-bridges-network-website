@@ -21,10 +21,10 @@ export function ImpactWaysSection() {
     <section aria-labelledby="impact-ways-heading" className="bg-background px-md pb-4xl lg:px-xl lg:pb-5xl">
       <div className="mx-auto max-w-6xl space-y-2xl">
         <Reveal className="mx-auto max-w-md space-y-sm text-center">
-          <Typography variant="eyebrow" as="p">
+          <Typography variant="overline" as="p">
             {IMPACT_WAYS.eyebrow}
           </Typography>
-          <Typography variant="title" id="impact-ways-heading" className="lg:text-4xl">
+          <Typography variant="h2" id="impact-ways-heading">
             {IMPACT_WAYS.title[0]}
             <br />
             {IMPACT_WAYS.title[1]}
@@ -53,7 +53,7 @@ export function ImpactWaysSection() {
                     <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink-foreground/20 text-ink-foreground backdrop-blur-sm">
                       <Icon className="h-4 w-4" aria-hidden="true" />
                     </span>
-                    <Typography variant="title" as="h3" className="text-ink-foreground lg:text-4xl">
+                    <Typography variant="h2" as="h3" className="text-ink-foreground">
                       {way.title[0]}
                       <br />
                       {way.title[1]}

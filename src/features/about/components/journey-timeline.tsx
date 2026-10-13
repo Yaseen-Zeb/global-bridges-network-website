@@ -76,10 +76,10 @@ export function JourneyTimeline({ milestones }: { milestones: Milestone[] }) {
                 textFirst ? "md:text-right" : "md:col-start-3 md:row-start-1"
               )}
             >
-              <Typography variant="eyebrow" as="p">
+              <Typography variant="overline" as="p">
                 {milestone.eyebrow}
               </Typography>
-              <Typography variant="h3" className="font-bold text-accent-foreground lg:text-3xl">
+              <Typography variant="h3" className="text-accent-foreground">
                 {milestone.title[0]}
                 <br />
                 {milestone.title[1]}

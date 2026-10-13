@@ -9,10 +9,10 @@ export function ServicesSection() {
     <section aria-labelledby="services-heading" className="bg-muted px-md py-3xl lg:px-xl lg:py-4xl">
       <div className="mx-auto max-w-6xl space-y-2xl">
         <Reveal className="mx-auto max-w-xl space-y-sm text-center">
-          <Typography variant="eyebrow" as="p">
+          <Typography variant="overline" as="p">
             {SERVICES.eyebrow}
           </Typography>
-          <Typography variant="title" id="services-heading" className="lg:text-4xl">
+          <Typography variant="h2" id="services-heading">
             <span className="text-primary">{SERVICES.highlight}</span> {SERVICES.titleRest}
             <br />
             {SERVICES.titleLine2}
@@ -38,12 +38,12 @@ export function ServicesSection() {
                     <Typography variant="caption" as="p" className="uppercase tracking-widest">
                       {service.index}
                     </Typography>
-                    <Typography variant="h3" className="font-semibold lg:text-3xl">
+                    <Typography variant="h3">
                       {service.title[0]}
                       <br />
                       {service.title[1]}
                     </Typography>
-                    <Typography variant="caption" as="p" className="font-normal leading-5">
+                    <Typography variant="caption" as="p">
                       {service.description}
                     </Typography>
                   </div>

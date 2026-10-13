@@ -93,7 +93,7 @@ export function DonateTabs({ initialTab, zeffyUrl }: DonateTabsProps) {
             <DonationWidget zeffyUrl={zeffyUrl} className="rounded-none border-0 shadow-none" />
           ) : (
             <div className="space-y-sm py-lg text-center">
-              <Typography variant="card-title">Online giving is coming soon</Typography>
+              <Typography variant="h4-semibold">Online giving is coming soon</Typography>
               <Typography variant="body-sm" className="text-muted-foreground">
                 Our secure donation form is being set up. In the meantime, please reach out through our contact page.
               </Typography>
@@ -103,10 +103,10 @@ export function DonateTabs({ initialTab, zeffyUrl }: DonateTabsProps) {
         {active === "volunteer" && (
           <div className="space-y-md pb-3xl">
             <div className="space-y-xs">
-              <Typography variant="eyebrow" as="p">
+              <Typography variant="overline" as="p">
                 {VOLUNTEER_TAB.eyebrow}
               </Typography>
-              <Typography variant="h2" className="font-bold">
+              <Typography variant="h3">
                 {VOLUNTEER_TAB.title.map((line) => (
                   <span key={line} className="block">
                     {line}

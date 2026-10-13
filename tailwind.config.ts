@@ -22,6 +22,21 @@ const config: Config = {
         "4xl": "6rem",
         "5xl": "8rem",
       },
+      // Typography system (approved Figma): [size, line height].
+      fontSize: {
+        display: ["4rem", { lineHeight: "4.5rem" }], // 64 / 72
+        h1: ["3rem", { lineHeight: "3.5rem" }], // 48 / 56
+        h2: ["2.5rem", { lineHeight: "3rem" }], // 40 / 48
+        h3: ["2rem", { lineHeight: "2.5rem" }], // 32 / 40
+        h4: ["1.5rem", { lineHeight: "1.875rem" }], // 24 / 30
+        "body-lg": ["1.25rem", { lineHeight: "1.875rem" }], // 20 / 30
+        body: ["1rem", { lineHeight: "1.625rem" }], // 16 / 26
+        "body-sm": ["0.875rem", { lineHeight: "1.375rem" }], // 14 / 22
+        caption: ["0.75rem", { lineHeight: "1.125rem" }], // 12 / 18
+        overline: ["0.75rem", { lineHeight: "1rem" }], // 12 / 16
+        nav: ["1rem", { lineHeight: "1.5rem" }], // 16 / 24
+        button: ["1rem", { lineHeight: "1.5rem" }], // 16 / 24
+      },
       fontFamily: {
         sans: ["var(--font-body)", "system-ui", "sans-serif"],
         heading: ["var(--font-heading)", "system-ui", "sans-serif"],

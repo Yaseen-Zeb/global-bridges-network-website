@@ -16,7 +16,7 @@ export function HeroSection() {
       </div>
 
       <div className="mx-auto max-w-4xl space-y-lg px-md py-4xl text-center">
-        <Typography variant="eyebrow" as="p" className="animate-fade-up motion-safe-only" style={{ animationDelay: "300ms" }}>
+        <Typography variant="overline" as="p" className="animate-fade-up motion-safe-only" style={{ animationDelay: "300ms" }}>
           {HERO.eyebrow}
         </Typography>
 
@@ -32,8 +32,8 @@ export function HeroSection() {
         </Typography>
 
         <Typography
-          variant="body"
-          className="mx-auto max-w-2xl text-ink-foreground/90 sm:text-lg animate-fade-up motion-safe-only"
+          variant="body-lg"
+          className="mx-auto max-w-2xl text-ink-foreground/90 animate-fade-up motion-safe-only"
           style={{ animationDelay: "600ms" }}
         >
           {HERO.description}

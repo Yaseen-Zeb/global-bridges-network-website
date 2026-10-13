@@ -46,7 +46,7 @@ export function Header() {
                     href={link.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "relative py-xs text-sm font-medium uppercase tracking-wide transition-colors hover:text-primary",
+                      "relative py-xs text-nav font-medium uppercase tracking-wide transition-colors hover:text-primary",
                       "after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:scale-x-100",
                       active ? "text-primary after:scale-x-100" : "text-foreground"
                     )}
@@ -95,7 +95,7 @@ export function Header() {
                     href={link.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "block rounded-button px-sm py-sm text-sm font-medium uppercase tracking-wide hover:bg-muted",
+                      "block rounded-button px-sm py-sm text-nav font-medium uppercase tracking-wide hover:bg-muted",
                       active ? "text-primary" : "text-foreground"
                     )}
                   >

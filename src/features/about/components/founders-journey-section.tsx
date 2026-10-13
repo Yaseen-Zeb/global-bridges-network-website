@@ -11,10 +11,10 @@ export function FoundersJourneySection() {
     >
       <div className="mx-auto max-w-5xl space-y-3xl">
         <Reveal className="mx-auto max-w-xl space-y-sm text-center">
-          <Typography variant="eyebrow" as="p">
+          <Typography variant="overline" as="p">
             {FOUNDERS_JOURNEY.eyebrow}
           </Typography>
-          <Typography variant="title" id="founders-journey-heading" className="text-accent-foreground lg:text-4xl">
+          <Typography variant="h2" id="founders-journey-heading" className="text-accent-foreground">
             {FOUNDERS_JOURNEY.title[0]}
             <br />
             {FOUNDERS_JOURNEY.title[1]}

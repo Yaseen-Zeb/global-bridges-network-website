@@ -20,10 +20,10 @@ export function FaqSection() {
 
       <div className="mx-auto max-w-2xl space-y-2xl">
         <Reveal className="space-y-sm text-center">
-          <Typography variant="eyebrow" as="p">
+          <Typography variant="overline" as="p">
             {FAQ.eyebrow}
           </Typography>
-          <Typography variant="title" id="faq-heading" className="text-ink-foreground lg:text-4xl">
+          <Typography variant="h2" id="faq-heading" className="text-ink-foreground">
             <span className="text-primary">{FAQ.highlight}</span>
             <br />
             {FAQ.title}

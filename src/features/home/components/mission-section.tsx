@@ -18,7 +18,7 @@ function MissionCardItem({ card, delay }: { card: MissionCard; delay: number }) 
         />
       </div>
       <div className="flex-1 space-y-sm p-lg">
-        <Typography variant="card-title">{card.title}</Typography>
+        <Typography variant="h4">{card.title}</Typography>
         <Typography variant="body-sm" className="text-muted-foreground">
           {card.description}
         </Typography>
@@ -36,10 +36,10 @@ export function MissionSection() {
         {/* Blue mission card overlaps the image grid on desktop */}
         <Reveal direction="down" className="relative z-10 mx-auto bg-primary px-lg py-2xl text-center shadow-banner md:w-1/2 md:-mb-4xl">
           <div className="space-y-md">
-            <Typography variant="eyebrow" as="p">
+            <Typography variant="overline" as="p">
               {MISSION.eyebrow}
             </Typography>
-            <Typography variant="title" id="mission-heading" className="text-primary-foreground lg:text-4xl">
+            <Typography variant="h2" id="mission-heading" className="text-primary-foreground">
               {MISSION.title}
             </Typography>
             <Typography variant="body-sm" className="mx-auto max-w-md text-primary-foreground/90">

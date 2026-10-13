@@ -14,10 +14,10 @@ export function WhatWeDoSection() {
     <section aria-labelledby="what-we-do-heading" className="bg-muted px-md py-3xl lg:px-xl lg:py-4xl">
       <div className="mx-auto max-w-6xl space-y-2xl">
         <Reveal className="mx-auto max-w-xl space-y-sm text-center">
-          <Typography variant="eyebrow" as="p">
+          <Typography variant="overline" as="p">
             {WHAT_WE_DO.eyebrow}
           </Typography>
-          <Typography variant="title" id="what-we-do-heading" className="lg:text-4xl">
+          <Typography variant="h2" id="what-we-do-heading">
             <span className="text-primary">{WHAT_WE_DO.highlight}</span> {WHAT_WE_DO.titleRest}
             <br />
             {WHAT_WE_DO.titleLine2}
@@ -42,9 +42,9 @@ export function WhatWeDoSection() {
                   )}
                 >
                   <Typography
-                    variant="card-title"
+                    variant="h4-semibold"
                     className={cn(
-                      "font-semibold transition-colors duration-500",
+                      "transition-colors duration-500",
                       featured ? "text-primary-foreground" : "group-hover:text-primary-foreground"
                     )}
                   >

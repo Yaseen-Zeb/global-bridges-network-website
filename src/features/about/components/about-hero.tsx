@@ -7,11 +7,11 @@ export function AboutHero() {
   return (
     <section aria-labelledby="about-hero-heading" className="relative isolate overflow-hidden bg-background">
       <div className="relative z-10 mx-auto max-w-3xl space-y-md px-md pt-2xl text-center lg:pt-3xl">
-        <Typography variant="eyebrow" as="p" className="animate-fade-up motion-safe-only" style={{ animationDelay: "150ms" }}>
+        <Typography variant="overline" as="p" className="animate-fade-up motion-safe-only" style={{ animationDelay: "150ms" }}>
           {ABOUT_HERO.eyebrow}
         </Typography>
         <Typography
-          variant="title"
+          variant="h1"
           as="h1"
           id="about-hero-heading"
           className="animate-fade-up motion-safe-only"

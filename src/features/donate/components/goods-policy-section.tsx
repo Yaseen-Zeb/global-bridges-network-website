@@ -20,10 +20,10 @@ export function GoodsPolicySection() {
         {/* Intro occupies the first two cells of the grid on desktop, like the design. */}
         <li className="pb-lg sm:col-span-2 lg:pb-0 lg:pr-2xl">
           <Reveal direction="left" className="space-y-md">
-            <Typography variant="eyebrow" as="p">
+            <Typography variant="overline" as="p">
               {GOODS_POLICY.eyebrow}
             </Typography>
-            <Typography variant="title" as="h2" id="goods-policy-heading" className="lg:text-4xl">
+            <Typography variant="h2" as="h2" id="goods-policy-heading">
               What We Can <span className="text-accent">{GOODS_POLICY.accept}</span>
               <br />& What We <span className="text-danger">{GOODS_POLICY.cannotAccept}</span>
             </Typography>
@@ -45,7 +45,7 @@ export function GoodsPolicySection() {
                 )}
               >
                 <div className="flex items-start justify-between gap-sm">
-                  <Typography variant="card-title" as="h3" className="font-semibold">
+                  <Typography variant="h4-semibold" as="h3">
                     {card.title}
                   </Typography>
                   <Icon
@@ -56,7 +56,7 @@ export function GoodsPolicySection() {
                     aria-label={card.accepted ? "Accepted" : "Not accepted"}
                   />
                 </div>
-                <Typography variant="caption" as="p" className="font-normal leading-5">
+                <Typography variant="caption" as="p">
                   {card.description}
                 </Typography>
               </Reveal>

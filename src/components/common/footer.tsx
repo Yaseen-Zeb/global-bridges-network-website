@@ -56,7 +56,7 @@ export function Footer() {
 
           {FOOTER_COLUMNS.map((column) => (
             <nav key={column.title} aria-label={column.title} className="space-y-md lg:col-span-2">
-              <Typography variant="caption" as="h2" className="block font-normal">
+              <Typography variant="caption" as="h2" className="block">
                 {column.title}
               </Typography>
               <ul className="space-y-md">
@@ -72,7 +72,7 @@ export function Footer() {
           ))}
 
           <div className="space-y-md lg:col-span-3">
-            <Typography variant="caption" as="h2" className="block font-normal">
+            <Typography variant="caption" as="h2" className="block">
               Help
             </Typography>
             <ul className="space-y-md">

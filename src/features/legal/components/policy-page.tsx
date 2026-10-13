@@ -17,14 +17,14 @@ export function PolicyPage({ eyebrow, title, description, lastUpdated, sections 
       <section aria-labelledby="policy-heading" className="px-md py-3xl lg:px-xl lg:py-4xl">
         <div className="mx-auto max-w-6xl">
           <div className="max-w-md space-y-sm">
-            <Typography variant="eyebrow" as="p" className="animate-fade-up motion-safe-only">
+            <Typography variant="overline" as="p" className="animate-fade-up motion-safe-only">
               {eyebrow}
             </Typography>
             <Typography
-              variant="title"
+              variant="h2"
               as="h1"
               id="policy-heading"
-              className="animate-fade-up motion-safe-only lg:text-4xl"
+              className="animate-fade-up motion-safe-only"
               style={{ animationDelay: "150ms" }}
             >
               {title[0]}
@@ -55,10 +55,10 @@ export function PolicyPage({ eyebrow, title, description, lastUpdated, sections 
             {sections.map((section, index) => (
               <li key={section.title}>
                 <Reveal delay={Math.min(index, 3) * 80} className="space-y-sm">
-                  <Typography variant="h3" as="h2" className="text-xl font-semibold lg:text-2xl">
+                  <Typography variant="h4-semibold" as="h2">
                     {String(index + 1).padStart(2, "0")} {section.title}
                   </Typography>
-                  <div className="space-y-xs text-sm leading-6 text-foreground/85">
+                  <div className="space-y-xs text-body-sm text-foreground/85">
                     {section.paragraphs?.map((paragraph) => (
                       <p key={paragraph.slice(0, 40)}>{paragraph}</p>
                     ))}

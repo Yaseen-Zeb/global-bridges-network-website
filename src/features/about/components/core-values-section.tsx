@@ -10,10 +10,10 @@ export function CoreValuesSection() {
       <div className="mx-auto max-w-6xl space-y-2xl">
         <div className="flex flex-col gap-md md:flex-row md:items-end md:justify-between">
           <Reveal direction="left" className="space-y-xs">
-            <Typography variant="eyebrow" as="p">
+            <Typography variant="overline" as="p">
               {CORE_VALUES.eyebrow}
             </Typography>
-            <Typography variant="title" id="core-values-heading" className="lg:text-4xl">
+            <Typography variant="h2" id="core-values-heading">
               {CORE_VALUES.title}
             </Typography>
           </Reveal>
