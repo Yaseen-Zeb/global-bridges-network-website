@@ -1,12 +1,6 @@
 /** Privacy Policy copy (approved Figma design). */
 
-export interface PolicySection {
-  title: string;
-  paragraphs?: string[];
-  intro?: string;
-  bullets?: string[];
-  outro?: string;
-}
+import type { PolicySection } from "@/features/legal/types";
 
 export const PRIVACY_POLICY = {
   eyebrow: "Privacy Policy",

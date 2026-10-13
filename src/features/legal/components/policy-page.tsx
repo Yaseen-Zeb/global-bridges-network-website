@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
-import type { PolicySection } from "@/features/legal/data/privacy-policy";
+import type { PolicySection } from "@/features/legal/types";
 
 interface PolicyPageProps {
   eyebrow: string;
