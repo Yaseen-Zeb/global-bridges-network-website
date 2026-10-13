@@ -10,11 +10,11 @@ import type { EventItem } from "@/lib/sanity/types";
 import { EventFilterGrid } from "@/components/events/event-filter-grid";
 
 export const metadata: Metadata = {
-  title: "Events & Community Gatherings | Bridge Global Network",
+  title: "Events & Community Gatherings | Global Bridges Network",
   description:
-    "Explore upcoming newcomer orientation workshops, cultural welcome dinners, volunteer drives, and overseas women empowerment webinars hosted by Bridge Global Network.",
+    "Explore upcoming newcomer orientation workshops, cultural welcome dinners, volunteer drives, and overseas women empowerment webinars hosted by Global Bridges Network.",
   openGraph: {
-    title: "Events & Community Gatherings | Bridge Global Network",
+    title: "Events & Community Gatherings | Global Bridges Network",
     description:
       "Join community events, volunteer orientation sessions, and cultural welcome dinners bringing together arriving families, mentors, and partners.",
     url: "https://globalbridgesnetwork.org/events",
@@ -100,7 +100,7 @@ export default async function EventsPage() {
           </Typography>
 
           <Typography variant="body" className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Businesses, schools, places of worship, and community groups frequently partner with Bridge Global Network to co-host winter coat drives, school backpack drives, or welcome sessions.
+            Businesses, schools, places of worship, and community groups frequently partner with Global Bridges Network to co-host winter coat drives, school backpack drives, or welcome sessions.
           </Typography>
 
           <div className="pt-sm">
@@ -124,7 +124,7 @@ export default async function EventsPage() {
             id="events-cta-heading"
             className="text-3xl sm:text-4xl text-primary-foreground font-bold"
           >
-            Support Bridge Global Network Today
+            Support Global Bridges Network Today
           </Typography>
           <Typography
             variant="body"
@@ -134,13 +134,13 @@ export default async function EventsPage() {
           </Typography>
 
           <div className="flex flex-wrap gap-md justify-center pt-md">
-            <Link href="/donate" aria-label="Donate financial support to Bridge Global Network">
+            <Link href="/donate" aria-label="Donate financial support to Global Bridges Network">
               <Button size="lg" variant="secondary" className="px-xl">
                 <Heart className="mr-xs h-4 w-4" aria-hidden="true" />
                 Support Our Mission
               </Button>
             </Link>
-            <Link href="/get-involved" aria-label="Get involved with Bridge Global Network">
+            <Link href="/get-involved" aria-label="Get involved with Global Bridges Network">
               <Button
                 size="lg"
                 variant="outline"

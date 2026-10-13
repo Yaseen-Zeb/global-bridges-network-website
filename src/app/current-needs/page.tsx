@@ -6,8 +6,6 @@ import {
   Package,
   Heart,
   ArrowRight,
-  Info,
-  CheckCircle2,
 } from "lucide-react";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
@@ -17,11 +15,11 @@ import type { CurrentNeed as CurrentNeedType } from "@/lib/sanity/types";
 import { CurrentNeedsGrid } from "@/components/needs/current-needs-grid";
 
 export const metadata: Metadata = {
-  title: "Current Needs | Bridge Global Network",
+  title: "Current Needs | Global Bridges Network",
   description:
-    "View real-time requested items and essential goods needed for newly arrived families and community support programs at Bridge Global Network.",
+    "View real-time requested items and essential goods needed for newly arrived families and community support programs at Global Bridges Network.",
   openGraph: {
-    title: "Current Needs | Bridge Global Network",
+    title: "Current Needs | Global Bridges Network",
     description:
       "Check our manually maintained real-time list of requested cookware, winter coats, school supplies, and hygiene kits before donating goods.",
     url: "https://globalbridgesnetwork.org/current-needs",
@@ -143,7 +141,7 @@ export default async function CurrentNeedsPage() {
           </Typography>
 
           <div className="flex flex-wrap gap-md justify-center pt-md">
-            <Link href="/donate" aria-label="Donate financial support to Bridge Global Network">
+            <Link href="/donate" aria-label="Donate financial support to Global Bridges Network">
               <Button size="lg" variant="secondary" className="px-xl">
                 <Heart className="mr-xs h-4 w-4" aria-hidden="true" />
                 Make a Financial Donation

@@ -1,36 +1,8 @@
-export interface ContactInfo {
-  organizationName: string;
-  addressTitle: string;
-  addressDetails: string[];
-  email: string;
-  phoneTitle: string;
-  phoneDetails: string;
-  officeHours: string;
-}
-
 export interface InquiryCategoryOption {
   value: string;
   label: string;
   description?: string;
 }
-
-/**
- * CMS/Config-Driven Contact Information
- * Founders can update these fields without modifying layout code.
- */
-export const CONTACT_INFO: ContactInfo = {
-  organizationName: "Bridge Global Network",
-  addressTitle: "Registered Office & Administration",
-  addressDetails: [
-    "Bridge Global Network Headquarters",
-    "Greater Metropolitan Region, United States",
-    "Full street address and appointment details provided upon inquiry response.",
-  ],
-  email: "info@globalbridgesnetwork.org",
-  phoneTitle: "Administrative & Support Inquiries",
-  phoneDetails: "Inquiries monitored via shared email inbox (Response within 1-2 business days)",
-  officeHours: "Monday – Friday: 9:00 AM – 5:00 PM (EST)",
-};
 
 /**
  * Configurable Inquiry Category List

@@ -1,12 +1,10 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { PackageCheck, ArrowRight, Heart } from "lucide-react";
+import { PackageCheck } from "lucide-react";
 import { CurrentNeed } from "@/lib/sanity/types";
 import { CurrentNeedCard } from "./current-need-card";
 import { Typography } from "@/components/common/typography";
-import { Button } from "@/components/ui/button";
 
 export interface CurrentNeedsGridProps {
   needs: CurrentNeed[];
@@ -14,7 +12,6 @@ export interface CurrentNeedsGridProps {
 
 export function CurrentNeedsGrid({ needs }: CurrentNeedsGridProps) {
   const [selectedCategory, setSelectedCategory] = React.useState("all");
-  const [selectedPriority, setSelectedPriority] = React.useState("all");
 
   // Extract unique categories from active needs
   const categories = React.useMemo(() => {
@@ -27,13 +24,9 @@ export function CurrentNeedsGrid({ needs }: CurrentNeedsGridProps) {
   const filteredNeeds = React.useMemo(() => {
     return needs.filter((item) => {
       if (!item.active) return false;
-      const matchCategory =
-        selectedCategory === "all" || item.category === selectedCategory;
-      const matchPriority =
-        selectedPriority === "all" || item.priority === selectedPriority;
-      return matchCategory && matchPriority;
+      return selectedCategory === "all" || item.category === selectedCategory;
     });
-  }, [needs, selectedCategory, selectedPriority]);
+  }, [needs, selectedCategory]);
 
   return (
     <div className="space-y-xl">

@@ -1,12 +1,10 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { CalendarX, ArrowRight } from "lucide-react";
+import { CalendarX } from "lucide-react";
 import { EventItem } from "@/lib/sanity/types";
 import { EventCard } from "./event-card";
 import { Typography } from "@/components/common/typography";
-import { Button } from "@/components/ui/button";
 
 export interface EventFilterGridProps {
   events: EventItem[];

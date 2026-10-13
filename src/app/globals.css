@@ -41,8 +41,6 @@
     --ink-border: 0 0% 12%; /* #1f1f1f */
     --ink-muted: 0 0% 72%;
 
-    --accent-coral: 7 48% 52%;
-    --accent-purple: 279 32% 54%;
 
     --border: 0 0% 88%;
     --input: 0 0% 88%;
@@ -63,32 +61,6 @@
     --radius: 0.25rem;
   }
 
-  .dark {
-    --background: 220 20% 10%;
-    --foreground: 0 0% 98%;
-
-    --primary: 220 65% 46%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 220 15% 18%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 220 15% 18%;
-    --muted-foreground: 220 10% 65%;
-
-    --border: 220 15% 22%;
-    --input: 220 15% 22%;
-    --ring: 220 65% 46%;
-
-    --destructive: 7 58% 45%;
-    --destructive-foreground: 0 0% 100%;
-
-    --success: 142 70% 45%;
-    --success-foreground: 0 0% 100%;
-
-    --warning: 48 96% 89%;
-    --warning-foreground: 38 92% 50%;
-  }
 }
 
 @layer base {

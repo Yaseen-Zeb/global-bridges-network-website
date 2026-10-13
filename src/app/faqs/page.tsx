@@ -10,11 +10,11 @@ import type { FAQItem as FAQItemType } from "@/lib/sanity/types";
 import { FAQAccordionSection } from "@/components/faqs/faq-accordion-section";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions | Bridge Global Network",
+  title: "Frequently Asked Questions | Global Bridges Network",
   description:
-    "Find answers to common questions about Bridge Global Network's services, refugee resettlement support, financial donations, goods intake, and volunteer opportunities.",
+    "Find answers to common questions about Global Bridges Network's services, refugee resettlement support, financial donations, goods intake, and volunteer opportunities.",
   openGraph: {
-    title: "Frequently Asked Questions | Bridge Global Network",
+    title: "Frequently Asked Questions | Global Bridges Network",
     description:
       "Clear answers to questions regarding our refugee services, overseas women empowerment programs, financial giving, and goods donation guidelines.",
     url: "https://globalbridgesnetwork.org/faqs",
@@ -104,7 +104,7 @@ export default async function FAQsPage() {
           </Typography>
 
           <div className="flex flex-wrap gap-md justify-center pt-sm">
-            <Link href="/get-involved" aria-label="Contact Bridge Global Network team">
+            <Link href="/get-involved" aria-label="Contact Global Bridges Network team">
               <Button size="lg" variant="primary">
                 <Mail className="mr-xs h-4 w-4" aria-hidden="true" />
                 Contact Our Team
@@ -130,7 +130,7 @@ export default async function FAQsPage() {
             id="faqs-final-cta-heading"
             className="text-3xl sm:text-4xl text-primary-foreground font-bold"
           >
-            Support Bridge Global Network Today
+            Support Global Bridges Network Today
           </Typography>
           <Typography
             variant="body"
@@ -140,7 +140,7 @@ export default async function FAQsPage() {
           </Typography>
 
           <div className="flex flex-wrap gap-md justify-center pt-md">
-            <Link href="/donate" aria-label="Donate financial support to Bridge Global Network">
+            <Link href="/donate" aria-label="Donate financial support to Global Bridges Network">
               <Button size="lg" variant="secondary" className="px-xl">
                 <Heart className="mr-xs h-4 w-4" aria-hidden="true" />
                 Donate Now

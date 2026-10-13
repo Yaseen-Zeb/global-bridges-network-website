@@ -48,15 +48,15 @@ export async function POST(request: Request) {
       contactInfo?.donateGoodsRecipientEmail ??
       contactInfo?.email ??
       process.env.DONATE_GOODS_RECIPIENT_EMAIL ??
-      "donations@bridgeglobalnetwork.org";
+      "donations@globalbridgesnetwork.org";
 
     await transporter.sendMail({
-      from: `"Bridge Global Network Website" <${process.env.SMTP_USER}>`,
+      from: `"Global Bridges Network Website" <${process.env.SMTP_USER}>`,
       to: recipientEmail,
       replyTo: data.email,
       subject: `[Goods Donation Offer] ${data.itemCategory} from ${data.name}`,
       text: `
-Goods Donation Offer — Bridge Global Network Website
+Goods Donation Offer — Global Bridges Network Website
 =====================================================
 Full Name:          ${data.name}
 Email:              ${data.email}
@@ -78,7 +78,7 @@ Submitted At: ${new Date().toISOString()}
 <body style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a;">
   <div style="background:#0f172a;padding:24px 32px;border-radius:8px 8px 0 0;">
     <h1 style="color:#ffffff;font-size:18px;margin:0;">Goods Donation Offer</h1>
-    <p style="color:#94a3b8;font-size:13px;margin:4px 0 0;">Bridge Global Network Website</p>
+    <p style="color:#94a3b8;font-size:13px;margin:4px 0 0;">Global Bridges Network Website</p>
   </div>
   <div style="border:1px solid #e2e8f0;border-top:none;padding:24px 32px;border-radius:0 0 8px 8px;">
     <h2 style="font-size:14px;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin:0 0 12px;">Donor Details</h2>

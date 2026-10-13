@@ -44,7 +44,7 @@ export function DonationWidget({
 
         <iframe
           src={zeffyUrl}
-          title="Bridge Global Network — Donate via Zeffy"
+          title="Global Bridges Network — Donate via Zeffy"
           className="w-full border-0"
           style={{ minHeight: "600px" }}
           allow="payment"

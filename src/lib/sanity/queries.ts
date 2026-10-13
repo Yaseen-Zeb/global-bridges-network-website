@@ -31,44 +31,11 @@ export const TESTIMONIALS_QUERY = groq`
   }
 `;
 
-/** Published testimonials filtered by category */
-export const TESTIMONIALS_BY_CATEGORY_QUERY = groq`
-  *[_type == "testimonial" && published == true && category == $category] | order(_createdAt desc) {
-    _id,
-    _type,
-    _createdAt,
-    quote,
-    authorName,
-    authorRole,
-    category,
-    date,
-    "imageUrl": image.asset->url,
-    published
-  }
-`;
-
 // ─── Current Needs ─────────────────────────────────────────────────────────────
 
 /** All active current needs, sorted by priority (urgent → high → medium) */
 export const CURRENT_NEEDS_QUERY = groq`
   *[_type == "currentNeed" && active == true] | order(priority asc, _createdAt asc) {
-    _id,
-    _type,
-    _createdAt,
-    itemName,
-    description,
-    category,
-    quantity,
-    priority,
-    "imageUrl": image.asset->url,
-    lastUpdated,
-    active
-  }
-`;
-
-/** Single current need by document ID */
-export const CURRENT_NEED_BY_ID_QUERY = groq`
-  *[_type == "currentNeed" && _id == $id][0] {
     _id,
     _type,
     _createdAt,
@@ -104,62 +71,11 @@ export const EVENTS_QUERY = groq`
   }
 `;
 
-/** Upcoming published events only */
-export const UPCOMING_EVENTS_QUERY = groq`
-  *[_type == "event" && published == true && status == "upcoming"] | order(_createdAt asc) {
-    _id,
-    _type,
-    _createdAt,
-    title,
-    description,
-    category,
-    date,
-    time,
-    location,
-    status,
-    "imageUrl": image.asset->url,
-    registrationUrl,
-    published
-  }
-`;
-
-/** Past published events only */
-export const PAST_EVENTS_QUERY = groq`
-  *[_type == "event" && published == true && status == "past"] | order(_createdAt desc) {
-    _id,
-    _type,
-    _createdAt,
-    title,
-    description,
-    category,
-    date,
-    time,
-    location,
-    status,
-    "imageUrl": image.asset->url,
-    registrationUrl,
-    published
-  }
-`;
-
 // ─── FAQs ─────────────────────────────────────────────────────────────────────
 
 /** All FAQs, sorted by category then explicit order field */
 export const FAQS_QUERY = groq`
   *[_type == "faq"] | order(category asc, order asc) {
-    _id,
-    _type,
-    _createdAt,
-    category,
-    question,
-    answer,
-    order
-  }
-`;
-
-/** FAQs filtered by category */
-export const FAQS_BY_CATEGORY_QUERY = groq`
-  *[_type == "faq" && category == $category] | order(order asc) {
     _id,
     _type,
     _createdAt,
@@ -186,51 +102,5 @@ export const CONTACT_INFO_QUERY = groq`
       platform,
       url
     }
-  }
-`;
-
-// ─── Team Members ─────────────────────────────────────────────────────────────
-
-/** All published team members, ordered by display order */
-export const TEAM_MEMBERS_QUERY = groq`
-  *[_type == "teamMember" && published == true] | order(order asc, _createdAt asc) {
-    _id,
-    _type,
-    _createdAt,
-    name,
-    title,
-    bio,
-    "photoUrl": photo.asset->url,
-    email,
-    linkedin,
-    order,
-    published
-  }
-`;
-
-// ─── Founding Story (Singleton) ───────────────────────────────────────────────
-
-/** The single Founding Story document */
-export const FOUNDING_STORY_QUERY = groq`
-  *[_type == "foundingStory" && _id == "foundingStory"][0] {
-    _id,
-    _type,
-    paragraphs
-  }
-`;
-
-// ─── Service Areas ────────────────────────────────────────────────────────────
-
-/** All published service areas, ordered by display order */
-export const SERVICE_AREAS_QUERY = groq`
-  *[_type == "serviceArea" && published == true] | order(order asc, _createdAt asc) {
-    _id,
-    _type,
-    _createdAt,
-    title,
-    description,
-    icon,
-    order,
-    published
   }
 `;

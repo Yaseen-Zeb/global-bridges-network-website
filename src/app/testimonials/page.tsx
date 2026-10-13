@@ -11,7 +11,6 @@ import {
   MessageSquare,
   Heart,
 } from "lucide-react";
-import { AnimatedEyebrow } from "@/components/common/animated-eyebrow";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
 
@@ -21,13 +20,13 @@ import { TESTIMONIALS_QUERY } from "@/lib/sanity/queries";
 import type { Testimonial as TestimonialType } from "@/lib/sanity/types";
 
 export const metadata: Metadata = {
-  title: "Stories & Testimonials | Bridge Global Network",
+  title: "Stories & Testimonials | Global Bridges Network",
   description:
-    "Read authentic community stories and testimonials from arriving families, overseas women leaders, volunteer mentors, and partner organizations served by Bridge Global Network.",
+    "Read authentic community stories and testimonials from arriving families, overseas women leaders, volunteer mentors, and partner organizations served by Global Bridges Network.",
   openGraph: {
-    title: "Stories & Testimonials | Bridge Global Network",
+    title: "Stories & Testimonials | Global Bridges Network",
     description:
-      "Explore authentic stories of resilience, dignity, and community connection from individuals and partners across Bridge Global Network programs.",
+      "Explore authentic stories of resilience, dignity, and community connection from individuals and partners across Global Bridges Network programs.",
     url: "https://globalbridgesnetwork.org/testimonials",
     type: "website",
   },
@@ -72,7 +71,7 @@ export default async function TestimonialsPage() {
             variant="body"
             className="text-foreground/80 dark:text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
           >
-            Explore authentic stories of resilience, dignity, and community connection from individuals and partners across Bridge Global Network programs.
+            Explore authentic stories of resilience, dignity, and community connection from individuals and partners across Global Bridges Network programs.
           </Typography>
         </div>
       </section>
@@ -192,11 +191,11 @@ export default async function TestimonialsPage() {
           </Typography>
 
           <Typography variant="body" className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            If you have participated in our programs, volunteered, or partnered with Bridge Global Network and wish to share your story, we welcome your voice. Full privacy controls are guaranteed.
+            If you have participated in our programs, volunteered, or partnered with Global Bridges Network and wish to share your story, we welcome your voice. Full privacy controls are guaranteed.
           </Typography>
 
           <div className="pt-sm">
-            <Link href="/get-involved" aria-label="Contact Bridge Global Network to share your story">
+            <Link href="/get-involved" aria-label="Contact Global Bridges Network to share your story">
               <Button size="lg" variant="outline">
                 Contact Our Team <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
               </Button>
@@ -226,13 +225,13 @@ export default async function TestimonialsPage() {
           </Typography>
 
           <div className="flex flex-wrap gap-md justify-center pt-md">
-            <Link href="/donate" aria-label="Donate financial support to Bridge Global Network">
+            <Link href="/donate" aria-label="Donate financial support to Global Bridges Network">
               <Button size="lg" variant="secondary" className="px-xl">
                 <Heart className="mr-xs h-4 w-4" aria-hidden="true" />
                 Support Our Mission
               </Button>
             </Link>
-            <Link href="/get-involved" aria-label="Get involved with Bridge Global Network">
+            <Link href="/get-involved" aria-label="Get involved with Global Bridges Network">
               <Button
                 size="lg"
                 variant="outline"

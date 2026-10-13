@@ -1,12 +1,8 @@
 /**
  * TypeScript interfaces for all Sanity-driven content types.
  *
- * These interfaces are intentionally identical to the shapes in
- * frontend/src/data/* so that swapping hardcoded arrays for live
- * Sanity GROQ queries requires zero changes to UI components.
- *
- * Sanity-specific fields (_id, _type, _createdAt) are added alongside
- * the original fields.
+ * Shapes match the GROQ projections in ./queries.ts; Sanity system fields
+ * (_id, _type, _createdAt) are included where the queries return them.
  */
 
 // ─── Testimonial ─────────────────────────────────────────────────────────────
@@ -101,41 +97,3 @@ export interface ContactInfo {
   officeHours?: string;
   socialLinks?: SocialLink[];
 }
-
-// ─── Team Member ──────────────────────────────────────────────────────────────
-
-export interface TeamMember {
-  _id: string;
-  _type: "teamMember";
-  _createdAt: string;
-  name: string;
-  title: string;
-  bio: string;
-  photoUrl?: string;
-  email?: string;
-  linkedin?: string;
-  order: number;
-  published: boolean;
-}
-
-// ─── Founding Story (Singleton) ───────────────────────────────────────────────
-
-export interface FoundingStory {
-  _id: "foundingStory";
-  _type: "foundingStory";
-  paragraphs: string[];
-}
-
-// ─── Service Area ─────────────────────────────────────────────────────────────
-
-export interface ServiceArea {
-  _id: string;
-  _type: "serviceArea";
-  _createdAt: string;
-  title: string;
-  description: string;
-  icon?: string;
-  order: number;
-  published: boolean;
-}
-
