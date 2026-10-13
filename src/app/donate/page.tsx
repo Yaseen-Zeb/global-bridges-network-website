@@ -5,9 +5,9 @@ import { DonateTabs } from "@/features/donate/components/donate-tabs";
 import { GoodsPolicySection } from "@/features/donate/components/goods-policy-section";
 import { ImpactWaysSection } from "@/features/donate/components/impact-ways-section";
 import { DONATE_HERO, SUPPORT_WAYS, isDonateTab } from "@/features/donate/data/donate-content";
-import { client } from "@/lib/sanity/client";
-import { CONTACT_INFO_QUERY } from "@/lib/sanity/queries";
-import type { ContactInfo } from "@/lib/sanity/types";
+import { sanityFetch } from "@/lib/sanity/fetch";
+import { GOODS_ITEMS_QUERY, SITE_SETTINGS_QUERY } from "@/lib/sanity/queries";
+import type { GoodsItem, SiteSettings } from "@/lib/sanity/types";
 
 export const metadata: Metadata = {
   title: "Donate & Get Involved",
@@ -20,21 +20,26 @@ export const metadata: Metadata = {
 };
 
 export default async function DonatePage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
-  const [{ tab }, contactInfo, donation] = await Promise.all([
+  const [{ tab }, settings, goods] = await Promise.all([
     searchParams,
-    client.fetch<ContactInfo | null>(CONTACT_INFO_QUERY),
-    client.fetch<{ donationFormUrl?: string } | null>(
-      `*[_type == "contactInfo" && _id == "contactInfo"][0]{ donationFormUrl }`
-    ),
+    sanityFetch<SiteSettings | null>(SITE_SETTINGS_QUERY),
+    sanityFetch<GoodsItem[]>(GOODS_ITEMS_QUERY),
   ]);
+  const acceptedGoods = goods.filter((item) => item.accepted).map((item) => item.title);
 
   return (
     <main className="flex min-h-screen flex-col bg-background">
-      <PhotoPanel id="donate" title={DONATE_HERO.title} image={DONATE_HERO.image} contactInfo={contactInfo}>
-        <DonateTabs key={tab ?? "goods"} initialTab={isDonateTab(tab) ? tab : "goods"} zeffyUrl={donation?.donationFormUrl ?? null} />
+      <PhotoPanel id="donate" title={DONATE_HERO.title} image={DONATE_HERO.image} settings={settings}>
+        <DonateTabs
+          key={tab ?? "goods"}
+          initialTab={isDonateTab(tab) ? tab : "goods"}
+          zeffyUrl={settings?.donationFormUrl ?? null}
+          volunteerEmail={settings?.volunteerEmail}
+          goodsCategories={acceptedGoods}
+        />
       </PhotoPanel>
       <ImpactWaysSection />
-      <GoodsPolicySection />
+      <GoodsPolicySection items={goods} />
       <DarkCardsSection id="support-ways" {...SUPPORT_WAYS} />
     </main>
   );

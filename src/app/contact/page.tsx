@@ -3,9 +3,9 @@ import { PhotoPanel } from "@/components/common/photo-panel";
 import { ContactForm } from "@/features/contact/components/contact-form";
 import { CONTACT_HERO } from "@/features/contact/data/contact-content";
 import { HelpPathsSection } from "@/features/home/components/help-paths-section";
-import { client } from "@/lib/sanity/client";
-import { CONTACT_INFO_QUERY } from "@/lib/sanity/queries";
-import type { ContactInfo } from "@/lib/sanity/types";
+import { sanityFetch } from "@/lib/sanity/fetch";
+import { SITE_SETTINGS_QUERY } from "@/lib/sanity/queries";
+import type { SiteSettings } from "@/lib/sanity/types";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const contactInfo = await client.fetch<ContactInfo | null>(CONTACT_INFO_QUERY);
+  const settings = await sanityFetch<SiteSettings | null>(SITE_SETTINGS_QUERY);
 
   return (
     <main className="flex min-h-screen flex-col bg-background">
@@ -29,9 +29,9 @@ export default async function ContactPage() {
         eyebrow={CONTACT_HERO.eyebrow}
         title={CONTACT_HERO.title}
         image={{ ...CONTACT_HERO.image, className: "-scale-x-100" }}
-        contactInfo={contactInfo}
+        settings={settings}
       >
-        <ContactForm />
+        <ContactForm categories={settings?.inquiryCategories ?? []} />
       </PhotoPanel>
       <HelpPathsSection />
     </main>

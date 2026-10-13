@@ -3,8 +3,12 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
 import { CORE_VALUES } from "@/features/about/data/about-content";
+import type { CoreValue } from "@/lib/sanity/types";
 
-export function CoreValuesSection() {
+/** Values come from Sanity → Core Values. */
+export function CoreValuesSection({ values }: { values: CoreValue[] }) {
+  if (values.length === 0) return null;
+
   return (
     <section aria-labelledby="core-values-heading" className="bg-background px-md pb-3xl lg:px-xl lg:pb-4xl">
       <div className="mx-auto max-w-6xl space-y-2xl">
@@ -36,9 +40,9 @@ export function CoreValuesSection() {
           </Reveal>
 
           <Reveal direction="right" delay={150}>
-            <Accordion type="single" defaultValue={CORE_VALUES.items[0].id} className="space-y-0">
-              {CORE_VALUES.items.map((value) => (
-                <AccordionItem key={value.id} value={value.id} variant="line">
+            <Accordion type="single" defaultValue={values[0]._id} className="space-y-0">
+              {values.map((value) => (
+                <AccordionItem key={value._id} value={value._id} variant="line">
                   <AccordionTrigger variant="line">{value.title}</AccordionTrigger>
                   <AccordionContent variant="line">{value.description}</AccordionContent>
                 </AccordionItem>

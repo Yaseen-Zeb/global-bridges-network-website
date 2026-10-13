@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { PolicyPage } from "@/features/legal/components/policy-page";
-import { TERMS_AND_CONDITIONS } from "@/features/legal/data/terms-and-conditions";
+import { sanityFetch } from "@/lib/sanity/fetch";
+import { LEGAL_PAGE_QUERY } from "@/lib/sanity/queries";
+import type { LegalPage } from "@/lib/sanity/types";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions",
@@ -9,6 +12,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/terms-and-conditions" },
 };
 
-export default function TermsAndConditionsPage() {
-  return <PolicyPage {...TERMS_AND_CONDITIONS} />;
+export default async function TermsAndConditionsPage() {
+  // Content: Sanity → Legal Pages → Terms & Conditions
+  const page = await sanityFetch<LegalPage | null>(LEGAL_PAGE_QUERY, { id: "termsAndConditions" });
+  if (!page) notFound();
+
+  return <PolicyPage page={page} />;
 }

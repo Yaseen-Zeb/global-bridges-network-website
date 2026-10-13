@@ -2,18 +2,22 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
 import { FAQ } from "@/features/home/data/home-content";
+import type { HomeFaq } from "@/lib/sanity/types";
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.items.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: { "@type": "Answer", text: item.answer },
-  })),
-};
+/** Questions come from Sanity → FAQs with "Show on Home Page" turned on. */
+export function FaqSection({ faqs }: { faqs: HomeFaq[] }) {
+  if (faqs.length === 0) return null;
 
-export function FaqSection() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
+
   return (
     <section aria-labelledby="faq-heading" className="bg-ink px-md pb-4xl pt-3xl text-ink-foreground lg:px-xl lg:pb-5xl lg:pt-4xl">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
@@ -30,10 +34,10 @@ export function FaqSection() {
           </Typography>
         </Reveal>
 
-        <Accordion type="single" defaultValue={FAQ.items[0].id} className="space-y-xl">
-          {FAQ.items.map((item, index) => (
-            <Reveal key={item.id} delay={index * 80} className="faq-item-layer">
-              <AccordionItem value={item.id} variant="dark">
+        <Accordion type="single" defaultValue={faqs[0]._id} className="space-y-xl">
+          {faqs.map((item, index) => (
+            <Reveal key={item._id} delay={index * 80} className="faq-item-layer">
+              <AccordionItem value={item._id} variant="dark">
                 <AccordionTrigger variant="dark">{item.question}</AccordionTrigger>
                 <AccordionContent variant="dark">{item.answer}</AccordionContent>
               </AccordionItem>

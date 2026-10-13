@@ -2,14 +2,13 @@ import { CircleCheck, CircleX } from "lucide-react";
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
 import { GOODS_POLICY } from "@/features/donate/data/donate-content";
+import type { GoodsItem } from "@/lib/sanity/types";
 import { cn } from "@/lib/utils";
 
-const cards = [
-  ...GOODS_POLICY.accepted.map((item) => ({ ...item, accepted: true })),
-  ...GOODS_POLICY.rejected.map((item) => ({ ...item, accepted: false })),
-];
+/** Cards come from Sanity → Goods We Accept / Decline (accepted first). */
+export function GoodsPolicySection({ items }: { items: GoodsItem[] }) {
+  if (items.length === 0) return null;
 
-export function GoodsPolicySection() {
   return (
     <section
       id="accepted-goods"
@@ -33,10 +32,10 @@ export function GoodsPolicySection() {
           </Reveal>
         </li>
 
-        {cards.map((card, index) => {
+        {items.map((card, index) => {
           const Icon = card.accepted ? CircleCheck : CircleX;
           return (
-            <li key={card.title}>
+            <li key={card._id}>
               <Reveal
                 delay={(index % 4) * 80}
                 className={cn(

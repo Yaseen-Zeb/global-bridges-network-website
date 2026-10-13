@@ -4,7 +4,7 @@ import Image from "next/image";
 import { HelpCircle, Mail, MessageSquare, ArrowRight, Heart } from "lucide-react";
 import { Typography } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
-import { client } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/fetch";
 import { FAQS_QUERY } from "@/lib/sanity/queries";
 import type { FAQItem as FAQItemType } from "@/lib/sanity/types";
 import { FAQAccordionSection } from "@/components/faqs/faq-accordion-section";
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function FAQsPage() {
-  const faqs: FAQItemType[] = await client.fetch(FAQS_QUERY);
+  const faqs = await sanityFetch<FAQItemType[]>(FAQS_QUERY);
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* 1. HERO SECTION */}

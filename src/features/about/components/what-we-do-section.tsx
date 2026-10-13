@@ -1,6 +1,7 @@
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
 import { WHAT_WE_DO } from "@/features/about/data/about-content";
+import type { WhatWeDoItem } from "@/lib/sanity/types";
 import { cn } from "@/lib/utils";
 
 const LAYOUT_CLASSES = {
@@ -9,7 +10,10 @@ const LAYOUT_CLASSES = {
   default: "",
 } as const;
 
-export function WhatWeDoSection() {
+/** Cards come from Sanity → What We Do. */
+export function WhatWeDoSection({ items }: { items: WhatWeDoItem[] }) {
+  if (items.length === 0) return null;
+
   return (
     <section aria-labelledby="what-we-do-heading" className="bg-muted px-md py-3xl lg:px-xl lg:py-4xl">
       <div className="mx-auto max-w-6xl space-y-2xl">
@@ -28,10 +32,11 @@ export function WhatWeDoSection() {
         </Reveal>
 
         <ul className="grid grid-cols-1 gap-sm sm:grid-cols-2 lg:grid-cols-3">
-          {WHAT_WE_DO.services.map((service, index) => {
-            const featured = service.layout === "featured";
+          {items.map((service, index) => {
+            const layout = service.cardSize ?? "default";
+            const featured = layout === "featured";
             return (
-              <li key={service.title.join(" ")} className={LAYOUT_CLASSES[service.layout]}>
+              <li key={service._id} className={LAYOUT_CLASSES[layout]}>
                 <Reveal
                   delay={index * 80}
                   className={cn(
@@ -48,17 +53,13 @@ export function WhatWeDoSection() {
                       featured ? "text-primary-foreground" : "group-hover:text-primary-foreground"
                     )}
                   >
-                    {service.title.map((line, i) => (
-                      <span key={line} className={cn(featured && "block", !featured && i > 0 && "ml-xs")}>
-                        {line}
-                      </span>
-                    ))}
+                    {service.title}
                   </Typography>
                   <Typography
                     variant="caption"
                     as="p"
                     className={cn(
-                      "max-w-sm font-normal leading-5 transition-colors duration-500",
+                      "max-w-sm transition-colors duration-500",
                       featured ? "text-primary-foreground/90" : "group-hover:text-primary-foreground/90"
                     )}
                   >

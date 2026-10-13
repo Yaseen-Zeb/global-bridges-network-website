@@ -4,10 +4,9 @@ import * as React from "react";
 import Image from "next/image";
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
-import type { FOUNDERS_JOURNEY } from "@/features/about/data/about-content";
+import { hotspotPosition, type Milestone } from "@/lib/sanity/types";
 import { cn } from "@/lib/utils";
 
-type Milestone = (typeof FOUNDERS_JOURNEY.milestones)[number];
 
 /**
  * Alternating timeline. The dashed centre line "draws" itself as the section
@@ -66,7 +65,7 @@ export function JourneyTimeline({ milestones }: { milestones: Milestone[] }) {
         const textFirst = index % 2 === 0;
         return (
           <li
-            key={milestone.eyebrow}
+            key={milestone._key}
             className="relative grid grid-cols-1 items-center gap-lg pl-3xl md:grid-cols-[1fr_6rem_1fr] md:gap-0 md:pl-0"
           >
             <Reveal
@@ -79,10 +78,8 @@ export function JourneyTimeline({ milestones }: { milestones: Milestone[] }) {
               <Typography variant="overline" as="p">
                 {milestone.eyebrow}
               </Typography>
-              <Typography variant="h3" className="text-accent-foreground">
-                {milestone.title[0]}
-                <br />
-                {milestone.title[1]}
+              <Typography variant="h3" className="whitespace-pre-line text-accent-foreground">
+                {milestone.title}
               </Typography>
               <Typography
                 variant="body-sm"
@@ -112,13 +109,16 @@ export function JourneyTimeline({ milestones }: { milestones: Milestone[] }) {
                 )}
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={milestone.image.src}
-                    alt={milestone.image.alt}
-                    fill
-                    sizes="(min-width: 768px) 24rem, 90vw"
-                    className="object-cover"
-                  />
+                  {milestone.imageUrl && (
+                    <Image
+                      src={milestone.imageUrl}
+                      alt={milestone.imageAlt ?? ""}
+                      fill
+                      sizes="(min-width: 768px) 24rem, 90vw"
+                      className="object-cover"
+                      style={{ objectPosition: hotspotPosition(milestone.imageHotspot) }}
+                    />
+                  )}
                 </div>
               </div>
             </Reveal>

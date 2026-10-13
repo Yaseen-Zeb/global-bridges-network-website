@@ -15,14 +15,8 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 
-const ITEM_CATEGORIES = [
-  "Household & Cookware Starter Kits",
-  "Winter Outerwear & Warm Blankets",
-  "School Backpacks & Academic Supplies",
-  "Hygiene & Personal Care Items",
-  "Baby & Children Supplies",
-  "Other Essential Goods",
-];
+/** Always offered after the accepted goods coming from Sanity. */
+const OTHER_CATEGORY = "Other Essential Goods";
 
 const CONDITION_OPTIONS = ["New", "Used"] as const;
 const CONTACT_METHOD_OPTIONS = ["Email", "Phone", "Either (Email or Phone)"];
@@ -48,7 +42,14 @@ const labelClass = "text-xs font-normal text-muted-foreground";
 const fieldClass = "h-10 rounded-input border-border text-sm placeholder:text-muted-foreground/70";
 const errorClass = "text-xs font-medium text-destructive";
 
-export function GoodsForm() {
+interface GoodsFormProps {
+  /** Titles of accepted goods from Sanity → Goods We Accept / Decline. */
+  categories: string[];
+}
+
+export function GoodsForm({ categories }: GoodsFormProps) {
+  const itemCategories = [...categories, OTHER_CATEGORY];
+
   const {
     register,
     handleSubmit,
@@ -62,7 +63,7 @@ export function GoodsForm() {
       name: "",
       email: "",
       phone: "",
-      itemCategory: ITEM_CATEGORIES[0],
+      itemCategory: itemCategories[0],
       description: "",
       quantity: "",
       condition: "New",
@@ -185,7 +186,7 @@ export function GoodsForm() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {ITEM_CATEGORIES.map((category) => (
+                {itemCategories.map((category) => (
                   <SelectItem key={category} value={category}>
                     {category}
                   </SelectItem>

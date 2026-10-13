@@ -6,70 +6,12 @@
  * keeping API payloads lean.
  *
  * Usage (Next.js Server Component):
- *   import { client } from "@/lib/sanity/client";
- *   import { TESTIMONIALS_QUERY } from "@/lib/sanity/queries";
- *   const testimonials = await client.fetch(TESTIMONIALS_QUERY);
+ *   import { sanityFetch } from "@/lib/sanity/fetch";
+ *   import { FAQS_QUERY } from "@/lib/sanity/queries";
+ *   const faqs = await sanityFetch<FAQItem[]>(FAQS_QUERY);
  */
 
 import { groq } from "next-sanity";
-
-// ─── Testimonials ─────────────────────────────────────────────────────────────
-
-/** All published testimonials, newest first */
-export const TESTIMONIALS_QUERY = groq`
-  *[_type == "testimonial" && published == true] | order(_createdAt desc) {
-    _id,
-    _type,
-    _createdAt,
-    quote,
-    authorName,
-    authorRole,
-    category,
-    date,
-    "imageUrl": image.asset->url,
-    published
-  }
-`;
-
-// ─── Current Needs ─────────────────────────────────────────────────────────────
-
-/** All active current needs, sorted by priority (urgent → high → medium) */
-export const CURRENT_NEEDS_QUERY = groq`
-  *[_type == "currentNeed" && active == true] | order(priority asc, _createdAt asc) {
-    _id,
-    _type,
-    _createdAt,
-    itemName,
-    description,
-    category,
-    quantity,
-    priority,
-    "imageUrl": image.asset->url,
-    lastUpdated,
-    active
-  }
-`;
-
-// ─── Events ───────────────────────────────────────────────────────────────────
-
-/** All published events */
-export const EVENTS_QUERY = groq`
-  *[_type == "event" && published == true] | order(_createdAt desc) {
-    _id,
-    _type,
-    _createdAt,
-    title,
-    description,
-    category,
-    date,
-    time,
-    location,
-    status,
-    "imageUrl": image.asset->url,
-    registrationUrl,
-    published
-  }
-`;
 
 // ─── FAQs ─────────────────────────────────────────────────────────────────────
 
@@ -86,21 +28,131 @@ export const FAQS_QUERY = groq`
   }
 `;
 
-// ─── Contact Info (Singleton) ─────────────────────────────────────────────────
+// ─── Site Settings (Singleton) ────────────────────────────────────────────────
 
-/** The single Contact Info document */
-export const CONTACT_INFO_QUERY = groq`
+/** Contact & Site Settings: footer, contact/donate panels, form options, Zeffy link. */
+export const SITE_SETTINGS_QUERY = groq`
   *[_type == "contactInfo" && _id == "contactInfo"][0] {
-    _id,
-    _type,
     email,
     phone,
     address,
-    mapEmbedUrl,
-    officeHours,
-    socialLinks[] {
-      platform,
-      url
+    volunteerEmail,
+    donationFormUrl,
+    socialLinks[] { platform, url },
+    inquiryCategories[] { label, value }
+  }
+`;
+
+// ─── Home page ────────────────────────────────────────────────────────────────
+
+export const HOME_FAQS_QUERY = groq`
+  *[_type == "faq" && showOnHome == true] | order(order asc) {
+    _id,
+    question,
+    answer
+  }
+`;
+
+// ─── Services ─────────────────────────────────────────────────────────────────
+
+/** All published services (Services page). */
+export const SERVICES_QUERY = groq`
+  *[_type == "serviceArea" && published != false] | order(order asc) {
+    _id,
+    title,
+    description,
+    "imageUrl": image.asset->url,
+    "imageAlt": image.alt,
+    "imageHotspot": image.hotspot,
+    linkLabel,
+    linkHref
+  }
+`;
+
+/** The first four services (home page). */
+export const HOME_SERVICES_QUERY = groq`
+  *[_type == "serviceArea" && published != false] | order(order asc) [0...4] {
+    _id,
+    title,
+    description,
+    "imageUrl": image.asset->url,
+    "imageAlt": image.alt,
+    "imageHotspot": image.hotspot
+  }
+`;
+
+// ─── About page ───────────────────────────────────────────────────────────────
+
+/** Mission & Vision and Founders Journey singletons, in one request. */
+export const ABOUT_PAGE_QUERY = groq`{
+  "missionVision": *[_type == "missionVision" && _id == "missionVision"][0] {
+    mission { eyebrow, title, description },
+    vision { eyebrow, title, description }
+  },
+  "journey": *[_type == "foundersJourney" && _id == "foundersJourney"][0] {
+    eyebrow,
+    title,
+    description,
+    milestones[] {
+      _key,
+      eyebrow,
+      title,
+      description,
+      "imageUrl": image.asset->url,
+      "imageAlt": image.alt,
+      "imageHotspot": image.hotspot
     }
+  }
+}`;
+
+export const TEAM_MEMBERS_QUERY = groq`
+  *[_type == "teamMember" && published != false] | order(order asc) {
+    _id,
+    name,
+    title,
+    bio,
+    "photoUrl": photo.asset->url,
+    "photoHotspot": photo.hotspot
+  }
+`;
+
+export const WHAT_WE_DO_QUERY = groq`
+  *[_type == "whatWeDo" && published != false] | order(order asc) {
+    _id,
+    title,
+    description,
+    cardSize
+  }
+`;
+
+export const CORE_VALUES_QUERY = groq`
+  *[_type == "coreValue"] | order(order asc) {
+    _id,
+    title,
+    description
+  }
+`;
+
+// ─── Donate page ──────────────────────────────────────────────────────────────
+
+export const GOODS_ITEMS_QUERY = groq`
+  *[_type == "goodsItem"] | order(accepted desc, order asc) {
+    _id,
+    title,
+    description,
+    accepted
+  }
+`;
+
+// ─── Legal pages ──────────────────────────────────────────────────────────────
+
+/** $id: "privacyPolicy" | "termsAndConditions" */
+export const LEGAL_PAGE_QUERY = groq`
+  *[_type == "legalPage" && _id == $id][0] {
+    eyebrow,
+    titleLines,
+    description,
+    lastUpdated,
+    sections[] { title, paragraphs, intro, bullets, outro }
   }
 `;

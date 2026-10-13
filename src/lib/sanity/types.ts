@@ -5,69 +5,6 @@
  * (_id, _type, _createdAt) are included where the queries return them.
  */
 
-// ─── Testimonial ─────────────────────────────────────────────────────────────
-
-export interface SanityImageAsset {
-  _type: "image";
-  asset: {
-    _ref: string;
-    _type: "reference";
-  };
-  hotspot?: { x: number; y: number; height: number; width: number };
-  crop?: { top: number; bottom: number; left: number; right: number };
-}
-
-export interface Testimonial {
-  _id: string;
-  _type: "testimonial";
-  _createdAt: string;
-  quote: string;
-  authorName: string;
-  authorRole: string;
-  category: "resettlement" | "women-empowerment" | "volunteers" | "partners";
-  date: string;
-  image?: SanityImageAsset;
-  /** imageUrl is resolved via the urlFor() helper, not from GROQ directly */
-  imageUrl?: string;
-  published: boolean;
-}
-
-// ─── Current Need ─────────────────────────────────────────────────────────────
-
-export interface CurrentNeed {
-  _id: string;
-  _type: "currentNeed";
-  _createdAt: string;
-  itemName: string;
-  description: string;
-  category: string;
-  quantity?: string;
-  priority?: "urgent" | "high" | "medium";
-  image?: SanityImageAsset;
-  imageUrl?: string;
-  lastUpdated?: string;
-  active: boolean;
-}
-
-// ─── Event ───────────────────────────────────────────────────────────────────
-
-export interface EventItem {
-  _id: string;
-  _type: "event";
-  _createdAt: string;
-  title: string;
-  description: string;
-  category: "workshop" | "community" | "volunteer-drive" | "webinar";
-  date: string;
-  time?: string;
-  location: string;
-  status: "upcoming" | "past";
-  image?: SanityImageAsset;
-  imageUrl?: string;
-  registrationUrl?: string;
-  published: boolean;
-}
-
 // ─── FAQ ─────────────────────────────────────────────────────────────────────
 
 export interface FAQItem {
@@ -80,20 +17,143 @@ export interface FAQItem {
   order: number;
 }
 
-// ─── Contact Info (Singleton) ─────────────────────────────────────────────────
+// ─── Site Settings (Singleton) ────────────────────────────────────────────────
+
+export type SocialPlatform = "facebook" | "instagram" | "twitter" | "linkedin" | "youtube";
 
 export interface SocialLink {
-  platform: "facebook" | "instagram" | "twitter" | "linkedin" | "youtube";
+  platform: SocialPlatform;
   url: string;
 }
 
-export interface ContactInfo {
-  _id: "contactInfo";
-  _type: "contactInfo";
-  email: string;
+export interface InquiryCategory {
+  label: string;
+  value: string;
+}
+
+export interface SiteSettings {
+  email?: string;
   phone?: string;
+  /** One line per row. */
   address?: string;
-  mapEmbedUrl?: string;
-  officeHours?: string;
-  socialLinks?: SocialLink[];
+  volunteerEmail?: string;
+  donationFormUrl?: string;
+  socialLinks?: SocialLink[] | null;
+  inquiryCategories?: InquiryCategory[] | null;
+}
+
+// ─── Shared ───────────────────────────────────────────────────────────────────
+
+/** Hotspot set in the Studio; turned into a CSS object-position. */
+export interface ImageHotspot {
+  x: number;
+  y: number;
+}
+
+export function hotspotPosition(hotspot?: ImageHotspot | null) {
+  return hotspot ? `${Math.round(hotspot.x * 100)}% ${Math.round(hotspot.y * 100)}%` : undefined;
+}
+
+// ─── Home / Services / About ──────────────────────────────────────────────────
+
+export interface HomeFaq {
+  _id: string;
+  question: string;
+  answer: string;
+}
+
+export interface Service {
+  _id: string;
+  title: string;
+  description: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  imageHotspot?: ImageHotspot | null;
+  linkLabel?: string;
+  linkHref?: string;
+}
+
+export interface WhatWeDoItem {
+  _id: string;
+  title: string;
+  description: string;
+  cardSize?: "default" | "featured" | "wide";
+}
+
+export interface TeamMember {
+  _id: string;
+  name: string;
+  title: string;
+  /** Paragraphs. Entries created before the redesign may still hold a single string. */
+  bio: string[] | string | null;
+  photoUrl?: string;
+  photoHotspot?: ImageHotspot | null;
+}
+
+/** Titles keep the line breaks typed in the Studio (render with whitespace-pre-line). */
+export interface Statement {
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
+export interface Milestone {
+  _key: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  imageHotspot?: ImageHotspot | null;
+}
+
+export interface MissionVision {
+  mission?: Statement | null;
+  vision?: Statement | null;
+}
+
+export interface FoundersJourney {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  milestones?: Milestone[] | null;
+}
+
+export interface AboutPageContent {
+  missionVision: MissionVision | null;
+  journey: FoundersJourney | null;
+}
+
+export interface CoreValue {
+  _id: string;
+  title: string;
+  description: string;
+}
+
+// ─── Donate ───────────────────────────────────────────────────────────────────
+
+export interface GoodsItem {
+  _id: string;
+  title: string;
+  description: string;
+  accepted: boolean;
+}
+
+// ─── Legal pages ──────────────────────────────────────────────────────────────
+
+export interface LegalSection {
+  title: string;
+  paragraphs?: string[] | null;
+  intro?: string | null;
+  bullets?: string[] | null;
+  outro?: string | null;
+}
+
+export interface LegalPage {
+  eyebrow: string;
+  titleLines: string[];
+  description: string;
+  /** YYYY-MM-DD */
+  lastUpdated: string;
+  sections: LegalSection[];
 }

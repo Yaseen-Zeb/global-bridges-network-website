@@ -2,8 +2,14 @@ import Image from "next/image";
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
 import { LEADERSHIP } from "@/features/about/data/about-content";
+import { hotspotPosition, type TeamMember } from "@/lib/sanity/types";
 
-export function LeadershipSection() {
+const toParagraphs = (bio: TeamMember["bio"]) => (Array.isArray(bio) ? bio : bio ? [bio] : []);
+
+/** Members come from Sanity → Founders & Leadership. */
+export function LeadershipSection({ members }: { members: TeamMember[] }) {
+  if (members.length === 0) return null;
+
   return (
     <section aria-labelledby="leadership-heading" className="bg-background px-md py-3xl lg:px-xl lg:py-4xl">
       <div className="mx-auto max-w-5xl space-y-2xl">
@@ -22,28 +28,31 @@ export function LeadershipSection() {
         </Reveal>
 
         <ul className="space-y-xl">
-          {LEADERSHIP.members.map((member) => (
-            <li key={member.name}>
+          {members.map((member) => (
+            <li key={member._id}>
               <article className="grid grid-cols-1 items-start gap-lg sm:grid-cols-[13rem_1fr] lg:gap-xl">
                 <Reveal direction="left" className="group mx-auto w-full max-w-[13rem] bg-background p-xs shadow-modal">
                   <div className="relative aspect-square overflow-hidden">
-                    <Image
-                      src={member.image}
-                      alt={`Portrait of ${member.name}`}
-                      fill
-                      sizes="13rem"
-                      className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
+                    {member.photoUrl && (
+                      <Image
+                        src={member.photoUrl}
+                        alt={`Portrait of ${member.name}`}
+                        fill
+                        sizes="13rem"
+                        className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                        style={{ objectPosition: hotspotPosition(member.photoHotspot) }}
+                      />
+                    )}
                   </div>
                 </Reveal>
 
                 <Reveal direction="right" delay={120} className="space-y-sm">
                   <Typography variant="body-sm" as="p" className="font-semibold text-primary">
-                    {member.role}
+                    {member.title}
                   </Typography>
                   <Typography variant="h4-semibold">{member.name}</Typography>
                   <div className="space-y-sm">
-                    {member.bio.map((paragraph) => (
+                    {toParagraphs(member.bio).map((paragraph) => (
                       <Typography key={paragraph.slice(0, 32)} variant="caption" as="p">
                         {paragraph}
                       </Typography>

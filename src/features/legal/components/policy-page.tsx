@@ -1,17 +1,15 @@
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
-import type { PolicySection } from "@/features/legal/types";
+import type { LegalPage } from "@/lib/sanity/types";
 
-interface PolicyPageProps {
-  eyebrow: string;
-  title: string[];
-  description: string;
-  lastUpdated: string;
-  sections: PolicySection[];
-}
+/** "2026-09-16" → "September 16, 2026" (date-only, so format in UTC). */
+const formatDate = (isoDate: string) =>
+  new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(isoDate));
 
 /** Layout for legal pages: white header, then numbered sections on a grey band. */
-export function PolicyPage({ eyebrow, title, description, lastUpdated, sections }: PolicyPageProps) {
+export function PolicyPage({ page }: { page: LegalPage }) {
+  const { eyebrow, titleLines: title, description, lastUpdated, sections } = page;
+
   return (
     <main className="flex min-h-screen flex-col bg-background">
       <section aria-labelledby="policy-heading" className="px-md py-3xl lg:px-xl lg:py-4xl">
@@ -43,7 +41,7 @@ export function PolicyPage({ eyebrow, title, description, lastUpdated, sections 
               className="font-semibold animate-fade-up motion-safe-only"
               style={{ animationDelay: "400ms" }}
             >
-              Last Updated: <time>{lastUpdated}</time>
+              Last Updated: <time dateTime={lastUpdated}>{formatDate(lastUpdated)}</time>
             </Typography>
           </div>
         </div>

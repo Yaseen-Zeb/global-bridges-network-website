@@ -18,9 +18,11 @@ export function openDonateTab(tab: DonateTab) {
 interface DonateTabsProps {
   initialTab: DonateTab;
   zeffyUrl: string | null;
+  volunteerEmail?: string;
+  goodsCategories: string[];
 }
 
-export function DonateTabs({ initialTab, zeffyUrl }: DonateTabsProps) {
+export function DonateTabs({ initialTab, zeffyUrl, volunteerEmail, goodsCategories }: DonateTabsProps) {
   const [active, setActive] = React.useState<DonateTab>(initialTab);
   const tabRefs = React.useRef<Record<DonateTab, HTMLButtonElement | null>>({ goods: null, money: null, volunteer: null });
 
@@ -86,7 +88,7 @@ export function DonateTabs({ initialTab, zeffyUrl }: DonateTabsProps) {
         aria-labelledby={`donate-tab-${active}`}
         className="animate-fade-up motion-safe-only"
       >
-        {active === "goods" && <GoodsForm />}
+        {active === "goods" && <GoodsForm categories={goodsCategories} />}
 
         {active === "money" &&
           (zeffyUrl ? (
@@ -117,19 +119,21 @@ export function DonateTabs({ initialTab, zeffyUrl }: DonateTabsProps) {
             <Typography variant="body-sm" className="text-muted-foreground">
               {VOLUNTEER_TAB.description}
             </Typography>
-            <div className="space-y-xs">
-              <Typography variant="body-sm" className="font-semibold">
-                {VOLUNTEER_TAB.prompt}
-              </Typography>
-              <Typography variant="body-sm" className="text-muted-foreground">
-                {VOLUNTEER_TAB.promptText}
-                <br />
-                Email us at{" "}
-                <a href={`mailto:${VOLUNTEER_TAB.email}`} className="font-medium text-accent underline underline-offset-2 hover:text-accent/80">
-                  {VOLUNTEER_TAB.email}
-                </a>
-              </Typography>
-            </div>
+            {volunteerEmail && (
+              <div className="space-y-xs">
+                <Typography variant="body-sm" className="font-semibold">
+                  {VOLUNTEER_TAB.prompt}
+                </Typography>
+                <Typography variant="body-sm" className="text-muted-foreground">
+                  {VOLUNTEER_TAB.promptText}
+                  <br />
+                  Email us at{" "}
+                  <a href={`mailto:${volunteerEmail}`} className="font-medium text-accent underline underline-offset-2 hover:text-accent/80">
+                    {volunteerEmail}
+                  </a>
+                </Typography>
+              </div>
+            )}
           </div>
         )}
       </div>

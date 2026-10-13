@@ -3,8 +3,8 @@ import Image from "next/image";
 import { Mail, MapPin, PhoneCall, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
-import { SITE_CONTACT } from "@/data/site";
-import type { ContactInfo } from "@/lib/sanity/types";
+import { addressLines, telHref } from "@/lib/contact";
+import type { SiteSettings } from "@/lib/sanity/types";
 import { cn } from "@/lib/utils";
 
 interface ContactDetail {
@@ -19,7 +19,7 @@ interface PhotoPanelProps {
   eyebrow?: string;
   title: string[];
   image: { src: string; alt: string; className?: string };
-  contactInfo: ContactInfo | null;
+  settings: SiteSettings | null;
   /** The white card on the right (a form, tabs, ...). */
   children: React.ReactNode;
 }
@@ -28,17 +28,18 @@ interface PhotoPanelProps {
  * Navy-washed photo panel used by the Contact and Donate pages: heading top-left,
  * organisation contact details bottom-left, and a white card on the right.
  */
-export function PhotoPanel({ id, eyebrow, title, image, contactInfo, children }: PhotoPanelProps) {
-  // CMS values first; the footer's contact details are the fallback.
-  const email = contactInfo?.email || SITE_CONTACT.email;
-  const phone = contactInfo?.phone || SITE_CONTACT.phone;
-  const address = contactInfo?.address || SITE_CONTACT.addressLines.slice(1).join("\n");
-
-  const details: ContactDetail[] = [
-    { icon: Mail, label: "Shared Email Inbox", value: email, href: `mailto:${email}` },
-    { icon: MapPin, label: "Registered Office & Administration", value: address },
-    { icon: PhoneCall, label: "Administrative & Support Inquiries", value: phone, href: `tel:${phone.replace(/[^\d+]/g, "")}` },
-  ];
+export function PhotoPanel({ id, eyebrow, title, image, settings, children }: PhotoPanelProps) {
+  // Contact details come from Sanity → Contact & Site Settings; missing ones are skipped.
+  const details: ContactDetail[] = [];
+  if (settings?.email) {
+    details.push({ icon: Mail, label: "Shared Email Inbox", value: settings.email, href: `mailto:${settings.email}` });
+  }
+  if (settings?.address) {
+    details.push({ icon: MapPin, label: "Registered Office & Administration", value: addressLines(settings.address).join("\n") });
+  }
+  if (settings?.phone) {
+    details.push({ icon: PhoneCall, label: "Administrative & Support Inquiries", value: settings.phone, href: telHref(settings.phone) });
+  }
 
   return (
     <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-3xl bg-background px-md py-3xl lg:px-xl lg:py-4xl">

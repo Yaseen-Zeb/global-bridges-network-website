@@ -29,7 +29,6 @@ export const VOLUNTEER_TAB = {
     "Thank you for your interest in volunteering with Global Bridges Network. Your time, skills, and compassion can help refugees, immigrants, and vulnerable communities access support and opportunity.",
   prompt: "Interested in Volunteering?",
   promptText: "Have questions or want to learn more?",
-  email: "volunteer@globalbridgesnetwork.org",
 };
 
 export const IMPACT_WAYS = {
@@ -78,19 +77,6 @@ export const GOODS_POLICY = {
   cannotAccept: "Cannot Accept",
   description:
     "Whether you are an individual looking to mentor a family, a student group seeking community service hours, or a local business wanting to host a supply drive, we welcome your initiative.",
-  accepted: [
-    { title: "Household & Cookware Starter Kits", description: "Pots, pans, stainless steel cookware, dishware, eating utensils, and basic kitchen tools in clean condition." },
-    { title: "Winter Outerwear & Warm Blankets", description: "Clean coats, jackets, gloves, scarves, and thermal blankets for adults and children arriving in winter months." },
-    { title: "School Backpacks & Academic Supplies", description: "New or like-new backpacks, notebooks, pens, pencils, markers, and calculators for students." },
-    { title: "Hygiene & Personal Care Packages", description: "Unopened soap, shampoo, toothpaste, toothbrushes, feminine hygiene products, and grooming supplies." },
-    { title: "Baby & Children Supplies", description: "Unopened diapers, baby wipes, strollers, clean children’s clothing, and safe educational toys." },
-  ],
-  rejected: [
-    { title: "Large Bulky Electrical Appliances", description: "Large refrigerators, stoves, or unverified heavy appliances due to storage limitations." },
-    { title: "Damaged or Heavily Stained Items", description: "Torn clothing, broken furniture, or items requiring major repair or deep cleaning." },
-    { title: "Used Mattresses & Open Bedding", description: "Used mattresses, used bed pillows, or unwashed bed linens due to health and safety regulations." },
-    { title: "Opened Hygiene Products", description: "Opened, partially used, or unsealed personal care products and cosmetics." },
-  ],
 };
 
 export const SUPPORT_WAYS = {

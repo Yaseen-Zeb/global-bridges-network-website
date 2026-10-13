@@ -7,6 +7,9 @@ import { LeadershipSection } from "@/features/about/components/leadership-sectio
 import { MissionVisionSection } from "@/features/about/components/mission-vision-section";
 import { WhatWeDoSection } from "@/features/about/components/what-we-do-section";
 import { CTA_BANNER_IMAGE } from "@/features/home/data/home-content";
+import { sanityFetch } from "@/lib/sanity/fetch";
+import { ABOUT_PAGE_QUERY, CORE_VALUES_QUERY, TEAM_MEMBERS_QUERY, WHAT_WE_DO_QUERY } from "@/lib/sanity/queries";
+import type { AboutPageContent, CoreValue, Statement, TeamMember, WhatWeDoItem } from "@/lib/sanity/types";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -18,15 +21,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [page, values, whatWeDo, members] = await Promise.all([
+    sanityFetch<AboutPageContent>(ABOUT_PAGE_QUERY),
+    sanityFetch<CoreValue[]>(CORE_VALUES_QUERY),
+    sanityFetch<WhatWeDoItem[]>(WHAT_WE_DO_QUERY),
+    sanityFetch<TeamMember[]>(TEAM_MEMBERS_QUERY),
+  ]);
+  const statements = [page.missionVision?.mission, page.missionVision?.vision].filter((item): item is Statement => Boolean(item));
+
   return (
     <main className="flex min-h-screen flex-col bg-background">
       <AboutHero />
-      <MissionVisionSection />
-      <CoreValuesSection />
-      <WhatWeDoSection />
-      <FoundersJourneySection />
-      <LeadershipSection />
+      <MissionVisionSection statements={statements} />
+      <CoreValuesSection values={values} />
+      <WhatWeDoSection items={whatWeDo} />
+      <FoundersJourneySection journey={page.journey} />
+      <LeadershipSection members={members} />
       <CtaBanner
         imageSrc={CTA_BANNER_IMAGE.src}
         imageAlt={CTA_BANNER_IMAGE.alt}

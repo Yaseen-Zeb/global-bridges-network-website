@@ -4,8 +4,12 @@ import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
 import { SERVICE_AREAS } from "@/features/services/data/services-content";
+import { hotspotPosition, type Service } from "@/lib/sanity/types";
 
-export function ServiceAreasSection() {
+/** Services come from Sanity → Services with Section = Services page. */
+export function ServiceAreasSection({ services }: { services: Service[] }) {
+  if (services.length === 0) return null;
+
   return (
     <section aria-labelledby="service-areas-heading" className="bg-background px-md py-4xl lg:px-xl lg:py-5xl">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-2xl lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-3xl">
@@ -27,19 +31,21 @@ export function ServiceAreasSection() {
         </div>
 
         <ul className="space-y-md">
-          {SERVICE_AREAS.items.map((area) => (
-            <li key={area.title}>
+          {services.map((area) => (
+            <li key={area._id}>
               <article className="grid grid-cols-1 items-center gap-lg sm:grid-cols-[14rem_1fr] lg:gap-xl">
                 <Reveal direction="zoom" className="group mx-auto w-full max-w-[14rem] bg-background p-xs shadow-modal">
                   <div className="relative aspect-[4/5] overflow-hidden">
-                    <Image
-                      src={area.image.src}
-                      alt={area.image.alt}
-                      fill
-                      sizes="14rem"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                      style={{ objectPosition: area.image.position }}
-                    />
+                    {area.imageUrl && (
+                      <Image
+                        src={area.imageUrl}
+                        alt={area.imageAlt ?? ""}
+                        fill
+                        sizes="14rem"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        style={{ objectPosition: hotspotPosition(area.imageHotspot) }}
+                      />
+                    )}
                   </div>
                 </Reveal>
 
@@ -50,16 +56,18 @@ export function ServiceAreasSection() {
                   <Typography variant="caption" as="p">
                     {area.description}
                   </Typography>
+                  {area.linkHref && area.linkLabel && (
                   <Link
-                    href={area.link.href}
+                    href={area.linkHref}
                     className="group/link inline-flex items-center gap-xs text-body-sm font-semibold text-accent transition-colors hover:text-accent/80"
                   >
-                    {area.link.label}
+                    {area.linkLabel}
                     <ArrowRight
                       className="h-4 w-4 -translate-x-xs opacity-0 transition-all duration-300 group-hover/link:translate-x-0 group-hover/link:opacity-100"
                       aria-hidden="true"
                     />
                   </Link>
+                  )}
                 </Reveal>
               </article>
             </li>

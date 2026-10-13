@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { INQUIRY_CATEGORIES } from "@/data/contact-info";
+import type { InquiryCategory } from "@/lib/sanity/types";
 import { cn } from "@/lib/utils";
 
 const contactFormSchema = z.object({
@@ -33,7 +33,17 @@ const labelClass = "text-xs font-normal text-muted-foreground";
 const fieldClass = "h-10 rounded-input border-border text-sm placeholder:text-muted-foreground/70";
 const errorClass = "text-xs font-medium text-destructive";
 
-export function ContactForm({ className }: { className?: string }) {
+interface ContactFormProps {
+  /** From Sanity → Contact & Site Settings; the first one is preselected. */
+  categories: InquiryCategory[];
+  className?: string;
+}
+
+const FALLBACK_CATEGORIES: InquiryCategory[] = [{ label: "General Inquiry", value: "general" }];
+
+export function ContactForm({ categories, className }: ContactFormProps) {
+  const options = categories.length > 0 ? categories : FALLBACK_CATEGORIES;
+
   const {
     register,
     handleSubmit,
@@ -47,7 +57,7 @@ export function ContactForm({ className }: { className?: string }) {
       name: "",
       email: "",
       phone: "",
-      category: "general",
+      category: options[0].value,
       message: "",
       consent: false,
     },
@@ -164,7 +174,7 @@ export function ContactForm({ className }: { className?: string }) {
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent>
-                    {INQUIRY_CATEGORIES.map((cat) => (
+                    {options.map((cat) => (
                       <SelectItem key={cat.value} value={cat.value}>
                         {cat.label}
                       </SelectItem>

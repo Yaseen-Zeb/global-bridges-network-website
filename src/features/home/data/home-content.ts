@@ -84,27 +84,7 @@ export const SERVICES = {
   titleLine2: "Every Step Forward",
   description:
     "We provide practical support and opportunities that help individuals and communities build more secure and independent futures.",
-  items: [
-    {
-      index: "One",
-      title: ["Education", "& Opportunity"],
-      description: "Education, skills, and opportunities that help people grow, learn, and build greater independence.",
-      image: { src: `${IMG}/service-education.jpg`, alt: "Two students sitting at a classroom desk" },
-    },
-    {
-      index: "Two",
-      title: ["Community", "Support"],
-      description: "Practical assistance for individuals and families as they navigate challenges and move forward.",
-      image: { src: `${IMG}/service-community.jpg`, alt: "A community joining hands in a circle" },
-    },
-    {
-      index: "Three",
-      title: ["Essential", "Resources"],
-      description:
-        "Essential goods, resources, and everyday support that help individuals and families live with greater stability.",
-      image: { src: `${IMG}/service-resources.jpg`, alt: "A volunteer holding a food aid box" },
-    },
-  ],
+  seeMore: { label: "See All Services", href: "/services" },
 };
 
 export const HELP_PATHS = [
@@ -128,38 +108,6 @@ export const FAQ = {
   eyebrow: "FAQ",
   highlight: "Questions?",
   title: "Let’s Make It Clear.",
-  items: [
-    {
-      id: "request-support",
-      question: "How can I request support?",
-      answer:
-        "You can explore our available services and support options, then contact us to discuss your needs and find the right assistance.",
-    },
-    {
-      id: "support-types",
-      question: "What type of support does Global Bridges Network provide?",
-      answer:
-        "We connect individuals and families with education and skills opportunities, community support, and essential goods and resources that help them build stable, independent lives.",
-    },
-    {
-      id: "volunteer",
-      question: "How can I become a volunteer?",
-      answer:
-        "Visit our Get Involved page to learn about current volunteer opportunities and share how you would like to help. Our team will follow up with next steps.",
-    },
-    {
-      id: "donate-goods",
-      question: "What goods can I donate?",
-      answer:
-        "We accept essential household items, clothing, hygiene supplies, and school materials in good or new condition. Visit our Donate Goods page to submit an offer.",
-    },
-    {
-      id: "monetary-donation",
-      question: "How can I make a monetary donation?",
-      answer:
-        "You can give securely online through our Donate page, with one-time and monthly giving options available.",
-    },
-  ],
 };
 
 export const CTA_BANNER_IMAGE = { src: `${IMG}/cta-banner.jpg`, alt: "A group of children holding onto a chain-link fence at a camp" };

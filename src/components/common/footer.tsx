@@ -1,9 +1,13 @@
 import * as React from "react";
 import Link from "next/link";
-import { Linkedin, Youtube } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import { Logo } from "@/components/common/logo";
 import { Typography } from "@/components/common/typography";
-import { FOOTER_COLUMNS, LEGAL_LINKS, SITE_CONTACT, SOCIAL_LINKS, type SocialPlatform } from "@/data/site";
+import { FOOTER_COLUMNS, LEGAL_LINKS, SITE } from "@/data/site";
+import { addressLines, telHref } from "@/lib/contact";
+import { sanityFetch } from "@/lib/sanity/fetch";
+import { SITE_SETTINGS_QUERY } from "@/lib/sanity/queries";
+import type { SiteSettings, SocialPlatform } from "@/lib/sanity/types";
 
 function XIcon({ className }: { className?: string }) {
   return (
@@ -13,16 +17,21 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
-const SOCIAL_ICONS: Record<SocialPlatform, React.ComponentType<{ className?: string }>> = {
-  youtube: Youtube,
-  linkedin: Linkedin,
-  x: XIcon,
+const SOCIALS: Record<SocialPlatform, { label: string; Icon: React.ComponentType<{ className?: string }> }> = {
+  youtube: { label: "YouTube", Icon: Youtube },
+  linkedin: { label: "LinkedIn", Icon: Linkedin },
+  twitter: { label: "X (Twitter)", Icon: XIcon },
+  facebook: { label: "Facebook", Icon: Facebook },
+  instagram: { label: "Instagram", Icon: Instagram },
 };
 
 const linkClass =
   "text-sm font-semibold text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-button";
 
-export function Footer() {
+export async function Footer() {
+  const settings = await sanityFetch<SiteSettings | null>(SITE_SETTINGS_QUERY);
+  const socialLinks = (settings?.socialLinks ?? []).filter((link) => link.url && SOCIALS[link.platform]);
+
   return (
     <footer className="w-full bg-background text-foreground">
       <div className="mx-auto max-w-6xl px-md pb-lg pt-2xl lg:px-xl">
@@ -32,26 +41,28 @@ export function Footer() {
               <Logo />
             </Link>
             <Typography variant="body-sm" className="max-w-xs text-foreground/80">
-              {SITE_CONTACT.tagline}
+              {SITE.tagline}
             </Typography>
-            <ul className="flex items-center gap-sm">
-              {SOCIAL_LINKS.map(({ platform, label, href }) => {
-                const Icon = SOCIAL_ICONS[platform];
-                return (
-                  <li key={platform}>
-                    <a
-                      href={href}
-                      aria-label={label}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
-                    >
-                      <Icon className="h-4 w-4" />
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
+            {socialLinks.length > 0 && (
+              <ul className="flex items-center gap-sm">
+                {socialLinks.map(({ platform, url }) => {
+                  const { label, Icon } = SOCIALS[platform];
+                  return (
+                    <li key={platform}>
+                      <a
+                        href={url}
+                        aria-label={label}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+                      >
+                        <Icon className="h-4 w-4" />
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
 
           {FOOTER_COLUMNS.map((column) => (
@@ -76,25 +87,31 @@ export function Footer() {
               Help
             </Typography>
             <ul className="space-y-md">
-              <li>
-                <a href={`mailto:${SITE_CONTACT.email}`} className={linkClass}>
-                  {SITE_CONTACT.email}
-                </a>
-              </li>
-              <li>
-                <a href={`tel:${SITE_CONTACT.phone.replace(/[^\d+]/g, "")}`} className={linkClass}>
-                  {SITE_CONTACT.phone}
-                </a>
-              </li>
-              <li>
-                <address className="text-sm font-semibold not-italic leading-6">
-                  {SITE_CONTACT.addressLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </address>
-              </li>
+              {settings?.email && (
+                <li>
+                  <a href={`mailto:${settings.email}`} className={linkClass}>
+                    {settings.email}
+                  </a>
+                </li>
+              )}
+              {settings?.phone && (
+                <li>
+                  <a href={telHref(settings.phone)} className={linkClass}>
+                    {settings.phone}
+                  </a>
+                </li>
+              )}
+              {settings?.address && (
+                <li>
+                  <address className="text-sm font-semibold not-italic leading-6">
+                    {[SITE.organizationName, ...addressLines(settings.address)].map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </address>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -102,7 +119,7 @@ export function Footer() {
         <div className="mt-2xl flex flex-col items-center gap-sm border-t border-border pt-lg text-center">
           <Typography variant="caption" as="p" className="text-foreground">
             © Copyright {new Date().getFullYear()}, All Rights Reserved by{" "}
-            <span className="uppercase">{SITE_CONTACT.organizationName}</span>
+            <span className="uppercase">{SITE.organizationName}</span>
           </Typography>
           <nav aria-label="Legal">
             <ul className="flex items-center gap-md">

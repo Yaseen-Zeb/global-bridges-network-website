@@ -46,20 +46,9 @@ export const LEGAL_LINKS: NavLink[] = [
   { label: "Terms & Conditions", href: "/terms-and-conditions" },
 ];
 
-export const SITE_CONTACT = {
+// Contact details and social links are managed in Sanity → Contact & Site Settings.
+export const SITE = {
   organizationName: "Global Bridges Network",
   tagline:
     "Connecting people, resources, and opportunities to create stronger communities and brighter futures.",
-  email: "hello@globalbridgesnetwork.org",
-  phone: "877-829-5500",
-  addressLines: ["Global Bridges Network", "10201 Kings Arm Tavern Ct", "Ellicott City, MD 21042"],
 };
-
-export type SocialPlatform = "youtube" | "linkedin" | "x";
-
-// TODO: replace "#" with the organization's real profile URLs.
-export const SOCIAL_LINKS: { platform: SocialPlatform; label: string; href: string }[] = [
-  { platform: "youtube", label: "YouTube", href: "#" },
-  { platform: "linkedin", label: "LinkedIn", href: "#" },
-  { platform: "x", label: "X (Twitter)", href: "#" },
-];
