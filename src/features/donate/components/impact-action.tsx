@@ -5,16 +5,15 @@ import { toast } from "sonner";
 import { ButtonLink } from "@/components/common/button-link";
 import { Button } from "@/components/ui/button";
 import { openDonateTab } from "@/features/donate/components/donate-tabs";
-import type { DonateTab } from "@/features/donate/data/donate-content";
-
-type ImpactActionProps = { label: string } & (
-  | { href: string; tab?: never; share?: never }
-  | { tab: DonateTab; href?: never; share?: never }
-  | { share: true; href?: never; tab?: never }
-);
+import type { ImpactCard } from "@/lib/sanity/types";
 
 /** CTA for an impact card: a link, a jump to a donate tab, or a native share. */
-export function ImpactAction({ label, href, tab, share }: ImpactActionProps) {
+export function ImpactAction({ card }: { card: ImpactCard }) {
+  const label = card.buttonLabel;
+  const href = card.buttonAction === "link" ? card.buttonHref : undefined;
+  const tab = card.buttonAction === "tab" ? card.buttonTab : undefined;
+  const share = card.buttonAction === "share";
+
   if (href) {
     return (
       <ButtonLink href={href} variant="primary">

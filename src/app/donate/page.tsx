@@ -6,8 +6,8 @@ import { GoodsPolicySection } from "@/features/donate/components/goods-policy-se
 import { ImpactWaysSection } from "@/features/donate/components/impact-ways-section";
 import { DONATE_HERO, SUPPORT_WAYS, isDonateTab } from "@/features/donate/data/donate-content";
 import { sanityFetch } from "@/lib/sanity/fetch";
-import { GOODS_ITEMS_QUERY, SITE_SETTINGS_QUERY } from "@/lib/sanity/queries";
-import type { GoodsItem, SiteSettings } from "@/lib/sanity/types";
+import { GOODS_ITEMS_QUERY, IMPACT_WAYS_QUERY, SITE_SETTINGS_QUERY } from "@/lib/sanity/queries";
+import type { GoodsItem, ImpactWays, SiteSettings } from "@/lib/sanity/types";
 
 export const metadata: Metadata = {
   title: "Donate & Get Involved",
@@ -20,10 +20,11 @@ export const metadata: Metadata = {
 };
 
 export default async function DonatePage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
-  const [{ tab }, settings, goods] = await Promise.all([
+  const [{ tab }, settings, goods, impactWays] = await Promise.all([
     searchParams,
     sanityFetch<SiteSettings | null>(SITE_SETTINGS_QUERY),
     sanityFetch<GoodsItem[]>(GOODS_ITEMS_QUERY),
+    sanityFetch<ImpactWays | null>(IMPACT_WAYS_QUERY),
   ]);
   const acceptedGoods = goods.filter((item) => item.accepted).map((item) => item.title);
 
@@ -38,7 +39,7 @@ export default async function DonatePage({ searchParams }: { searchParams: Promi
           goodsCategories={acceptedGoods}
         />
       </PhotoPanel>
-      <ImpactWaysSection />
+      <ImpactWaysSection content={impactWays} />
       <GoodsPolicySection items={goods} />
       <DarkCardsSection id="support-ways" {...SUPPORT_WAYS} />
     </main>

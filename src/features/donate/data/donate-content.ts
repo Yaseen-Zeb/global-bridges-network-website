@@ -1,9 +1,6 @@
 /**
  * Donate page copy and imagery (approved Figma design).
- * Images live in /public/images/donate.
  */
-
-const IMG = "/images/donate";
 
 export const DONATE_TABS = [
   { id: "goods", label: "Donate Goods" },
@@ -30,46 +27,6 @@ export const VOLUNTEER_TAB = {
   prompt: "Interested in Volunteering?",
   promptText: "Have questions or want to learn more?",
 };
-
-export const IMPACT_WAYS = {
-  eyebrow: "Practical Support",
-  title: ["Four Ways You Can", "Make an Impact"],
-  description: "Choose a pathway that aligns with your capacity, skills, and community goals.",
-  items: [
-    {
-      icon: "volunteer",
-      title: ["Volunteer", "Your Time"],
-      description:
-        "Share your skills and time as a community mentor, assist with English language practice, or help organize local welcome events.",
-      action: { label: "Inquire About Volunteering", tab: "volunteer" },
-      image: { src: `${IMG}/way-volunteer.jpg`, alt: "A volunteer standing with arms crossed during a forest clean-up" },
-    },
-    {
-      icon: "goods",
-      title: ["Donate", "Essential Goods"],
-      description:
-        "Provide physical necessities such as winter coats, cookware sets, hygiene packages, and school supplies for arriving families.",
-      action: { label: "View Goods Needed", href: "#accepted-goods" },
-      image: { src: `${IMG}/way-goods.jpg`, alt: "Smiling volunteers handing out water beside aid boxes" },
-    },
-    {
-      icon: "partner",
-      title: ["Partner", "With Us"],
-      description:
-        "Collaborate as a local business, community organization, school, or faith group to host drives or support integration efforts.",
-      action: { label: "Explore Partnerships", href: "/contact" },
-      image: { src: `${IMG}/way-partner.jpg`, alt: "Two older adults talking warmly over coffee" },
-    },
-    {
-      icon: "share",
-      title: ["Share", "Our Mission"],
-      description:
-        "Help raise awareness by sharing our stories, advocating for refugee dignity, and amplifying community voices within your networks.",
-      action: { label: "Spread the Word", share: true },
-      image: { src: `${IMG}/way-share.jpg`, alt: "Colleagues meeting around a conference table" },
-    },
-  ],
-} as const;
 
 export const GOODS_POLICY = {
   eyebrow: "Getting Started",

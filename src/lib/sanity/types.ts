@@ -139,6 +139,29 @@ export interface GoodsItem {
   accepted: boolean;
 }
 
+export type ImpactIcon = "volunteer" | "goods" | "partner" | "share" | "heart" | "gift";
+
+export interface ImpactCard {
+  _key: string;
+  icon: ImpactIcon;
+  title: string;
+  description: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  imageHotspot?: ImageHotspot | null;
+  buttonLabel: string;
+  buttonAction: "link" | "tab" | "share";
+  buttonHref?: string;
+  buttonTab?: "goods" | "money" | "volunteer";
+}
+
+export interface ImpactWays {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  cards?: ImpactCard[] | null;
+}
+
 // ─── Legal pages ──────────────────────────────────────────────────────────────
 
 export interface LegalSection {

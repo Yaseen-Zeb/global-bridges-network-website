@@ -144,6 +144,28 @@ export const GOODS_ITEMS_QUERY = groq`
   }
 `;
 
+/** "Four Ways You Can Make an Impact" (singleton). */
+export const IMPACT_WAYS_QUERY = groq`
+  *[_type == "impactWays" && _id == "impactWays"][0] {
+    eyebrow,
+    title,
+    description,
+    cards[] {
+      _key,
+      icon,
+      title,
+      description,
+      "imageUrl": image.asset->url,
+      "imageAlt": image.alt,
+      "imageHotspot": image.hotspot,
+      buttonLabel,
+      buttonAction,
+      buttonHref,
+      buttonTab
+    }
+  }
+`;
+
 // ─── Legal pages ──────────────────────────────────────────────────────────────
 
 /** $id: "privacyPolicy" | "termsAndConditions" */
