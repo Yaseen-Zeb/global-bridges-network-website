@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { ContactPanel } from "@/features/contact/components/contact-panel";
+import { PhotoPanel } from "@/components/common/photo-panel";
+import { ContactForm } from "@/features/contact/components/contact-form";
+import { CONTACT_HERO } from "@/features/contact/data/contact-content";
 import { HelpPathsSection } from "@/features/home/components/help-paths-section";
 import { client } from "@/lib/sanity/client";
 import { CONTACT_INFO_QUERY } from "@/lib/sanity/queries";
@@ -22,7 +24,15 @@ export default async function ContactPage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-background">
-      <ContactPanel contactInfo={contactInfo} />
+      <PhotoPanel
+        id="contact"
+        eyebrow={CONTACT_HERO.eyebrow}
+        title={CONTACT_HERO.title}
+        image={{ ...CONTACT_HERO.image, className: "-scale-x-100" }}
+        contactInfo={contactInfo}
+      >
+        <ContactForm />
+      </PhotoPanel>
       <HelpPathsSection />
     </main>
   );

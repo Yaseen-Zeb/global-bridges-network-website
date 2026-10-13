@@ -47,6 +47,7 @@ const config: Config = {
         },
         highlight: "hsl(var(--highlight))",
         navy: "hsl(var(--navy))",
+        danger: "hsl(var(--danger))",
         surface: {
           DEFAULT: "hsl(var(--surface))",
           foreground: "hsl(var(--surface-foreground))",

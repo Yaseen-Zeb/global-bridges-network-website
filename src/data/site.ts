@@ -16,7 +16,7 @@ export const PRIMARY_NAV: NavLink[] = [
 ];
 
 export const CTA_LINKS = {
-  getInvolved: { label: "Get Involved", href: "/get-involved" },
+  getInvolved: { label: "Get Involved", href: "/donate" },
   findSupport: { label: "Find Support", href: "/services" },
 } as const;
 
@@ -33,9 +33,9 @@ export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
   {
     title: "Get Involved",
     links: [
-      { label: "Volunteer", href: "/get-involved" },
-      { label: "Donate Goods", href: "/donate-goods" },
-      { label: "Donate Money", href: "/donate" },
+      { label: "Volunteer", href: "/donate?tab=volunteer" },
+      { label: "Donate Goods", href: "/donate?tab=goods" },
+      { label: "Donate Money", href: "/donate?tab=money" },
       { label: "Partner With Us", href: "/contact" },
     ],
   },

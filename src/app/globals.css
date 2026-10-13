@@ -28,6 +28,9 @@
     --surface: 0 0% 95%;
     --surface-foreground: 0 0% 7%;
 
+    /* Bright red for "cannot accept" goods (#F04848) */
+    --danger: 0 85% 61%;
+
     /* Deep navy photo overlay (#152942) — contact panel */
     --navy: 213 52% 17%;
 

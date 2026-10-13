@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { CtaBanner } from "@/components/common/cta-banner";
+import { DarkCardsSection } from "@/components/common/dark-cards-section";
 import { CTA_BANNER_IMAGE } from "@/features/home/data/home-content";
-import { ApproachSection } from "@/features/services/components/approach-section";
 import { ServiceAreasSection } from "@/features/services/components/service-areas-section";
 import { ServicesHero } from "@/features/services/components/services-hero";
+import { APPROACH } from "@/features/services/data/services-content";
 
 export const metadata: Metadata = {
   title: "Our Services",
@@ -20,7 +21,7 @@ export default function ServicesPage() {
     <main className="flex min-h-screen flex-col bg-background">
       <ServicesHero />
       <ServiceAreasSection />
-      <ApproachSection />
+      <DarkCardsSection id="approach" {...APPROACH} />
       <CtaBanner imageSrc={CTA_BANNER_IMAGE.src} imageAlt={CTA_BANNER_IMAGE.alt} topClassName="bg-ink" />
     </main>
   );
