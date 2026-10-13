@@ -41,6 +41,12 @@ export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
   },
 ];
 
+export const LEGAL_LINKS: NavLink[] = [
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  // TODO: page not built yet; this link 404s until /terms-and-conditions exists.
+  { label: "Terms & Conditions", href: "/terms-and-conditions" },
+];
+
 export const SITE_CONTACT = {
   organizationName: "Global Bridges Network",
   tagline:

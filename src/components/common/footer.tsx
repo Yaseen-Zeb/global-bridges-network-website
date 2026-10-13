@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Linkedin, Youtube } from "lucide-react";
 import { Logo } from "@/components/common/logo";
 import { Typography } from "@/components/common/typography";
-import { FOOTER_COLUMNS, SITE_CONTACT, SOCIAL_LINKS, type SocialPlatform } from "@/data/site";
+import { FOOTER_COLUMNS, LEGAL_LINKS, SITE_CONTACT, SOCIAL_LINKS, type SocialPlatform } from "@/data/site";
 
 function XIcon({ className }: { className?: string }) {
   return (
@@ -99,11 +99,25 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-2xl border-t border-border pt-lg text-center">
+        <div className="mt-2xl flex flex-col items-center gap-sm border-t border-border pt-lg text-center">
           <Typography variant="caption" as="p" className="text-foreground">
             © Copyright {new Date().getFullYear()}, All Rights Reserved by{" "}
             <span className="uppercase">{SITE_CONTACT.organizationName}</span>
           </Typography>
+          <nav aria-label="Legal">
+            <ul className="flex items-center gap-md">
+              {LEGAL_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-button"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       </div>
     </footer>
