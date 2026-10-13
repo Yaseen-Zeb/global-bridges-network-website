@@ -35,3 +35,18 @@ export const GOODS_POLICY = {
   description:
     "Whether you are an individual looking to mentor a family, a student group seeking community service hours, or a local business wanting to host a supply drive, we welcome your initiative.",
 };
+
+/** Heading for the Four Ways cards (cards: Sanity → Four Ways). */
+export const IMPACT_WAYS = {
+  eyebrow: "Practical Support",
+  title: "Four Ways You Can\nMake an Impact",
+  description: "Choose a pathway that aligns with your capacity, skills, and community goals.",
+};
+
+/** Heading for the Supporting Our Work cards (cards: Sanity → Supporting Our Work). */
+export const SUPPORT_WAYS = {
+  eyebrow: "Getting Started",
+  title: "Interested in\nSupporting Our Work?",
+  description:
+    "Whether you are an individual looking to mentor a family, a student group seeking community service hours, or a local business wanting to host a supply drive, we welcome your initiative.",
+};

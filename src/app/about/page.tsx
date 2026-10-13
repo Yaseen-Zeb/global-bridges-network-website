@@ -36,7 +36,7 @@ export default async function AboutPage() {
       <MissionVisionSection statements={statements} />
       <CoreValuesSection values={values} />
       <WhatWeDoSection items={whatWeDo} />
-      <FoundersJourneySection journey={page.journey} />
+      <FoundersJourneySection milestones={page.milestones ?? []} />
       <LeadershipSection members={members} />
       <CtaBanner
         imageSrc={CTA_BANNER_IMAGE.src}

@@ -1,11 +1,11 @@
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
 import { JourneyTimeline } from "@/features/about/components/journey-timeline";
-import type { FoundersJourney } from "@/lib/sanity/types";
+import { FOUNDERS_JOURNEY } from "@/features/about/data/about-content";
+import type { Milestone } from "@/lib/sanity/types";
 
-/** Content: Sanity → Founders Journey. */
-export function FoundersJourneySection({ journey }: { journey: FoundersJourney | null }) {
-  const milestones = journey?.milestones ?? [];
+/** Milestones: Sanity → Founders Journey. Heading: about-content.ts. */
+export function FoundersJourneySection({ milestones }: { milestones: Milestone[] }) {
   if (milestones.length === 0) return null;
 
   return (
@@ -16,16 +16,14 @@ export function FoundersJourneySection({ journey }: { journey: FoundersJourney |
       <div className="mx-auto max-w-5xl space-y-3xl">
         <Reveal className="mx-auto max-w-xl space-y-sm text-center">
           <Typography variant="overline" as="p">
-            {journey?.eyebrow}
+            {FOUNDERS_JOURNEY.eyebrow}
           </Typography>
           <Typography variant="h2" id="founders-journey-heading" className="whitespace-pre-line text-accent-foreground">
-            {journey?.title}
+            {FOUNDERS_JOURNEY.title}
           </Typography>
-          {journey?.description && (
-            <Typography variant="body-sm" className="text-accent-foreground/90">
-              {journey.description}
-            </Typography>
-          )}
+          <Typography variant="body-sm" className="text-accent-foreground/90">
+            {FOUNDERS_JOURNEY.description}
+          </Typography>
         </Reveal>
 
         <JourneyTimeline milestones={milestones} />

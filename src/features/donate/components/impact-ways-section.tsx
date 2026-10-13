@@ -3,7 +3,8 @@ import { Gift, Handshake, Heart, Megaphone, Package, UsersRound, type LucideIcon
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
 import { ImpactAction } from "@/features/donate/components/impact-action";
-import { hotspotPosition, type ImpactIcon, type ImpactWays } from "@/lib/sanity/types";
+import { IMPACT_WAYS } from "@/features/donate/data/donate-content";
+import { hotspotPosition, type ImpactCard, type ImpactIcon } from "@/lib/sanity/types";
 
 const ICONS: Record<ImpactIcon, LucideIcon> = {
   volunteer: UsersRound,
@@ -17,27 +18,24 @@ const ICONS: Record<ImpactIcon, LucideIcon> = {
 /**
  * Stacked cards: all stick at the same offset, so while scrolling each new card
  * slides up and completely covers the previous one (no edges peeking out).
- * Content: Sanity → Four Ways (Donate page).
+ * Cards: Sanity → Four Ways (Donate page). Heading: donate-content.ts.
  */
-export function ImpactWaysSection({ content }: { content: ImpactWays | null }) {
-  const cards = content?.cards ?? [];
-  if (!content || cards.length === 0) return null;
+export function ImpactWaysSection({ cards }: { cards: ImpactCard[] }) {
+  if (cards.length === 0) return null;
 
   return (
     <section aria-labelledby="impact-ways-heading" className="bg-background px-md pb-4xl lg:px-xl lg:pb-5xl">
       <div className="mx-auto max-w-6xl space-y-2xl">
         <Reveal className="mx-auto max-w-md space-y-sm text-center">
           <Typography variant="overline" as="p">
-            {content.eyebrow}
+            {IMPACT_WAYS.eyebrow}
           </Typography>
           <Typography variant="h2" id="impact-ways-heading" className="whitespace-pre-line">
-            {content.title}
+            {IMPACT_WAYS.title}
           </Typography>
-          {content.description && (
-            <Typography variant="body-sm" className="text-muted-foreground">
-              {content.description}
-            </Typography>
-          )}
+          <Typography variant="body-sm" className="text-muted-foreground">
+            {IMPACT_WAYS.description}
+          </Typography>
         </Reveal>
 
         <ol className="space-y-md">

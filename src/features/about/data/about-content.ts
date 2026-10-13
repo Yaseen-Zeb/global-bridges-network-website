@@ -38,3 +38,11 @@ export const LEADERSHIP = {
   title: ["Our Founders &", "Leadership Team"],
   description: "Guided by dedicated advocates with deep experience in international dialogue and community service.",
 };
+
+/** Heading for the Founders Journey timeline (milestones: Sanity → Founders Journey). */
+export const FOUNDERS_JOURNEY = {
+  eyebrow: "Founders Journey",
+  title: "From Experience\nto Empowerment",
+  description:
+    "Global Bridges Network grew from lived experience and decades of service into an organization focused on helping people build safe, healthy, and self sufficient lives.",
+};

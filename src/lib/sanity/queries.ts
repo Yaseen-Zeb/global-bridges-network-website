@@ -15,16 +15,13 @@ import { groq } from "next-sanity";
 
 // ─── FAQs ─────────────────────────────────────────────────────────────────────
 
-/** All FAQs, sorted by category then explicit order field */
+/** All FAQs (FAQs page), in the order set in the Studio. */
 export const FAQS_QUERY = groq`
-  *[_type == "faq"] | order(category asc, order asc) {
-    _id,
-    _type,
-    _createdAt,
+  *[_id == "faqs"][0].items[] {
+    "_id": _key,
     category,
     question,
-    answer,
-    order
+    answer
   }
 `;
 
@@ -45,9 +42,10 @@ export const SITE_SETTINGS_QUERY = groq`
 
 // ─── Home page ────────────────────────────────────────────────────────────────
 
+/** FAQs with "Show on Home Page" on, in list order. */
 export const HOME_FAQS_QUERY = groq`
-  *[_type == "faq" && showOnHome == true] | order(order asc) {
-    _id,
+  *[_id == "faqs"][0].items[showOnHome == true] {
+    "_id": _key,
     question,
     answer
   }
@@ -55,10 +53,10 @@ export const HOME_FAQS_QUERY = groq`
 
 // ─── Services ─────────────────────────────────────────────────────────────────
 
-/** All published services (Services page). */
+/** All services (Services page), in the order set in the Studio. */
 export const SERVICES_QUERY = groq`
-  *[_type == "serviceArea" && published != false] | order(order asc) {
-    _id,
+  *[_id == "services"][0].items[] {
+    "_id": _key,
     title,
     description,
     "imageUrl": image.asset->url,
@@ -71,8 +69,8 @@ export const SERVICES_QUERY = groq`
 
 /** The first four services (home page). */
 export const HOME_SERVICES_QUERY = groq`
-  *[_type == "serviceArea" && published != false] | order(order asc) [0...4] {
-    _id,
+  *[_id == "services"][0].items[0...4] {
+    "_id": _key,
     title,
     description,
     "imageUrl": image.asset->url,
@@ -89,11 +87,7 @@ export const ABOUT_PAGE_QUERY = groq`{
     mission { eyebrow, title, description },
     vision { eyebrow, title, description }
   },
-  "journey": *[_type == "foundersJourney" && _id == "foundersJourney"][0] {
-    eyebrow,
-    title,
-    description,
-    milestones[] {
+  "milestones": *[_type == "foundersJourney" && _id == "foundersJourney"][0].milestones[] {
       _key,
       eyebrow,
       title,
@@ -101,13 +95,12 @@ export const ABOUT_PAGE_QUERY = groq`{
       "imageUrl": image.asset->url,
       "imageAlt": image.alt,
       "imageHotspot": image.hotspot
-    }
   }
 }`;
 
 export const TEAM_MEMBERS_QUERY = groq`
-  *[_type == "teamMember" && published != false] | order(order asc) {
-    _id,
+  *[_id == "leadership"][0].items[] {
+    "_id": _key,
     name,
     title,
     bio,
@@ -117,8 +110,8 @@ export const TEAM_MEMBERS_QUERY = groq`
 `;
 
 export const WHAT_WE_DO_QUERY = groq`
-  *[_type == "whatWeDo" && published != false] | order(order asc) {
-    _id,
+  *[_id == "whatWeDo"][0].items[] {
+    "_id": _key,
     title,
     description,
     cardSize
@@ -126,8 +119,8 @@ export const WHAT_WE_DO_QUERY = groq`
 `;
 
 export const CORE_VALUES_QUERY = groq`
-  *[_type == "coreValue"] | order(order asc) {
-    _id,
+  *[_id == "coreValues"][0].items[] {
+    "_id": _key,
     title,
     description
   }
@@ -136,21 +129,17 @@ export const CORE_VALUES_QUERY = groq`
 // ─── Donate page ──────────────────────────────────────────────────────────────
 
 export const GOODS_ITEMS_QUERY = groq`
-  *[_type == "goodsItem"] | order(accepted desc, order asc) {
-    _id,
+  *[_id == "goods"][0].items[] {
+    "_id": _key,
     title,
     description,
-    accepted
+    "accepted": accepted != false
   }
 `;
 
-/** "Four Ways You Can Make an Impact" (singleton). */
+/** Cards for "Four Ways You Can Make an Impact". */
 export const IMPACT_WAYS_QUERY = groq`
-  *[_type == "impactWays" && _id == "impactWays"][0] {
-    eyebrow,
-    title,
-    description,
-    cards[] {
+  *[_type == "impactWays" && _id == "impactWays"][0].cards[] {
       _key,
       icon,
       title,
@@ -162,18 +151,12 @@ export const IMPACT_WAYS_QUERY = groq`
       buttonAction,
       buttonHref,
       buttonTab
-    }
   }
 `;
 
-/** "Interested in Supporting Our Work?" (singleton). */
+/** Cards for "Interested in Supporting Our Work?". */
 export const SUPPORT_WAYS_QUERY = groq`
-  *[_type == "supportWays" && _id == "supportWays"][0] {
-    eyebrow,
-    title,
-    description,
-    cards[] { _key, title, description }
-  }
+  *[_type == "supportWays" && _id == "supportWays"][0].cards[] { _key, title, description }
 `;
 
 // ─── Legal pages ──────────────────────────────────────────────────────────────

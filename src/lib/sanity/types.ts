@@ -8,13 +8,11 @@
 // ─── FAQ ─────────────────────────────────────────────────────────────────────
 
 export interface FAQItem {
+  /** The item's _key in the FAQ list. */
   _id: string;
-  _type: "faq";
-  _createdAt: string;
   category: "general" | "services" | "donations" | "donate-goods" | "get-involved";
   question: string;
   answer: string;
-  order: number;
 }
 
 // ─── Site Settings (Singleton) ────────────────────────────────────────────────
@@ -112,16 +110,9 @@ export interface MissionVision {
   vision?: Statement | null;
 }
 
-export interface FoundersJourney {
-  eyebrow?: string;
-  title?: string;
-  description?: string;
-  milestones?: Milestone[] | null;
-}
-
 export interface AboutPageContent {
   missionVision: MissionVision | null;
-  journey: FoundersJourney | null;
+  milestones: Milestone[] | null;
 }
 
 export interface CoreValue {
@@ -155,18 +146,11 @@ export interface ImpactCard {
   buttonTab?: "goods" | "money" | "volunteer";
 }
 
-export interface ImpactWays {
-  eyebrow: string;
-  title: string;
-  description?: string;
-  cards?: ImpactCard[] | null;
-}
 
-export interface SupportWays {
-  eyebrow: string;
+export interface SupportCard {
+  _key: string;
   title: string;
-  description?: string;
-  cards?: { _key: string; title: string; description: string }[] | null;
+  description: string;
 }
 
 // ─── Legal pages ──────────────────────────────────────────────────────────────
