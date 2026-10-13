@@ -38,11 +38,13 @@ export function BridgeSteps({ steps }: { steps: Step[] }) {
         let progress: number;
 
         if (desktop.matches) {
-          // 0 when the row's top touches the viewport bottom, 1 when it's ~35% up from the top.
-          const row = clamp((vh - top) / (vh * 0.65));
+          // Starts once the row's top is 80% down the viewport (cards actually in view),
+          // finishes when it reaches 25% from the top.
+          const row = clamp((vh * 0.8 - top) / (vh * 0.55));
           progress = clamp((row - i * 0.15) / 0.55);
         } else {
-          progress = clamp((vh - top) / (vh * 0.45));
+          // Each card starts rising once its top is 90% down the viewport.
+          progress = clamp((vh * 0.9 - top) / (vh * 0.45));
         }
 
         const offset = (1 - easeOutCubic(progress)) * (desktop.matches ? 100 : 25);
