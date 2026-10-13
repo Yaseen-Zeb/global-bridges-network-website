@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { transporter } from "@/lib/mailer";
+import { renderBrandedEmail } from "@/lib/email-template";
 import { createClient } from "next-sanity";
 
 const sanityClient = createClient({
@@ -66,29 +67,23 @@ Privacy Acknowledged: Yes
 Submitted At: ${new Date().toISOString()}
 =====================================================
       `.trim(),
-      html: `
-<!DOCTYPE html>
-<html lang="en">
-<body style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a;">
-  <div style="background:#0f172a;padding:24px 32px;border-radius:8px 8px 0 0;">
-    <h1 style="color:#ffffff;font-size:18px;margin:0;">New Contact Inquiry</h1>
-    <p style="color:#94a3b8;font-size:13px;margin:4px 0 0;">Global Bridges Network Website</p>
-  </div>
-  <div style="border:1px solid #e2e8f0;border-top:none;padding:24px 32px;border-radius:0 0 8px 8px;">
-    <table style="width:100%;border-collapse:collapse;font-size:14px;">
-      <tr><td style="padding:8px 0;color:#64748b;width:130px;">Full Name</td><td style="padding:8px 0;font-weight:600;">${data.name}</td></tr>
-      <tr><td style="padding:8px 0;color:#64748b;">Email</td><td style="padding:8px 0;"><a href="mailto:${data.email}" style="color:#2563eb;">${data.email}</a></td></tr>
-      <tr><td style="padding:8px 0;color:#64748b;">Phone</td><td style="padding:8px 0;">${data.phone ?? "Not provided"}</td></tr>
-      <tr><td style="padding:8px 0;color:#64748b;">Category</td><td style="padding:8px 0;"><span style="background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">${data.category.toUpperCase()}</span></td></tr>
-    </table>
-    <hr style="border:none;border-top:1px solid #e2e8f0;margin:16px 0;"/>
-    <p style="color:#64748b;font-size:13px;margin:0 0 8px;">Message</p>
-    <div style="background:#f8fafc;border-left:3px solid #2563eb;padding:12px 16px;border-radius:4px;font-size:14px;line-height:1.6;white-space:pre-wrap;">${data.message}</div>
-    <p style="color:#94a3b8;font-size:11px;margin:24px 0 0;">Submitted at ${new Date().toUTCString()}</p>
-  </div>
-</body>
-</html>
-      `.trim(),
+      html: renderBrandedEmail({
+        overline: "Website Contact Form",
+        title: "New Contact Inquiry",
+        intro: `${data.name} sent a message through the website.`,
+        replyTo: { name: data.name, email: data.email },
+        sections: [
+          {
+            rows: [
+              { label: "Full name", value: data.name },
+              { label: "Email", value: data.email, email: true },
+              { label: "Phone", value: data.phone },
+              { label: "Category", value: data.category, badge: "blue" },
+            ],
+            blocks: [{ label: "Message", text: data.message, accent: "blue" }],
+          },
+        ],
+      }),
     });
 
     return NextResponse.json(
