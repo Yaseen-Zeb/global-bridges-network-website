@@ -42,7 +42,7 @@ export function PhotoPanel({ id, eyebrow, title, image, settings, children }: Ph
   }
 
   return (
-    <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-3xl bg-background px-md py-3xl lg:px-xl lg:py-4xl">
+    <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-3xl bg-background px-md pb-3xl pt-xl lg:px-xl lg:pb-4xl lg:pt-2xl">
       <Reveal direction="zoom" className="relative mx-auto max-w-6xl overflow-hidden bg-navy">
         {/* Photo with a deep-navy wash, darkest at the bottom where the contact details sit. */}
         <Image
