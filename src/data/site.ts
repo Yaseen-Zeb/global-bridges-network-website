@@ -11,6 +11,7 @@ export interface NavLink {
 export const PRIMARY_NAV: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
+  { label: "Volunteer", href: "/volunteer" },
   { label: "Contact", href: "/contact" },
   { label: "About", href: "/about" },
 ];
@@ -33,7 +34,7 @@ export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
   {
     title: "Get Involved",
     links: [
-      { label: "Volunteer", href: "/donate?tab=volunteer" },
+      { label: "Volunteer", href: "/volunteer" },
       { label: "Donate Goods", href: "/donate?tab=goods" },
       { label: "Donate Money", href: "/donate?tab=money" },
       { label: "Partner With Us", href: "/contact" },

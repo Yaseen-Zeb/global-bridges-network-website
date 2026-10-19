@@ -37,7 +37,7 @@ export function Header() {
         </Link>
 
         <nav aria-label="Main navigation" className="hidden md:block">
-          <ul className="flex items-center gap-xl">
+          <ul className="flex items-center gap-md lg:gap-xl">
             {PRIMARY_NAV.map((link) => {
               const active = isActivePath(pathname, link.href);
               return (

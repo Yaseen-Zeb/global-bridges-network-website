@@ -18,11 +18,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Donate Goods and Get Involved were merged into the tabbed /donate page.
+  // Donate Goods was merged into the tabbed /donate page; volunteering moved to its own /volunteer page.
   async redirects() {
     return [
       { source: "/donate-goods", destination: "/donate?tab=goods", permanent: true },
-      { source: "/get-involved", destination: "/donate?tab=volunteer", permanent: true },
+      { source: "/get-involved", destination: "/volunteer", permanent: true },
+      {
+        source: "/donate",
+        has: [{ type: "query", key: "tab", value: "volunteer" }],
+        destination: "/volunteer",
+        permanent: true,
+      },
     ];
   },
 };

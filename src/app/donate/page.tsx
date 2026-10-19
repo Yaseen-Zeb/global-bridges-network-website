@@ -12,10 +12,10 @@ import type { GoodsItem, ImpactCard, SiteSettings, SupportCard } from "@/lib/san
 export const metadata: Metadata = {
   title: "Donate & Get Involved",
   description:
-    "Donate essential goods, give financially, or volunteer your time with Global Bridges Network to support refugees, immigrants, and vulnerable families.",
+    "Donate essential goods or give financially to Global Bridges Network to support refugees, immigrants, and vulnerable families.",
   openGraph: {
     title: "Donate & Get Involved | Global Bridges Network",
-    description: "Donate goods, give money, volunteer, partner with us, or share our mission.",
+    description: "Donate goods, give money, partner with us, or share our mission.",
   },
 };
 
@@ -36,7 +36,6 @@ export default async function DonatePage({ searchParams }: { searchParams: Promi
           key={tab ?? "goods"}
           initialTab={isDonateTab(tab) ? tab : "goods"}
           zeffyUrl={settings?.donationFormUrl ?? null}
-          volunteerEmail={settings?.volunteerEmail}
           goodsCategories={acceptedGoods}
         />
       </PhotoPanel>

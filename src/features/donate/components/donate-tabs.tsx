@@ -4,7 +4,7 @@ import * as React from "react";
 import { Typography } from "@/components/common/typography";
 import { DonationWidget } from "@/features/donate/components/donation-widget";
 import { GoodsForm } from "@/features/donate/components/goods-form";
-import { DONATE_TABS, VOLUNTEER_TAB, isDonateTab, type DonateTab } from "@/features/donate/data/donate-content";
+import { DONATE_TABS, isDonateTab, type DonateTab } from "@/features/donate/data/donate-content";
 import { cn } from "@/lib/utils";
 
 export const SELECT_TAB_EVENT = "donate:select-tab";
@@ -18,13 +18,12 @@ export function openDonateTab(tab: DonateTab) {
 interface DonateTabsProps {
   initialTab: DonateTab;
   zeffyUrl: string | null;
-  volunteerEmail?: string;
   goodsCategories: string[];
 }
 
-export function DonateTabs({ initialTab, zeffyUrl, volunteerEmail, goodsCategories }: DonateTabsProps) {
+export function DonateTabs({ initialTab, zeffyUrl, goodsCategories }: DonateTabsProps) {
   const [active, setActive] = React.useState<DonateTab>(initialTab);
-  const tabRefs = React.useRef<Record<DonateTab, HTMLButtonElement | null>>({ goods: null, money: null, volunteer: null });
+  const tabRefs = React.useRef<Record<DonateTab, HTMLButtonElement | null>>({ goods: null, money: null });
 
   const select = React.useCallback((tab: DonateTab) => {
     setActive(tab);
@@ -33,7 +32,7 @@ export function DonateTabs({ initialTab, zeffyUrl, volunteerEmail, goodsCategori
     window.history.replaceState(null, "", url);
   }, []);
 
-  // In-page buttons (e.g. "Inquire About Volunteering") switch tabs via this event.
+  // In-page buttons (e.g. the Four Ways cards) switch tabs via this event.
   React.useEffect(() => {
     const onSelect = (e: Event) => {
       const tab = (e as CustomEvent<unknown>).detail;
@@ -52,7 +51,7 @@ export function DonateTabs({ initialTab, zeffyUrl, volunteerEmail, goodsCategori
 
   return (
     <div className="bg-background p-md shadow-modal sm:p-lg">
-      <div role="tablist" aria-label="Ways to give" className="mb-lg grid grid-cols-3 border border-border">
+      <div role="tablist" aria-label="Ways to give" className="mb-lg grid grid-cols-2 border border-border">
         {DONATE_TABS.map((tab, index) => {
           const selected = tab.id === active;
           return (
@@ -101,41 +100,6 @@ export function DonateTabs({ initialTab, zeffyUrl, volunteerEmail, goodsCategori
               </Typography>
             </div>
           ))}
-
-        {active === "volunteer" && (
-          <div className="space-y-md pb-3xl">
-            <div className="space-y-xs">
-              <Typography variant="overline" as="p">
-                {VOLUNTEER_TAB.eyebrow}
-              </Typography>
-              <Typography variant="h3">
-                {VOLUNTEER_TAB.title.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </Typography>
-            </div>
-            <Typography variant="body-sm" className="text-muted-foreground">
-              {VOLUNTEER_TAB.description}
-            </Typography>
-            {volunteerEmail && (
-              <div className="space-y-xs">
-                <Typography variant="body-sm" className="font-semibold">
-                  {VOLUNTEER_TAB.prompt}
-                </Typography>
-                <Typography variant="body-sm" className="text-muted-foreground">
-                  {VOLUNTEER_TAB.promptText}
-                  <br />
-                  Email us at{" "}
-                  <a href={`mailto:${volunteerEmail}`} className="font-medium text-accent underline underline-offset-2 hover:text-accent/80">
-                    {volunteerEmail}
-                  </a>
-                </Typography>
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );

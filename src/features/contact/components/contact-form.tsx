@@ -36,13 +36,19 @@ const errorClass = "text-xs font-medium text-destructive";
 interface ContactFormProps {
   /** From Sanity → Contact & Site Settings; the first one is preselected. */
   categories: InquiryCategory[];
+  /** Preselect this category when it exists (e.g. "volunteer" on the Volunteer page). */
+  defaultCategory?: string;
+  /** Replaces the default line above the form. */
+  intro?: React.ReactNode;
+  messageLabel?: string;
   className?: string;
 }
 
 const FALLBACK_CATEGORIES: InquiryCategory[] = [{ label: "General Inquiry", value: "general" }];
 
-export function ContactForm({ categories, className }: ContactFormProps) {
+export function ContactForm({ categories, defaultCategory, intro, messageLabel = "Item Details", className }: ContactFormProps) {
   const options = categories.length > 0 ? categories : FALLBACK_CATEGORIES;
+  const initialCategory = options.find((cat) => cat.value === defaultCategory)?.value ?? options[0].value;
 
   const {
     register,
@@ -57,7 +63,7 @@ export function ContactForm({ categories, className }: ContactFormProps) {
       name: "",
       email: "",
       phone: "",
-      category: options[0].value,
+      category: initialCategory,
       message: "",
       consent: false,
     },
@@ -94,9 +100,11 @@ export function ContactForm({ categories, className }: ContactFormProps) {
 
   return (
     <div className={cn("bg-background p-lg shadow-modal sm:p-xl", className)}>
-      <Typography variant="body-sm" className="mb-lg text-muted-foreground">
-        Fill out the inquiry form below. Your message will be forwarded directly to our team inbox.
-      </Typography>
+      {intro ?? (
+        <Typography variant="body-sm" className="mb-lg text-muted-foreground">
+          Fill out the inquiry form below. Your message will be forwarded directly to our team inbox.
+        </Typography>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-md" noValidate>
         <div className="grid grid-cols-1 gap-md sm:grid-cols-2">
@@ -193,7 +201,7 @@ export function ContactForm({ categories, className }: ContactFormProps) {
 
         <div className="space-y-xs">
           <Label htmlFor="contact-message" className={labelClass}>
-            Item Details
+            {messageLabel}
           </Label>
           <Textarea
             id="contact-message"

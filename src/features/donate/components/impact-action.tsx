@@ -10,8 +10,9 @@ import type { ImpactCard } from "@/lib/sanity/types";
 /** CTA for an impact card: a link, a jump to a donate tab, or a native share. */
 export function ImpactAction({ card }: { card: ImpactCard }) {
   const label = card.buttonLabel;
-  const href = card.buttonAction === "link" ? card.buttonHref : undefined;
   const tab = card.buttonAction === "tab" ? card.buttonTab : undefined;
+  // Volunteering moved out of the donate panel to its own page.
+  const href = card.buttonAction === "link" ? card.buttonHref : tab === "volunteer" ? "/volunteer" : undefined;
   const share = card.buttonAction === "share";
 
   if (href) {
@@ -23,7 +24,7 @@ export function ImpactAction({ card }: { card: ImpactCard }) {
   }
 
   const onClick = async () => {
-    if (tab) {
+    if (tab && tab !== "volunteer") {
       openDonateTab(tab);
       return;
     }
