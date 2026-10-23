@@ -30,7 +30,7 @@ export function DonationWidget({
     >
       {/* Zeffy Embedded Donation Form */}
       {/* Tall enough for Zeffy's longest step (amount + Continue) without clipping. */}
-      <div className="relative h-[41.5rem] w-full">
+      <div className="relative h-[42rem] w-full">
         {/* Loading skeleton */}
         {!loaded && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-md bg-muted/30 animate-pulse">
