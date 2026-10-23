@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 export interface DonationWidgetProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The Zeffy donation form URL.
-   * Admin can update this from Sanity Studio → Contact Information.
+   * Admin can update this from Sanity Studio → Contact & Site Settings.
    */
   zeffyUrl: string;
 }
@@ -24,12 +24,13 @@ export function DonationWidget({
     <div
       className={cn(
         "rounded-card border border-border bg-background shadow-card space-y-md overflow-hidden",
-        className
+        className,
       )}
       {...props}
     >
       {/* Zeffy Embedded Donation Form */}
-      <div className="relative w-full min-h-[600px]">
+      {/* Tall enough for Zeffy's longest step (amount + Continue) without clipping. */}
+      <div className="relative h-[41.5rem] w-full">
         {/* Loading skeleton */}
         {!loaded && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-md bg-muted/30 animate-pulse">
@@ -45,8 +46,7 @@ export function DonationWidget({
         <iframe
           src={zeffyUrl}
           title="Global Bridges Network — Donate via Zeffy"
-          className="w-full border-0"
-          style={{ minHeight: "600px" }}
+          className="h-full w-full border-0"
           allow="payment"
           loading="lazy"
           onLoad={() => setLoaded(true)}
@@ -56,7 +56,10 @@ export function DonationWidget({
       {/* Trust Footer */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-sm px-lg pb-lg text-xs text-muted-foreground">
         <div className="flex items-center gap-xs">
-          <ShieldCheck className="h-4 w-4 text-success shrink-0" aria-hidden="true" />
+          <ShieldCheck
+            className="h-4 w-4 text-success shrink-0"
+            aria-hidden="true"
+          />
           <span>100% Secure • Zero Platform Fees</span>
         </div>
         <span className="hidden sm:inline">•</span>
@@ -66,7 +69,8 @@ export function DonationWidget({
           rel="noopener noreferrer"
           className="inline-flex items-center gap-xs text-primary hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-button"
         >
-          Open in new tab <ExternalLink className="h-3 w-3" aria-hidden="true" />
+          Open in new tab{" "}
+          <ExternalLink className="h-3 w-3" aria-hidden="true" />
         </a>
       </div>
     </div>

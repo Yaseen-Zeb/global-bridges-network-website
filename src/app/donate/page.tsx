@@ -33,8 +33,8 @@ export default async function DonatePage({ searchParams }: { searchParams: Promi
     <main className="flex min-h-screen flex-col bg-background">
       <PhotoPanel id="donate" title={DONATE_HERO.title} image={DONATE_HERO.image} settings={settings}>
         <DonateTabs
-          key={tab ?? "goods"}
-          initialTab={isDonateTab(tab) ? tab : "goods"}
+          key={tab ?? "money"}
+          initialTab={isDonateTab(tab) ? tab : "money"}
           zeffyUrl={settings?.donationFormUrl ?? null}
           goodsCategories={acceptedGoods}
         />

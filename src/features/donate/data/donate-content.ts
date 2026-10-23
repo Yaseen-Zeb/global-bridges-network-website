@@ -3,8 +3,8 @@
  */
 
 export const DONATE_TABS = [
-  { id: "goods", label: "Donate Goods" },
   { id: "money", label: "Donate Money" },
+  { id: "goods", label: "Donate Goods" },
 ] as const;
 
 export type DonateTab = (typeof DONATE_TABS)[number]["id"];
