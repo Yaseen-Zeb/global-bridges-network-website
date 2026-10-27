@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import Image from "next/image";
 import { HelpCircle, Mail, MessageSquare, ArrowRight, Heart } from "lucide-react";
@@ -9,18 +10,13 @@ import { FAQS_QUERY } from "@/lib/sanity/queries";
 import type { FAQItem as FAQItemType } from "@/lib/sanity/types";
 import { FAQAccordionSection } from "@/components/faqs/faq-accordion-section";
 
-export const metadata: Metadata = {
-  title: "Frequently Asked Questions | Global Bridges Network",
+export const metadata: Metadata = pageMetadata({
+  title: "Frequently Asked Questions",
   description:
-    "Find answers to common questions about Global Bridges Network's services, refugee resettlement support, financial donations, goods intake, and volunteer opportunities.",
-  openGraph: {
-    title: "Frequently Asked Questions | Global Bridges Network",
-    description:
-      "Clear answers to questions regarding our refugee services, overseas women empowerment programs, financial giving, and goods donation guidelines.",
-    url: "https://globalbridgesnetwork.org/faqs",
-    type: "website",
-  },
-};
+    "Answers about Global Bridges Network's services, refugee and immigrant support, financial donations, goods donations, and volunteering.",
+  path: "/faqs",
+  keywords: ["refugee support questions", "how to donate goods", "how to volunteer"],
+});
 
 export default async function FAQsPage() {
   const faqs = await sanityFetch<FAQItemType[]>(FAQS_QUERY);

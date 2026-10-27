@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { PolicyPage } from "@/features/legal/components/policy-page";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { LEGAL_PAGE_QUERY } from "@/lib/sanity/queries";
 import type { LegalPage } from "@/lib/sanity/types";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
   description:
     "How Global Bridges Network collects, uses, shares, and protects the personal information you provide when you contact us, volunteer, or donate.",
-  alternates: { canonical: "/privacy-policy" },
-};
+  path: "/privacy-policy",
+});
 
 export default async function PrivacyPolicyPage() {
   // Content: Sanity → Legal Pages → Privacy Policy

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { DarkCardsSection } from "@/components/common/dark-cards-section";
 import { PhotoPanel } from "@/components/common/photo-panel";
 import { DonateTabs } from "@/features/donate/components/donate-tabs";
@@ -9,15 +10,13 @@ import { sanityFetch } from "@/lib/sanity/fetch";
 import { GOODS_ITEMS_QUERY, IMPACT_WAYS_QUERY, SITE_SETTINGS_QUERY, SUPPORT_WAYS_QUERY } from "@/lib/sanity/queries";
 import type { GoodsItem, ImpactCard, SiteSettings, SupportCard } from "@/lib/sanity/types";
 
-export const metadata: Metadata = {
-  title: "Donate & Get Involved",
+export const metadata: Metadata = pageMetadata({
+  title: "Donate",
   description:
-    "Donate essential goods or give financially to Global Bridges Network to support refugees, immigrants, and vulnerable families.",
-  openGraph: {
-    title: "Donate & Get Involved | Global Bridges Network",
-    description: "Donate goods, give money, partner with us, or share our mission.",
-  },
-};
+    "Give online or donate essential goods to help refugees, immigrants, and vulnerable families. Global Bridges Network is a 501(c)(3) nonprofit; donations are tax-deductible.",
+  path: "/donate",
+  keywords: ["donate to refugees", "donate goods Maryland", "tax-deductible donation", "support immigrant families", "charity donation"],
+});
 
 export default async function DonatePage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
   const [{ tab }, settings, goods, impactCards, supportCards] = await Promise.all([

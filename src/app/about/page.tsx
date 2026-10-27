@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { CtaBanner } from "@/components/common/cta-banner";
 import { AboutHero } from "@/features/about/components/about-hero";
 import { CoreValuesSection } from "@/features/about/components/core-values-section";
@@ -11,15 +12,13 @@ import { sanityFetch } from "@/lib/sanity/fetch";
 import { ABOUT_PAGE_QUERY, CORE_VALUES_QUERY, TEAM_MEMBERS_QUERY, WHAT_WE_DO_QUERY } from "@/lib/sanity/queries";
 import type { AboutPageContent, CoreValue, Statement, TeamMember, WhatWeDoItem } from "@/lib/sanity/types";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About Us",
   description:
-    "Founded by two former refugees, Global Bridges Network helps refugees, immigrants, asylees, and vulnerable families build safe, healthy, and self sufficient lives. Meet our mission, values, story, and leadership team.",
-  openGraph: {
-    title: "About Us | Global Bridges Network",
-    description: "Our mission, values, founders journey, and leadership team.",
-  },
-};
+    "Founded by two former refugees, Global Bridges Network helps refugees, immigrants, asylees, and vulnerable families build safe, healthy, and self-sufficient lives. Meet our mission, values, story, and leadership.",
+  path: "/about",
+  keywords: ["about Global Bridges Network", "refugee-founded nonprofit", "nonprofit leadership", "mission and vision"],
+});
 
 export default async function AboutPage() {
   const [page, values, whatWeDo, members] = await Promise.all([

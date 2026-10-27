@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/common/header";
 import { Footer } from "@/components/common/footer";
 import { Toaster } from "sonner";
+import { OG_IMAGE, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -20,27 +21,40 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Global Bridges Network | Empowering Refugees, Immigrants & Women Worldwide",
-    template: "%s | Global Bridges Network",
+    default: `${SITE_NAME} | Supporting Refugees, Immigrants & Communities`,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Global Bridges Network connects communities across borders, assisting incoming refugees and immigrants with resettlement, health, legal, education, and employment support while advancing women empowerment initiatives.",
+  description: SITE_DESCRIPTION,
+  keywords: SITE_KEYWORDS,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "nonprofit",
+  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
   openGraph: {
-    title: "Global Bridges Network | Empowering Refugees, Immigrants & Women Worldwide",
-    description:
-      "Connecting communities across borders, assisting refugees and immigrants while supporting overseas women empowerment programs.",
-    url: "https://globalbridgesnetwork.org",
-    siteName: "Global Bridges Network",
-    locale: "en_US",
     type: "website",
+    locale: "en_US",
+    siteName: SITE_NAME,
+    url: "/",
+    title: `${SITE_NAME} | Supporting Refugees, Immigrants & Communities`,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Global Bridges Network",
-    description:
-      "Connecting communities across borders, assisting refugees and immigrants while supporting overseas women empowerment programs.",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE.url],
   },
+  formatDetection: { telephone: false, email: false, address: false },
 };
 
 export default function RootLayout({

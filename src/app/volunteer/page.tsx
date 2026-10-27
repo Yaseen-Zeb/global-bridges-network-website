@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { DarkCardsSection } from "@/components/common/dark-cards-section";
 import { PhotoPanel } from "@/components/common/photo-panel";
 import { Typography } from "@/components/common/typography";
@@ -9,17 +10,13 @@ import { sanityFetch } from "@/lib/sanity/fetch";
 import { SITE_SETTINGS_QUERY, SUPPORT_WAYS_QUERY } from "@/lib/sanity/queries";
 import type { SiteSettings, SupportCard } from "@/lib/sanity/types";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Volunteer",
   description:
-    "Volunteer your time and skills with Global Bridges Network to help refugees, immigrants, and vulnerable families access support and opportunity.",
-  openGraph: {
-    title: "Volunteer | Global Bridges Network",
-    description: "Share your time, skills, and compassion as a Global Bridges Network volunteer.",
-    url: "https://globalbridgesnetwork.org/volunteer",
-    type: "website",
-  },
-};
+    "Volunteer your time and skills with Global Bridges Network to help refugees, immigrants, and vulnerable families in Maryland access support and opportunity.",
+  path: "/volunteer",
+  keywords: ["volunteer with refugees", "volunteer Maryland", "volunteer opportunities nonprofit", "mentor immigrant families"],
+});
 
 export default async function VolunteerPage() {
   const [settings, supportCards] = await Promise.all([

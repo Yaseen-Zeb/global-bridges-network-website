@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { CtaBanner } from "@/components/common/cta-banner";
 import { BridgeSection } from "@/features/home/components/bridge-section";
 import { FaqSection } from "@/features/home/components/faq-section";
@@ -9,6 +11,14 @@ import { CTA_BANNER_IMAGE } from "@/features/home/data/home-content";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { HOME_FAQS_QUERY, HOME_SERVICES_QUERY } from "@/lib/sanity/queries";
 import type { HomeFaq, Service } from "@/lib/sanity/types";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Global Bridges Network | Supporting Refugees, Immigrants & Communities",
+  description:
+    "Global Bridges Network is a 501(c)(3) nonprofit in Maryland founded by former refugees. We help refugees, immigrants, and vulnerable families with resettlement, education, legal, health, and employment support.",
+  path: "/",
+  keywords: ["help for refugees", "immigrant nonprofit", "community support Maryland"],
+});
 
 export default async function Home() {
   const [services, faqs] = await Promise.all([

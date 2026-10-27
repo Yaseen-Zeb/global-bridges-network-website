@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { PhotoPanel } from "@/components/common/photo-panel";
 import { ContactForm } from "@/features/contact/components/contact-form";
 import { CONTACT_HERO } from "@/features/contact/data/contact-content";
@@ -7,17 +8,13 @@ import { sanityFetch } from "@/lib/sanity/fetch";
 import { SITE_SETTINGS_QUERY } from "@/lib/sanity/queries";
 import type { SiteSettings } from "@/lib/sanity/types";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact Us",
   description:
-    "Get in touch with Global Bridges Network. Send a general inquiry, request support, or ask about volunteering, donations, and partnerships.",
-  openGraph: {
-    title: "Contact Us | Global Bridges Network",
-    description: "Reach our administrative team through the inquiry form, shared inbox, or phone.",
-    url: "https://globalbridgesnetwork.org/contact",
-    type: "website",
-  },
-};
+    "Contact Global Bridges Network in Ellicott City, Maryland. Request support, ask about our services, or reach out about volunteering, donations, and partnerships.",
+  path: "/contact",
+  keywords: ["contact Global Bridges Network", "request refugee support", "nonprofit partnership"],
+});
 
 export default async function ContactPage() {
   const settings = await sanityFetch<SiteSettings | null>(SITE_SETTINGS_QUERY);
