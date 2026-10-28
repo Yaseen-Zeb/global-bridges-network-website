@@ -4,6 +4,7 @@ import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import { Logo } from "@/components/common/logo";
 import { Typography } from "@/components/common/typography";
 import { FOOTER_COLUMNS, LEGAL_LINKS, SITE } from "@/data/site";
+import { CookieSettingsButton } from "@/features/consent/components/cookie-consent";
 import { NewsletterForm } from "@/features/newsletter/components/newsletter-form";
 import { addressLines, telHref } from "@/lib/contact";
 import { sanityFetch } from "@/lib/sanity/fetch";
@@ -147,6 +148,9 @@ export async function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <CookieSettingsButton className="text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-button" />
+              </li>
             </ul>
           </nav>
         </div>

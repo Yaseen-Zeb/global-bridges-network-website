@@ -3,8 +3,8 @@ import { IBM_Plex_Sans, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/common/header";
 import { Footer } from "@/components/common/footer";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "sonner";
+import { CookieConsent } from "@/features/consent/components/cookie-consent";
 import { OG_IMAGE, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 const montserrat = Montserrat({
@@ -72,9 +72,9 @@ export default function RootLayout({
         {children}
         <Footer />
         <Toaster position="bottom-right" richColors closeButton duration={5000} />
+        {/* Cookie banner; Google Analytics (NEXT_PUBLIC_GA_ID) loads only after the visitor accepts. */}
+        <CookieConsent gaId={GA_ID} />
       </body>
-      {/* Google Analytics 4: only loads when NEXT_PUBLIC_GA_ID is set (e.g. on the live site). */}
-      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }
