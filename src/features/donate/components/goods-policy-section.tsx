@@ -1,4 +1,4 @@
-import { CircleCheck, CircleX } from "lucide-react";
+import { Ban, Check } from "lucide-react";
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
 import { GOODS_POLICY } from "@/features/donate/data/donate-content";
@@ -33,7 +33,7 @@ export function GoodsPolicySection({ items }: { items: GoodsItem[] }) {
         </li>
 
         {items.map((card, index) => {
-          const Icon = card.accepted ? CircleCheck : CircleX;
+          const Icon = card.accepted ? Check : Ban;
           return (
             <li key={card._id}>
               <Reveal
@@ -43,18 +43,18 @@ export function GoodsPolicySection({ items }: { items: GoodsItem[] }) {
                   card.accepted ? "border-accent/60 hover:border-accent" : "border-danger/60 hover:border-danger"
                 )}
               >
-                <div className="flex items-start justify-between gap-sm">
-                  <Typography variant="h4-semibold" as="h3">
-                    {card.title}
-                  </Typography>
-                  <Icon
-                    className={cn(
-                      "h-5 w-5 shrink-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100",
-                      card.accepted ? "text-accent" : "text-danger"
-                    )}
-                    aria-label={card.accepted ? "Accepted" : "Not accepted"}
-                  />
-                </div>
+                <span
+                  className={cn(
+                    "inline-flex items-center gap-xs px-sm py-[2px] text-caption font-semibold uppercase tracking-wider",
+                    card.accepted ? "bg-accent/15 text-accent" : "bg-danger/10 text-danger"
+                  )}
+                >
+                  <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  {card.accepted ? "Accepted" : "Not accepted"}
+                </span>
+                <Typography variant="h4-semibold" as="h3">
+                  {card.title}
+                </Typography>
                 <Typography variant="caption" as="p">
                   {card.description}
                 </Typography>
