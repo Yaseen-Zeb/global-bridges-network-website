@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import Link from "next/link";
 import Image from "next/image";
 import { HelpCircle, Mail, MessageSquare, ArrowRight, Heart } from "lucide-react";
+import { ButtonLink } from "@/components/common/button-link";
 import { Typography } from "@/components/common/typography";
-import { Button } from "@/components/ui/button";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { FAQS_QUERY } from "@/lib/sanity/queries";
 import type { FAQItem as FAQItemType } from "@/lib/sanity/types";
@@ -100,17 +99,13 @@ export default async function FAQsPage() {
           </Typography>
 
           <div className="flex flex-wrap gap-md justify-center pt-sm">
-            <Link href="/get-involved" aria-label="Contact Global Bridges Network team">
-              <Button size="lg" variant="primary">
-                <Mail className="mr-xs h-4 w-4" aria-hidden="true" />
-                Contact Our Team
-              </Button>
-            </Link>
-            <Link href="/services" aria-label="Explore our service areas">
-              <Button size="lg" variant="outline">
-                Explore Service Areas <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
-              </Button>
-            </Link>
+            <ButtonLink href="/contact" size="lg" variant="primary">
+              <Mail className="mr-xs h-4 w-4" aria-hidden="true" />
+              Contact Our Team
+            </ButtonLink>
+            <ButtonLink href="/services" size="lg" variant="outline">
+              Explore Service Areas <ArrowRight className="ml-xs h-4 w-4" aria-hidden="true" />
+            </ButtonLink>
           </div>
         </div>
       </section>
@@ -130,27 +125,19 @@ export default async function FAQsPage() {
           </Typography>
           <Typography
             variant="body"
-            className="text-primary-foreground/80 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
+            className="text-primary-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
           >
             Your financial support and donated goods help arriving families settle with dignity and empower overseas women leaders.
           </Typography>
 
           <div className="flex flex-wrap gap-md justify-center pt-md">
-            <Link href="/donate" aria-label="Donate financial support to Global Bridges Network">
-              <Button size="lg" variant="secondary" className="px-xl">
-                <Heart className="mr-xs h-4 w-4" aria-hidden="true" />
-                Donate Now
-              </Button>
-            </Link>
-            <Link href="/donate-goods" aria-label="Donate essential goods">
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-transparent border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground hover:text-primary dark:bg-transparent dark:text-primary-foreground dark:border-primary-foreground/40 dark:hover:bg-primary-foreground dark:hover:text-primary font-semibold"
-              >
-                Donate Goods
-              </Button>
-            </Link>
+            <ButtonLink href="/donate?tab=money" size="lg" variant="light" className="px-xl">
+              <Heart className="mr-xs h-4 w-4" aria-hidden="true" />
+              Donate Now
+            </ButtonLink>
+            <ButtonLink href="/donate?tab=goods" size="lg" variant="outline-light">
+              Donate Goods
+            </ButtonLink>
           </div>
         </div>
       </section>

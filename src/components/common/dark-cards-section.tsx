@@ -30,7 +30,7 @@ export function DarkCardsSection({ id, eyebrow, title, description, items }: Dar
       <div className="mx-auto max-w-6xl space-y-2xl">
         <div className="flex flex-col gap-md md:flex-row md:items-end md:justify-between">
           <Reveal direction="left" className="space-y-xs">
-            <Typography variant="overline" as="p">
+            <Typography variant="overline" className="text-highlight" as="p">
               {eyebrow}
             </Typography>
             <Typography variant="h2" id={`${id}-heading`} className="whitespace-pre-line text-ink-foreground">

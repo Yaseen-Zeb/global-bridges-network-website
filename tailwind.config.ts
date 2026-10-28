@@ -46,6 +46,7 @@ const config: Config = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          light: "hsl(var(--primary-light))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -59,7 +60,10 @@ const config: Config = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
-        highlight: "hsl(var(--highlight))",
+        highlight: {
+          DEFAULT: "hsl(var(--highlight))",
+          strong: "hsl(var(--highlight-strong))",
+        },
         navy: "hsl(var(--navy))",
         danger: "hsl(var(--danger))",
         surface: {

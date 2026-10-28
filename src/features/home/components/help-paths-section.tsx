@@ -39,7 +39,7 @@ export function HelpPathsSection() {
                 alignRight ? "flex flex-col items-end text-right" : "flex flex-col items-start"
               )}
             >
-              <Typography variant="h3" className="text-ink-foreground">
+              <Typography variant="h3" as="h2" className="text-ink-foreground">
                 {path.title}
               </Typography>
               <Typography variant="body" className="max-w-sm text-ink-foreground/85">

@@ -1,4 +1,5 @@
 import { Parallax } from "@/components/common/parallax";
+import { MotionPauseButton, MotionPauseProvider } from "@/components/common/motion-pause";
 import { Typography } from "@/components/common/typography";
 import { HeroSlideshow } from "@/components/common/hero-slideshow";
 import { ABOUT_HERO } from "@/features/about/data/about-content";
@@ -35,17 +36,20 @@ export function AboutHero() {
         page (parallax) and fade to white at both ends, so the Mission/Vision cards glide up over them.
       */}
       <div className="relative -mt-2xl h-[36rem] overflow-hidden sm:h-[42rem] lg:-mt-3xl lg:h-[52rem]">
-        <Parallax speed={0.4} className="absolute inset-0">
-          <HeroSlideshow images={ABOUT_HERO.images} />
-        </Parallax>
-        <div
-          className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-background via-background/60 to-transparent"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-background via-background/60 to-transparent"
-          aria-hidden="true"
-        />
+        <MotionPauseProvider>
+          <Parallax speed={0.4} className="absolute inset-0">
+            <HeroSlideshow images={ABOUT_HERO.images} />
+          </Parallax>
+          <div
+            className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-background via-background/60 to-transparent"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-background via-background/60 to-transparent"
+            aria-hidden="true"
+          />
+          <MotionPauseButton label="background photos" className="absolute right-md top-1/3" />
+        </MotionPauseProvider>
       </div>
     </section>
   );

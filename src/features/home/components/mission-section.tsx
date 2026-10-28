@@ -36,7 +36,7 @@ export function MissionSection() {
         {/* Blue mission card overlaps the image grid on desktop */}
         <Reveal direction="down" className="relative z-10 mx-auto bg-primary px-lg py-2xl text-center shadow-banner md:w-1/2 md:-mb-4xl">
           <div className="space-y-md">
-            <Typography variant="overline" as="p">
+            <Typography variant="overline" className="text-primary-foreground" as="p">
               {MISSION.eyebrow}
             </Typography>
             <Typography variant="h2" id="mission-heading" className="text-primary-foreground">

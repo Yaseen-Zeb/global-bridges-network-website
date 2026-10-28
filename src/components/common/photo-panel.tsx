@@ -59,7 +59,7 @@ export function PhotoPanel({ id, eyebrow, title, image, settings, children }: Ph
           <div className="flex flex-col justify-between gap-2xl py-md lg:py-lg">
             <div className="space-y-sm">
               {eyebrow && (
-                <Typography variant="overline" as="p" className="animate-fade-up motion-safe-only">
+                <Typography variant="overline" as="p" className="text-highlight animate-fade-up motion-safe-only">
                   {eyebrow}
                 </Typography>
               )}

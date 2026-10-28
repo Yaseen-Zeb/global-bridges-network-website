@@ -68,8 +68,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${ibmPlexSans.variable}`}>
       <body className="font-sans">
+        <a
+          href="#main-content"
+          className="sr-only z-[100] bg-primary px-md py-sm font-semibold text-primary-foreground focus:not-sr-only focus:fixed focus:left-md focus:top-md"
+        >
+          Skip to main content
+        </a>
         <Header />
-        {children}
+        <div id="main-content" tabIndex={-1} className="outline-none">
+          {children}
+        </div>
         <Footer />
         <Toaster position="bottom-right" richColors closeButton duration={5000} />
         {/* Cookie banner; Google Analytics (NEXT_PUBLIC_GA_ID) loads only after the visitor accepts. */}

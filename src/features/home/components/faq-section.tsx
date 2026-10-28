@@ -24,11 +24,11 @@ export function FaqSection({ faqs }: { faqs: HomeFaq[] }) {
 
       <div className="mx-auto max-w-2xl space-y-2xl">
         <Reveal className="space-y-sm text-center">
-          <Typography variant="overline" as="p">
+          <Typography variant="overline" className="text-highlight" as="p">
             {FAQ.eyebrow}
           </Typography>
           <Typography variant="h2" id="faq-heading" className="text-ink-foreground">
-            <span className="text-primary">{FAQ.highlight}</span>
+            <span className="text-primary-light">{FAQ.highlight}</span>
             <br />
             {FAQ.title}
           </Typography>

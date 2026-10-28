@@ -7,22 +7,27 @@
     --background: 0 0% 100%;
     --foreground: 0 0% 7%;
 
-    /* Brand blue (#208BC1) */
-    --primary: 200 72% 44%;
+    /* Brand blue, deepened for WCAG AA: white text 5.2:1 (Figma #208BC1 was 3.8:1) */
+    --primary: 200 72% 37%;
     --primary-foreground: 0 0% 100%;
 
+    /* Lighter brand blue for text on dark/photo backgrounds (8.7:1 on black) */
+    --primary-light: 200 72% 60%;
+
     --secondary: 0 0% 95%;
-    --secondary-foreground: 200 72% 44%;
+    --secondary-foreground: 200 72% 37%;
 
     --muted: 0 0% 95%;
     --muted-foreground: 0 0% 38%;
 
-    /* Brand green (#76B467) — "Find Support" actions, founders journey */
-    --accent: 108 34% 55%;
+    /* Brand green, deepened for WCAG AA: white text 5.0:1 (Figma #76B467 was 2.5:1) */
+    --accent: 108 34% 35%;
     --accent-foreground: 0 0% 100%;
 
-    /* Eyebrow / kicker yellow (#F9C148) */
+    /* Eyebrow / kicker yellow (#F9C148): only on dark (black / navy) backgrounds */
     --highlight: 41 94% 63%;
+    /* Dark gold for small labels on light backgrounds (4.7:1 on white) */
+    --highlight-strong: 41 94% 29%;
 
     /* Light gray panels behind card copy */
     --surface: 0 0% 95%;
@@ -44,7 +49,7 @@
 
     --border: 0 0% 88%;
     --input: 0 0% 88%;
-    --ring: 200 72% 44%;
+    --ring: 200 72% 37%;
 
     --destructive: 7 48% 52%;
     --destructive-foreground: 0 0% 100%;

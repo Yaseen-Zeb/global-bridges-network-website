@@ -1,5 +1,6 @@
 import { ButtonLink } from "@/components/common/button-link";
 import { Typography } from "@/components/common/typography";
+import { MotionPauseButton, MotionPauseProvider } from "@/components/common/motion-pause";
 import { CTA_LINKS } from "@/data/site";
 import { HeroMarquee } from "@/features/home/components/hero-marquee";
 import { HERO } from "@/features/home/data/home-content";
@@ -10,13 +11,16 @@ export function HeroSection() {
       aria-labelledby="hero-heading"
       className="relative isolate flex min-h-[calc(100svh-4rem)] items-center justify-center overflow-hidden bg-ink lg:min-h-[calc(100svh-5rem)]"
     >
-      <div className="absolute inset-0 -z-10">
-        <HeroMarquee panels={HERO.panels} />
-        <div className="absolute inset-0 bg-ink/60" aria-hidden="true" />
-      </div>
+      <MotionPauseProvider>
+        <div className="absolute inset-0 -z-10">
+          <HeroMarquee panels={HERO.panels} />
+          <div className="absolute inset-0 bg-ink/60" aria-hidden="true" />
+        </div>
+        <MotionPauseButton label="photo strip" className="absolute bottom-md right-md" />
+      </MotionPauseProvider>
 
       <div className="mx-auto max-w-4xl space-y-lg px-md py-4xl text-center">
-        <Typography variant="overline" as="p" className="animate-fade-up motion-safe-only" style={{ animationDelay: "300ms" }}>
+        <Typography variant="overline" as="p" className="text-highlight animate-fade-up motion-safe-only" style={{ animationDelay: "300ms" }}>
           {HERO.eyebrow}
         </Typography>
 
@@ -26,7 +30,7 @@ export function HeroSection() {
           className="text-ink-foreground animate-fade-up motion-safe-only"
           style={{ animationDelay: "450ms" }}
         >
-          <span className="text-primary">{HERO.highlight}</span> {HERO.titleRest}
+          <span className="text-primary-light">{HERO.highlight}</span> {HERO.titleRest}
           <br />
           {HERO.titleLine2}
         </Typography>

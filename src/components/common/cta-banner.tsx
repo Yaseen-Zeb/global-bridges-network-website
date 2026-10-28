@@ -33,7 +33,7 @@ export function CtaBanner({ imageSrc, imageAlt, topClassName = "bg-ink", classNa
           </div>
 
           <div className="relative max-w-xl space-y-md px-lg py-2xl md:px-2xl">
-            <Typography variant="overline">Global Bridges Network</Typography>
+            <Typography variant="overline" className="text-primary-foreground">Global Bridges Network</Typography>
             <Typography variant="h2" id="cta-banner-heading" className="text-primary-foreground">
               Supporting People.
               <br />

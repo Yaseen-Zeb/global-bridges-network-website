@@ -15,7 +15,7 @@ export function FoundersJourneySection({ milestones }: { milestones: Milestone[]
     >
       <div className="mx-auto max-w-5xl space-y-3xl">
         <Reveal className="mx-auto max-w-xl space-y-sm text-center">
-          <Typography variant="overline" as="p">
+          <Typography variant="overline" className="text-primary-foreground" as="p">
             {FOUNDERS_JOURNEY.eyebrow}
           </Typography>
           <Typography variant="h2" id="founders-journey-heading" className="whitespace-pre-line text-accent-foreground">

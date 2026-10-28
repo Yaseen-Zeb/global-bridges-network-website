@@ -1,5 +1,6 @@
 import { HeroSlideshow } from "@/components/common/hero-slideshow";
 import { Parallax } from "@/components/common/parallax";
+import { MotionPauseButton, MotionPauseProvider } from "@/components/common/motion-pause";
 import { Typography } from "@/components/common/typography";
 import { SERVICES_HERO } from "@/features/services/data/services-content";
 
@@ -32,13 +33,16 @@ export function ServicesHero() {
       </div>
 
       <div className="relative -mt-xl h-[30rem] overflow-hidden sm:h-[36rem] lg:-mt-2xl lg:h-[44rem]">
-        <Parallax speed={0.3} className="absolute inset-0">
-          <HeroSlideshow images={SERVICES_HERO.images} />
-        </Parallax>
-        <div
-          className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-background via-background/60 to-transparent"
-          aria-hidden="true"
-        />
+        <MotionPauseProvider>
+          <Parallax speed={0.3} className="absolute inset-0">
+            <HeroSlideshow images={SERVICES_HERO.images} />
+          </Parallax>
+          <div
+            className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-background via-background/60 to-transparent"
+            aria-hidden="true"
+          />
+          <MotionPauseButton label="background photos" className="absolute bottom-md right-md" />
+        </MotionPauseProvider>
       </div>
     </section>
   );

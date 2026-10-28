@@ -25,7 +25,7 @@ export function MissionVisionSection({ statements }: { statements: Statement[] }
             <Typography variant="overline" as="p">
               {item.eyebrow}
             </Typography>
-            <Typography variant="h3" className="whitespace-pre-line">
+            <Typography variant="h3" as="h2" className="whitespace-pre-line">
               {item.title}
             </Typography>
             <Typography variant="body-sm" className="mx-auto max-w-md text-muted-foreground">

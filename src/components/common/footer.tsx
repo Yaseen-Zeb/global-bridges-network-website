@@ -59,7 +59,7 @@ export async function Footer() {
                 <Mail className="h-6 w-6" aria-hidden="true" />
               </span>
               <div className="space-y-xs">
-                <Typography variant="overline" as="p">
+                <Typography variant="overline" className="text-primary-foreground" as="p">
                   Newsletter
                 </Typography>
                 <Typography variant="h3" as="h2" id="newsletter-heading" className="text-primary-foreground">

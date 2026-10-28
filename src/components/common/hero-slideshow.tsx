@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
+import { useMotionPaused } from "@/components/common/motion-pause";
 import { cn } from "@/lib/utils";
 
 interface HeroSlideshowProps {
@@ -21,6 +22,9 @@ export function HeroSlideshow({ images, intervalMs = 7000 }: HeroSlideshowProps)
   // The outgoing photo keeps its animation while it fades out.
   const [leaving, setLeaving] = React.useState<number | null>(null);
   const activeRef = React.useRef(0);
+  const paused = useMotionPaused();
+  const pausedRef = React.useRef(paused);
+  pausedRef.current = paused;
 
   React.useEffect(() => {
     if (images.length < 2) return;
@@ -28,7 +32,7 @@ export function HeroSlideshow({ images, intervalMs = 7000 }: HeroSlideshowProps)
 
     let fadeTimer: ReturnType<typeof setTimeout>;
     const timer = setInterval(() => {
-      if (document.hidden) return;
+      if (document.hidden || pausedRef.current) return;
       const current = activeRef.current;
       activeRef.current = (current + 1) % images.length;
       setLeaving(current);
@@ -69,7 +73,7 @@ export function HeroSlideshow({ images, intervalMs = 7000 }: HeroSlideshowProps)
                 "scale-[1.08] object-cover motion-safe-only",
                 moving && (i % 2 === 0 ? "animate-pan-right" : "animate-pan-left")
               )}
-              style={moving ? { animationDuration: panDuration } : undefined}
+              style={moving ? { animationDuration: panDuration, animationPlayState: paused ? "paused" : "running" } : undefined}
             />
           </div>
         );

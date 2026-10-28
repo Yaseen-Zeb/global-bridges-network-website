@@ -17,7 +17,7 @@ export const typographyVariants = cva("text-foreground", {
       h3: "font-heading text-h4 font-bold lg:text-h3", // 32/40 Bold
       h4: "font-heading text-h4 font-bold", // 24/30 Bold
       "h4-semibold": "font-heading text-h4 font-semibold", // "H4.1": 24/30 Semibold
-      overline: "text-overline font-semibold uppercase tracking-widest text-highlight", // 12/16 Semibold
+      overline: "text-overline font-semibold uppercase tracking-widest text-highlight-strong", // 12/16 Semibold
       "body-lg": "text-body-lg font-normal", // 20/30 Regular
       body: "text-body font-normal", // 16/26 Regular
       "body-sm": "text-body-sm font-normal", // 14/22 Regular

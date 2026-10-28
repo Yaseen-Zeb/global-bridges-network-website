@@ -49,7 +49,6 @@ export function BridgeSteps({ steps }: { steps: Step[] }) {
 
         const offset = (1 - easeOutCubic(progress)) * (desktop.matches ? 100 : 25);
         card.style.transform = `translate3d(0, ${offset}%, 0)`;
-        card.style.opacity = desktop.matches ? "1" : String(0.3 + 0.7 * progress);
       });
     };
 
