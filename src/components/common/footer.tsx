@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, Youtube } from "lucide-react";
 import { Logo } from "@/components/common/logo";
 import { Typography } from "@/components/common/typography";
 import { FOOTER_COLUMNS, LEGAL_LINKS, SITE } from "@/data/site";
@@ -37,6 +37,44 @@ export async function Footer() {
   return (
     <footer className="w-full bg-background text-foreground">
       <div className="mx-auto max-w-6xl px-md pb-lg pt-2xl lg:px-xl">
+        {/* Newsletter signup: emails are stored in a Brevo contact list (see /api/newsletter). */}
+        <section
+          aria-labelledby="newsletter-heading"
+          className="relative isolate mb-2xl overflow-hidden bg-primary px-lg py-xl text-primary-foreground shadow-banner sm:px-xl lg:px-2xl lg:py-2xl"
+        >
+          {/* Decorative rings + green accent bar, matching the site's banner style. */}
+          <span className="absolute inset-y-0 left-0 w-1 bg-accent" aria-hidden="true" />
+          <span
+            className="absolute -right-3xl -top-3xl -z-10 h-[18rem] w-[18rem] rounded-full border-[2.5rem] border-primary-foreground/10"
+            aria-hidden="true"
+          />
+          <span
+            className="absolute -bottom-4xl right-1/3 -z-10 h-[12rem] w-[12rem] rounded-full border-[1.5rem] border-primary-foreground/5"
+            aria-hidden="true"
+          />
+
+          <div className="flex flex-col gap-lg lg:flex-row lg:items-center lg:justify-between lg:gap-2xl">
+            <div className="flex items-start gap-md">
+              <span className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-foreground/15 sm:flex">
+                <Mail className="h-6 w-6" aria-hidden="true" />
+              </span>
+              <div className="space-y-xs">
+                <Typography variant="overline" as="p">
+                  Newsletter
+                </Typography>
+                <Typography variant="h3" as="h2" id="newsletter-heading" className="text-primary-foreground">
+                  Stay connected
+                </Typography>
+                <Typography variant="body-sm" className="max-w-md text-primary-foreground/85">
+                  Get occasional updates on our programs, community stories, and ways to help. No spam; unsubscribe
+                  anytime.
+                </Typography>
+              </div>
+            </div>
+            <NewsletterForm tone="inverted" className="w-full lg:max-w-md" />
+          </div>
+        </section>
+
         <div className="grid grid-cols-1 gap-xl sm:grid-cols-2 lg:grid-cols-12">
           <div className="space-y-md sm:col-span-2 lg:col-span-5">
             <Link href="/" aria-label="Global Bridges Network home" className="inline-block">
@@ -118,20 +156,7 @@ export async function Footer() {
           </div>
         </div>
 
-        {/* Newsletter signup: emails are stored in a Brevo contact list (see /api/newsletter). */}
-        <div className="mt-2xl flex flex-col gap-md border-t border-border pt-xl lg:flex-row lg:items-center lg:justify-between">
-          <div className="space-y-xs">
-            <Typography variant="h4-semibold" as="h2">
-              Stay connected
-            </Typography>
-            <Typography variant="body-sm" className="max-w-md text-muted-foreground">
-              Get occasional updates on our programs, community stories, and ways to help. No spam; unsubscribe anytime.
-            </Typography>
-          </div>
-          <NewsletterForm className="w-full lg:max-w-md" />
-        </div>
-
-        <div className="mt-xl flex flex-col items-center gap-sm border-t border-border pt-lg text-center">
+        <div className="mt-2xl flex flex-col items-center gap-sm border-t border-border pt-lg text-center">
           <Typography variant="caption" as="p" className="text-foreground">
             © Copyright {new Date().getFullYear()}, All Rights Reserved by{" "}
             <span className="uppercase">{SITE.organizationName}</span>

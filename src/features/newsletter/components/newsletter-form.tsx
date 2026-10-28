@@ -12,7 +12,14 @@ import { subscribeToNewsletter } from "@/features/newsletter/api/newsletter.api"
 import { newsletterSchema, type NewsletterInput } from "@/features/newsletter/schema";
 import { cn } from "@/lib/utils";
 
-export function NewsletterForm({ className }: { className?: string }) {
+interface NewsletterFormProps {
+  /** "inverted" for use on the brand-blue newsletter card. */
+  tone?: "default" | "inverted";
+  className?: string;
+}
+
+export function NewsletterForm({ tone = "default", className }: NewsletterFormProps) {
+  const inverted = tone === "inverted";
   const [done, setDone] = React.useState(false);
   const {
     register,
@@ -38,7 +45,14 @@ export function NewsletterForm({ className }: { className?: string }) {
 
   if (done) {
     return (
-      <p role="status" className={cn("flex items-center gap-xs text-sm font-semibold text-accent", className)}>
+      <p
+        role="status"
+        className={cn(
+          "flex items-center gap-xs text-sm font-semibold",
+          inverted ? "text-primary-foreground" : "text-accent",
+          className
+        )}
+      >
         <CheckCircle2 className="h-5 w-5 shrink-0" aria-hidden="true" />
         Thanks for subscribing! You&apos;ll hear from us soon.
       </p>
@@ -59,7 +73,11 @@ export function NewsletterForm({ className }: { className?: string }) {
           placeholder="Your email address"
           aria-invalid={errors.email ? "true" : "false"}
           aria-describedby={errors.email ? "newsletter-error" : undefined}
-          className={cn("h-10 flex-1", errors.email && "border-destructive")}
+          className={cn(
+            "h-12 flex-1",
+            inverted && "border-transparent bg-background focus-visible:ring-highlight focus-visible:ring-offset-primary",
+            errors.email && "border-destructive"
+          )}
           {...register("email")}
         />
 
@@ -73,12 +91,21 @@ export function NewsletterForm({ className }: { className?: string }) {
           {...register("company")}
         />
 
-        <Button type="submit" variant="primary" disabled={isSubmitting} className="sm:min-w-[9rem]">
+        <Button
+          type="submit"
+          variant={inverted ? "accent" : "primary"}
+          size={inverted ? "lg" : "md"}
+          disabled={isSubmitting}
+          className="sm:min-w-[9rem]"
+        >
           {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" aria-label="Subscribing" /> : "Subscribe"}
         </Button>
       </div>
       {errors.email && (
-        <p id="newsletter-error" className="text-xs font-medium text-destructive">
+        <p
+          id="newsletter-error"
+          className={cn("text-xs font-medium", inverted ? "text-highlight" : "text-destructive")}
+        >
           {errors.email.message}
         </p>
       )}
