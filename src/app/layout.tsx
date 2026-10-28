@@ -3,6 +3,7 @@ import { IBM_Plex_Sans, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/common/header";
 import { Footer } from "@/components/common/footer";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "sonner";
 import { OG_IMAGE, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_URL } from "@/lib/seo";
 
@@ -19,6 +20,8 @@ const ibmPlexSans = IBM_Plex_Sans({
   variable: "--font-body",
   display: "swap",
 });
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -70,6 +73,8 @@ export default function RootLayout({
         <Footer />
         <Toaster position="bottom-right" richColors closeButton duration={5000} />
       </body>
+      {/* Google Analytics 4: only loads when NEXT_PUBLIC_GA_ID is set (e.g. on the live site). */}
+      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }
