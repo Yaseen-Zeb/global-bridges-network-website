@@ -4,6 +4,7 @@ import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import { Logo } from "@/components/common/logo";
 import { Typography } from "@/components/common/typography";
 import { FOOTER_COLUMNS, LEGAL_LINKS, SITE } from "@/data/site";
+import { NewsletterForm } from "@/features/newsletter/components/newsletter-form";
 import { addressLines, telHref } from "@/lib/contact";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { SITE_SETTINGS_QUERY } from "@/lib/sanity/queries";
@@ -116,7 +117,20 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-2xl flex flex-col items-center gap-sm border-t border-border pt-lg text-center">
+        {/* Newsletter signup: emails are stored in a Brevo contact list (see /api/newsletter). */}
+        <div className="mt-2xl flex flex-col gap-md border-t border-border pt-xl lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-xs">
+            <Typography variant="h4-semibold" as="h2">
+              Stay connected
+            </Typography>
+            <Typography variant="body-sm" className="max-w-md text-muted-foreground">
+              Get occasional updates on our programs, community stories, and ways to help. No spam; unsubscribe anytime.
+            </Typography>
+          </div>
+          <NewsletterForm className="w-full lg:max-w-md" />
+        </div>
+
+        <div className="mt-xl flex flex-col items-center gap-sm border-t border-border pt-lg text-center">
           <Typography variant="caption" as="p" className="text-foreground">
             © Copyright {new Date().getFullYear()}, All Rights Reserved by{" "}
             <span className="uppercase">{SITE.organizationName}</span>
