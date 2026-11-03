@@ -6,10 +6,10 @@ import { Typography } from "@/components/common/typography";
 import { SERVICE_AREAS } from "@/features/services/data/services-content";
 import { hotspotPosition, type Service } from "@/lib/sanity/types";
 
-/** Links to the Contact page preselect the service's Contact Form Category (default "Services Inquiry"). */
+/** Links to the Contact page preselect the service's Contact Form Category, if one is set. */
 function serviceHref({ linkHref = "", inquiryCategory }: Service) {
-  if (!/^\/contact\/?(#.*)?$/.test(linkHref)) return linkHref;
-  return `/contact?category=${encodeURIComponent(inquiryCategory || "services")}`;
+  if (!inquiryCategory || !/^\/contact\/?(#.*)?$/.test(linkHref)) return linkHref;
+  return `/contact?category=${encodeURIComponent(inquiryCategory)}`;
 }
 
 /** Services come from Sanity → Services with Section = Services page. */
