@@ -67,12 +67,12 @@ SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayNam
 export const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
->(({ className, children, position = "popper", ...props }, ref) => (
+>(({ className, children, position = "popper", collisionPadding = { top: 96, bottom: 16, left: 16, right: 16 }, ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-card border border-border bg-background text-foreground shadow-dropdown",
+        "relative z-50 max-h-[min(24rem,var(--radix-select-content-available-height))] min-w-[8rem] overflow-hidden rounded-card border border-border bg-background text-foreground shadow-dropdown",
         "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
         "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
         "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
@@ -81,6 +81,8 @@ export const SelectContent = React.forwardRef<
         className
       )}
       position={position}
+      // Keeps the list clear of the sticky header (h-16 / lg:h-20) and the screen edges.
+      collisionPadding={collisionPadding}
       {...props}
     >
       <SelectScrollUpButton />
