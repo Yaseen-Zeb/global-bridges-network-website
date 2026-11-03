@@ -18,7 +18,7 @@ export const SERVICES_HERO = {
 
 export const SERVICE_AREAS = {
   eyebrow: "Service Areas",
-  title: ["How We Support", "Our Community"],
+  title: ["How We Support", "Community"],
   description:
     "We connect individuals and families with the services, resources, and opportunities they need to build secure and self sufficient lives.",
 };
