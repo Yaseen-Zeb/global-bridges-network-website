@@ -69,6 +69,8 @@ export interface Service {
   imageHotspot?: ImageHotspot | null;
   linkLabel?: string;
   linkHref?: string;
+  /** Inquiry Category value preselected when the link goes to the Contact page. */
+  inquiryCategory?: string;
 }
 
 export interface WhatWeDoItem {

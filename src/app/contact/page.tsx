@@ -16,8 +16,13 @@ export const metadata: Metadata = pageMetadata({
   keywords: ["contact Global Bridges Network", "request refugee support", "nonprofit partnership"],
 });
 
-export default async function ContactPage() {
-  const settings = await sanityFetch<SiteSettings | null>(SITE_SETTINGS_QUERY);
+interface ContactPageProps {
+  /** ?category=<value> preselects an Inquiry Category, e.g. from the Services page links. */
+  searchParams: Promise<{ category?: string | string[] }>;
+}
+
+export default async function ContactPage({ searchParams }: ContactPageProps) {
+  const [settings, { category }] = await Promise.all([sanityFetch<SiteSettings | null>(SITE_SETTINGS_QUERY), searchParams]);
 
   return (
     <main className="flex min-h-screen flex-col bg-background">
@@ -28,7 +33,10 @@ export default async function ContactPage() {
         image={{ ...CONTACT_HERO.image, className: "-scale-x-100" }}
         settings={settings}
       >
-        <ContactForm categories={settings?.inquiryCategories ?? []} />
+        <ContactForm
+          categories={settings?.inquiryCategories ?? []}
+          defaultCategory={Array.isArray(category) ? category[0] : category}
+        />
       </PhotoPanel>
       <HelpPathsSection />
     </main>

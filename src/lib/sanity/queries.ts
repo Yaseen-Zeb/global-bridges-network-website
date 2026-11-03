@@ -63,7 +63,8 @@ export const SERVICES_QUERY = groq`
     "imageAlt": image.alt,
     "imageHotspot": image.hotspot,
     linkLabel,
-    linkHref
+    linkHref,
+    inquiryCategory
   }
 `;
 

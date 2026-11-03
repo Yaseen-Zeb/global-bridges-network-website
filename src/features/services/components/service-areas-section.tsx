@@ -6,6 +6,12 @@ import { Typography } from "@/components/common/typography";
 import { SERVICE_AREAS } from "@/features/services/data/services-content";
 import { hotspotPosition, type Service } from "@/lib/sanity/types";
 
+/** Links to the Contact page preselect the service's Contact Form Category (default "Services Inquiry"). */
+function serviceHref({ linkHref = "", inquiryCategory }: Service) {
+  if (!/^\/contact\/?(#.*)?$/.test(linkHref)) return linkHref;
+  return `/contact?category=${encodeURIComponent(inquiryCategory || "services")}`;
+}
+
 /** Services come from Sanity → Services with Section = Services page. */
 export function ServiceAreasSection({ services }: { services: Service[] }) {
   if (services.length === 0) return null;
@@ -58,7 +64,7 @@ export function ServiceAreasSection({ services }: { services: Service[] }) {
                   </Typography>
                   {area.linkHref && area.linkLabel && (
                   <Link
-                    href={area.linkHref}
+                    href={serviceHref(area)}
                     className="group/link inline-flex items-center gap-xs text-body-sm font-semibold text-accent transition-colors hover:text-accent/80"
                   >
                     {area.linkLabel}
