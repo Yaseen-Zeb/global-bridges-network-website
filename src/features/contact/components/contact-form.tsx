@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -23,7 +24,7 @@ const contactFormSchema = z.object({
   category: z.string().min(1, "Please select an inquiry category."),
   message: z.string().trim().min(10, "Message must be at least 10 characters long."),
   consent: z.boolean().refine((val) => val === true, {
-    message: "You must acknowledge the privacy consent to submit.",
+    message: "Please agree to the T&Cs and Privacy Policy to continue.",
   }),
 });
 
@@ -31,6 +32,8 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 
 const labelClass = "text-xs font-normal text-muted-foreground";
 const fieldClass = "h-10 rounded-input border-border text-sm placeholder:text-muted-foreground/70";
+// Opens in a new tab so the form isn't lost.
+const legalLinkClass = "underline underline-offset-2 transition-colors hover:text-primary";
 const errorClass = "text-xs font-medium text-destructive";
 
 interface ContactFormProps {
@@ -239,7 +242,15 @@ export function ContactForm({ categories, defaultCategory, intro, messageLabel =
               )}
             />
             <Label htmlFor="contact-consent" className="cursor-pointer text-xs font-normal leading-5 text-muted-foreground">
-              I agree to Global Bridges Network using my details to reply to this inquiry.
+              I agree to the Global Bridges Network{" "}
+              <Link href="/terms-and-conditions" target="_blank" className={legalLinkClass}>
+                T&amp;Cs
+              </Link>{" "}
+              and{" "}
+              <Link href="/privacy-policy" target="_blank" className={legalLinkClass}>
+                Privacy Policy
+              </Link>
+              .
             </Label>
           </div>
           {errors.consent && (
