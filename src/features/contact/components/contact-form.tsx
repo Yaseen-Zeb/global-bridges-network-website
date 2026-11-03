@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
+import { Label, RequiredMark } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { InquiryCategory } from "@/lib/sanity/types";
 import { cn } from "@/lib/utils";
@@ -110,13 +110,17 @@ export function ContactForm({ categories, defaultCategory, intro, messageLabel =
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-md" noValidate>
+        <p className="text-xs text-muted-foreground">
+          <RequiredMark /> Required
+        </p>
         <div className="grid grid-cols-1 gap-md sm:grid-cols-2">
           <div className="space-y-xs">
-            <Label htmlFor="contact-name" className={labelClass}>
+            <Label htmlFor="contact-name" required className={labelClass}>
               Full name
             </Label>
             <Input
               id="contact-name"
+              aria-required="true"
               type="text"
               autoComplete="name"
               placeholder="eg. Sarah"
@@ -133,11 +137,12 @@ export function ContactForm({ categories, defaultCategory, intro, messageLabel =
           </div>
 
           <div className="space-y-xs">
-            <Label htmlFor="contact-email" className={labelClass}>
+            <Label htmlFor="contact-email" required className={labelClass}>
               Email Address
             </Label>
             <Input
               id="contact-email"
+              aria-required="true"
               type="email"
               autoComplete="email"
               placeholder="eg. sarah@gmail.com"
@@ -168,7 +173,7 @@ export function ContactForm({ categories, defaultCategory, intro, messageLabel =
           </div>
 
           <div className="space-y-xs">
-            <Label htmlFor="contact-category" className={labelClass}>
+            <Label htmlFor="contact-category" required className={labelClass}>
               Inquiry Category
             </Label>
             <Controller
@@ -178,6 +183,7 @@ export function ContactForm({ categories, defaultCategory, intro, messageLabel =
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger
                     id="contact-category"
+                    aria-required="true"
                     aria-invalid={errors.category ? "true" : "false"}
                     aria-describedby={errors.category ? "category-error" : undefined}
                     className={cn(fieldClass, errors.category && "border-destructive focus:ring-destructive")}
@@ -203,11 +209,12 @@ export function ContactForm({ categories, defaultCategory, intro, messageLabel =
         </div>
 
         <div className="space-y-xs">
-          <Label htmlFor="contact-message" className={labelClass}>
+          <Label htmlFor="contact-message" required className={labelClass}>
             {messageLabel}
           </Label>
           <Textarea
             id="contact-message"
+            aria-required="true"
             rows={4}
             placeholder="Your Message"
             aria-invalid={errors.message ? "true" : "false"}
@@ -233,6 +240,7 @@ export function ContactForm({ categories, defaultCategory, intro, messageLabel =
               render={({ field }) => (
                 <Checkbox
                   id="contact-consent"
+                  aria-required="true"
                   checked={field.value}
                   onCheckedChange={field.onChange}
                   aria-invalid={errors.consent ? "true" : "false"}
@@ -241,7 +249,7 @@ export function ContactForm({ categories, defaultCategory, intro, messageLabel =
                 />
               )}
             />
-            <Label htmlFor="contact-consent" className="cursor-pointer text-xs font-normal leading-5 text-muted-foreground">
+            <Label htmlFor="contact-consent" required className="cursor-pointer text-xs font-normal leading-5 text-muted-foreground">
               I agree to the Global Bridges Network{" "}
               <Link href="/terms-and-conditions" target="_blank" className={legalLinkClass}>
                 T&amp;Cs

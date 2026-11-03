@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
+import { Label, RequiredMark } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 
@@ -108,14 +108,18 @@ export function GoodsForm({ categories }: GoodsFormProps) {
       <Typography variant="body-sm" className="text-muted-foreground">
         Fill out this form to let us know about the items you wish to offer. Our team will review your offer and reach out.
       </Typography>
+      <p className="text-xs text-muted-foreground">
+          <RequiredMark /> Required
+        </p>
 
       <div className="grid grid-cols-1 gap-md sm:grid-cols-2">
         <div className="space-y-xs">
-          <Label htmlFor="goods-name" className={labelClass}>
+          <Label htmlFor="goods-name" required className={labelClass}>
             Full name
           </Label>
           <Input
             id="goods-name"
+            aria-required="true"
             autoComplete="name"
             placeholder="eg. Sarah"
             aria-invalid={errors.name ? "true" : "false"}
@@ -126,11 +130,12 @@ export function GoodsForm({ categories }: GoodsFormProps) {
         </div>
 
         <div className="space-y-xs">
-          <Label htmlFor="goods-email" className={labelClass}>
+          <Label htmlFor="goods-email" required className={labelClass}>
             Email Address
           </Label>
           <Input
             id="goods-email"
+            aria-required="true"
             type="email"
             autoComplete="email"
             placeholder="eg. sarah@gmail.com"
@@ -149,7 +154,7 @@ export function GoodsForm({ categories }: GoodsFormProps) {
         </div>
 
         <div className="space-y-xs">
-          <Label htmlFor="goods-contact-method" className={labelClass}>
+          <Label htmlFor="goods-contact-method" required className={labelClass}>
             Contact Method
           </Label>
           <Controller
@@ -157,7 +162,7 @@ export function GoodsForm({ categories }: GoodsFormProps) {
             control={control}
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger id="goods-contact-method" className={fieldClass}>
+                <SelectTrigger id="goods-contact-method" aria-required="true" className={fieldClass}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -174,7 +179,7 @@ export function GoodsForm({ categories }: GoodsFormProps) {
       </div>
 
       <div className="space-y-xs">
-        <Label htmlFor="goods-category" className={labelClass}>
+        <Label htmlFor="goods-category" required className={labelClass}>
           Item Category
         </Label>
         <Controller
@@ -182,7 +187,7 @@ export function GoodsForm({ categories }: GoodsFormProps) {
           control={control}
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
-              <SelectTrigger id="goods-category" className={fieldClass}>
+              <SelectTrigger id="goods-category" aria-required="true" className={fieldClass}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -198,11 +203,12 @@ export function GoodsForm({ categories }: GoodsFormProps) {
       </div>
 
       <div className="space-y-xs">
-        <Label htmlFor="goods-description" className={labelClass}>
+        <Label htmlFor="goods-description" required className={labelClass}>
           Item Details
         </Label>
         <Textarea
           id="goods-description"
+          aria-required="true"
           rows={3}
           placeholder="Item Description & Details"
           aria-invalid={errors.description ? "true" : "false"}
@@ -221,12 +227,14 @@ export function GoodsForm({ categories }: GoodsFormProps) {
         </div>
 
         <fieldset className="space-y-xs">
-          <legend className={cn(labelClass, "mb-xs")}>Condition:</legend>
+          <legend className={cn(labelClass, "mb-xs")}>
+            Condition<RequiredMark />
+          </legend>
           <Controller
             name="condition"
             control={control}
             render={({ field }) => (
-              <div className="flex gap-sm" role="radiogroup">
+              <div className="flex gap-sm" role="radiogroup" aria-required="true">
                 {CONDITION_OPTIONS.map((option) => {
                   const selected = field.value === option;
                   return (
@@ -272,6 +280,7 @@ export function GoodsForm({ categories }: GoodsFormProps) {
             render={({ field }) => (
               <Checkbox
                 id="goods-consent"
+                aria-required="true"
                 checked={field.value}
                 onCheckedChange={field.onChange}
                 aria-invalid={errors.consent ? "true" : "false"}
@@ -279,7 +288,7 @@ export function GoodsForm({ categories }: GoodsFormProps) {
               />
             )}
           />
-          <Label htmlFor="goods-consent" className="cursor-pointer text-xs font-normal leading-5 text-muted-foreground">
+          <Label htmlFor="goods-consent" required className="cursor-pointer text-xs font-normal leading-5 text-muted-foreground">
             I acknowledge that my submission will be emailed to the Global Bridges Network team to coordinate goods inspection and intake.
           </Label>
         </div>
