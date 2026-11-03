@@ -20,7 +20,7 @@ export const ABOUT_HERO = {
 export const CORE_VALUES = {
   eyebrow: "Values",
   title: "Our Core Values",
-  description: "Comprehensive local resettlement programs paired with global women empowerment initiatives.",
+  description: "The principles that guide how we serve every person and family who comes to us.",
   image: { src: `${IMG}/core-values.jpg`, alt: "Wooden blocks stacked like rising steps beneath an upward arrow" },
 };
 

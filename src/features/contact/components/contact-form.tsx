@@ -239,8 +239,7 @@ export function ContactForm({ categories, defaultCategory, intro, messageLabel =
               )}
             />
             <Label htmlFor="contact-consent" className="cursor-pointer text-xs font-normal leading-5 text-muted-foreground">
-              I consent to having Global Bridges Network process my information to respond to this inquiry. I
-              understand submission data is transmitted statelessly and never stored in a website database.
+              I agree to Global Bridges Network using my details to reply to this inquiry.
             </Label>
           </div>
           {errors.consent && (
