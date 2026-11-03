@@ -6,8 +6,6 @@ import { SERVICES } from "@/features/home/data/home-content";
 import { hotspotPosition, type Service } from "@/lib/sanity/types";
 import { cn } from "@/lib/utils";
 
-const ORDINALS = ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"];
-
 /** The first four services from Sanity → Services, plus a link to the full list. */
 export function ServicesSection({ services }: { services: Service[] }) {
   if (services.length === 0) return null;
@@ -42,9 +40,6 @@ export function ServicesSection({ services }: { services: Service[] }) {
                   )}
                 >
                   <div className="max-w-xs space-y-sm">
-                    <Typography variant="caption" as="p" className="uppercase tracking-widest">
-                      {ORDINALS[index] ?? index + 1}
-                    </Typography>
                     <Typography variant="h3" className="mx-auto max-w-[12ch] text-balance">
                       {service.title}
                     </Typography>
