@@ -2,6 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Mail, Youtube } from "lucide-react";
 import { Logo } from "@/components/common/logo";
+import { NonprofitStatement } from "@/components/common/nonprofit-statement";
 import { Typography } from "@/components/common/typography";
 import { FOOTER_COLUMNS, LEGAL_LINKS, SITE } from "@/data/site";
 import { CookieSettingsButton } from "@/features/consent/components/cookie-consent";
@@ -161,6 +162,7 @@ export async function Footer() {
             © Copyright {new Date().getFullYear()}, All Rights Reserved by{" "}
             <span className="uppercase">{SITE.organizationName}</span>
           </Typography>
+          <NonprofitStatement taxId={settings?.taxId} />
           <nav aria-label="Legal">
             <ul className="flex items-center gap-md">
               {LEGAL_LINKS.map((link) => (

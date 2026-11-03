@@ -18,10 +18,11 @@ export function openDonateTab(tab: DonateTab) {
 interface DonateTabsProps {
   initialTab: DonateTab;
   zeffyUrl: string | null;
+  taxId: string | null;
   goodsCategories: string[];
 }
 
-export function DonateTabs({ initialTab, zeffyUrl, goodsCategories }: DonateTabsProps) {
+export function DonateTabs({ initialTab, zeffyUrl, taxId, goodsCategories }: DonateTabsProps) {
   const [active, setActive] = React.useState<DonateTab>(initialTab);
   const tabRefs = React.useRef<Record<DonateTab, HTMLButtonElement | null>>({ goods: null, money: null });
 
@@ -91,7 +92,7 @@ export function DonateTabs({ initialTab, zeffyUrl, goodsCategories }: DonateTabs
 
         {active === "money" &&
           (zeffyUrl ? (
-            <DonationWidget zeffyUrl={zeffyUrl} className="rounded-none border-0 shadow-none" />
+            <DonationWidget zeffyUrl={zeffyUrl} taxId={taxId} className="rounded-none border-0 shadow-none" />
           ) : (
             <div className="space-y-sm py-lg text-center">
               <Typography variant="h4-semibold">Online giving is coming soon</Typography>

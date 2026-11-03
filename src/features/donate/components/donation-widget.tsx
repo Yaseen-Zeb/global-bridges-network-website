@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { NonprofitStatement } from "@/components/common/nonprofit-statement";
 import { Typography } from "@/components/common/typography";
 import { ShieldCheck, Heart, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -11,10 +12,13 @@ export interface DonationWidgetProps extends React.HTMLAttributes<HTMLDivElement
    * Admin can update this from Sanity Studio → Contact & Site Settings.
    */
   zeffyUrl: string;
+  /** Federal tax ID from Sanity, shown in the 501(c)(3) line. */
+  taxId?: string | null;
 }
 
 export function DonationWidget({
   zeffyUrl,
+  taxId,
   className,
   ...props
 }: DonationWidgetProps) {
@@ -54,6 +58,7 @@ export function DonationWidget({
       </div>
 
       {/* Trust Footer */}
+      <NonprofitStatement taxId={taxId} className="px-lg text-center" />
       <div className="flex flex-col sm:flex-row items-center justify-center gap-sm px-lg pb-lg text-xs text-muted-foreground">
         <div className="flex items-center gap-xs">
           <ShieldCheck

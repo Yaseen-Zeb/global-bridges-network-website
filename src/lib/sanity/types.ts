@@ -36,6 +36,8 @@ export interface SiteSettings {
   address?: string;
   volunteerEmail?: string;
   donationFormUrl?: string;
+  /** Federal tax ID (EIN), e.g. 12-3456789. */
+  taxId?: string;
   socialLinks?: SocialLink[] | null;
   inquiryCategories?: InquiryCategory[] | null;
 }

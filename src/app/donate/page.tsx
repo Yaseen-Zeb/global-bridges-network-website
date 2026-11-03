@@ -35,6 +35,7 @@ export default async function DonatePage({ searchParams }: { searchParams: Promi
           key={tab ?? "money"}
           initialTab={isDonateTab(tab) ? tab : "money"}
           zeffyUrl={settings?.donationFormUrl ?? null}
+          taxId={settings?.taxId ?? null}
           goodsCategories={acceptedGoods}
         />
       </PhotoPanel>

@@ -35,6 +35,7 @@ export const SITE_SETTINGS_QUERY = groq`
     address,
     volunteerEmail,
     donationFormUrl,
+    taxId,
     socialLinks[] { platform, url },
     inquiryCategories[] { label, value }
   }
