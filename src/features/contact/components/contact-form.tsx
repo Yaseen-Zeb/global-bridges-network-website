@@ -174,7 +174,7 @@ export function ContactForm({ categories, defaultCategory, intro, messageLabel =
 
           <div className="space-y-xs">
             <Label htmlFor="contact-category" required className={labelClass}>
-              Inquiry Category
+              Inquiry Services
             </Label>
             <Controller
               name="category"
