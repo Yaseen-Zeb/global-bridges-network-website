@@ -17,7 +17,7 @@ export const PRIMARY_NAV: NavLink[] = [
 ];
 
 export const CTA_LINKS = {
-  getInvolved: { label: "Get Involved", href: "/donate" },
+  getInvolved: { label: "Donate", href: "/donate" },
   findSupport: { label: "Find Support", href: "/services" },
 } as const;
 
