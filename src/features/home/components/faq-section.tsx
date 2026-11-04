@@ -1,4 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { ButtonLink } from "@/components/common/button-link";
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
 import { FAQ } from "@/features/home/data/home-content";
@@ -44,6 +45,12 @@ export function FaqSection({ faqs }: { faqs: HomeFaq[] }) {
             </Reveal>
           ))}
         </Accordion>
+
+        <Reveal className="text-center">
+          <ButtonLink href={FAQ.seeMore.href} variant="primary" size="lg">
+            {FAQ.seeMore.label}
+          </ButtonLink>
+        </Reveal>
       </div>
     </section>
   );

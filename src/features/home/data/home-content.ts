@@ -108,6 +108,7 @@ export const FAQ = {
   eyebrow: "FAQ",
   highlight: "Questions?",
   title: "Let’s Make It Clear.",
+  seeMore: { label: "View All FAQs", href: "/faqs" },
 };
 
 export const CTA_BANNER_IMAGE = { src: `${IMG}/cta-banner.jpg`, alt: "A group of children holding onto a chain-link fence at a camp" };
