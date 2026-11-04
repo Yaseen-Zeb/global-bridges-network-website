@@ -89,7 +89,7 @@ export function FAQAccordionSection({ faqs }: FAQAccordionSectionProps) {
               <AccordionItem key={faq._id} value={faq._id}>
                 <AccordionTrigger>{faq.question}</AccordionTrigger>
                 <AccordionContent>
-                  <Typography variant="body-sm" className="text-muted-foreground leading-relaxed">
+                  <Typography variant="body-sm" className="whitespace-pre-line text-muted-foreground leading-relaxed">
                     {faq.answer}
                   </Typography>
                 </AccordionContent>
