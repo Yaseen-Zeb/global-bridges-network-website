@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/common/reveal";
 import { Typography } from "@/components/common/typography";
+import { cn } from "@/lib/utils";
 
 export interface DarkCard {
   /** Optional stable key (Sanity _key); falls back to the title. */
@@ -16,10 +17,12 @@ interface DarkCardsSectionProps {
   title: string;
   description?: string;
   items: DarkCard[];
+  /** Cards per row on large screens (default 3). */
+  columns?: 3 | 4;
 }
 
 /** Black section with a split header and a grid of dark cards that turn blue on hover. */
-export function DarkCardsSection({ id, eyebrow, title, description, items }: DarkCardsSectionProps) {
+export function DarkCardsSection({ id, eyebrow, title, description, items, columns = 3 }: DarkCardsSectionProps) {
   if (items.length === 0) return null;
 
   return (
@@ -46,11 +49,11 @@ export function DarkCardsSection({ id, eyebrow, title, description, items }: Dar
           )}
         </div>
 
-        <ul className="grid grid-cols-1 gap-md md:grid-cols-3">
+        <ul className={cn("grid grid-cols-1 gap-md", columns === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3")}>
           {items.map((item, index) => (
             <li key={item._key ?? item.title}>
               <Reveal
-                delay={(index % 3) * 120}
+                delay={(index % columns) * 120}
                 className="h-full space-y-sm bg-ink-foreground/10 p-lg transition-colors duration-500 hover:bg-primary"
               >
                 <Typography variant="h4-semibold" className="whitespace-pre-line text-ink-foreground">

@@ -36,6 +36,7 @@ export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
     title: "Get Involved",
     links: [
       { label: "Volunteer", href: "/volunteer" },
+      { label: "Careers", href: "/careers" },
       { label: "Donate Goods", href: "/donate?tab=goods" },
       { label: "Donate Money", href: "/donate?tab=money" },
       { label: "Partner With Us", href: "/contact" },

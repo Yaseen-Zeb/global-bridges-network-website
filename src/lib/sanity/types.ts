@@ -175,3 +175,19 @@ export interface LegalPage {
   lastUpdated: string;
   sections: LegalSection[];
 }
+
+// ─── Careers ──────────────────────────────────────────────────────────────────
+
+export type PositionType = "full-time" | "part-time" | "volunteer";
+
+export interface Position {
+  /** The item's _key in the positions list. */
+  _id: string;
+  title: string;
+  type: PositionType;
+  location?: string;
+  summary: string;
+  description?: string;
+  /** YYYY-MM-DD */
+  closingDate?: string;
+}

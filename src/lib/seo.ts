@@ -78,6 +78,7 @@ export const SITE_PAGES = [
   { path: "/services", name: "Our Services", priority: 0.9, changeFrequency: "monthly" },
   { path: "/donate", name: "Donate", priority: 0.9, changeFrequency: "monthly" },
   { path: "/volunteer", name: "Volunteer", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/careers", name: "Careers", priority: 0.7, changeFrequency: "weekly" },
   { path: "/contact", name: "Contact Us", priority: 0.8, changeFrequency: "yearly" },
   { path: "/faqs", name: "FAQs", priority: 0.7, changeFrequency: "monthly" },
   { path: "/privacy-policy", name: "Privacy Policy", priority: 0.3, changeFrequency: "yearly" },

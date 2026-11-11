@@ -173,3 +173,18 @@ export const LEGAL_PAGE_QUERY = groq`
     sections[] { title, paragraphs, intro, bullets, outro }
   }
 `;
+
+// ─── Careers ──────────────────────────────────────────────────────────────────
+
+/** Jobs switched on and not past their closing date ($today: YYYY-MM-DD), in list order. */
+export const OPEN_POSITIONS_QUERY = groq`
+  *[_id == "positions"][0].items[active != false && (!defined(closingDate) || closingDate >= $today)] {
+    "_id": _key,
+    title,
+    type,
+    location,
+    summary,
+    description,
+    closingDate
+  }
+`;
