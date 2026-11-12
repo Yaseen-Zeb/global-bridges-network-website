@@ -21,7 +21,11 @@ const nextConfig: NextConfig = {
   // Donate Goods was merged into the tabbed /donate page; volunteering moved to its own /volunteer page.
   async redirects() {
     return [
-      { source: "/donate-goods", destination: "/donate?tab=goods", permanent: true },
+      {
+        source: "/donate-goods",
+        destination: "/donate?tab=goods",
+        permanent: true,
+      },
       { source: "/get-involved", destination: "/volunteer", permanent: true },
       {
         source: "/donate",
