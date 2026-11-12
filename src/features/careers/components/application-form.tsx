@@ -15,10 +15,11 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Label, RequiredMark } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SELECT_ROLE_EVENT } from "@/features/careers/components/apply-button";
-import { APPLICATION_FORM, CV_RULES } from "@/features/careers/data/careers-content";
+import { APPLICATION_FORM, DOCUMENT_RULES } from "@/features/careers/data/careers-content";
 import { cn } from "@/lib/utils";
 
-const hasCvExtension = (name: string) => CV_RULES.extensions.some((ext) => name.toLowerCase().endsWith(ext));
+const hasDocumentExtension = (name: string) => DOCUMENT_RULES.extensions.some((ext) => name.toLowerCase().endsWith(ext));
+const isFileList = (value: unknown): value is FileList => typeof FileList !== "undefined" && value instanceof FileList;
 
 const applicationSchema = z.object({
   name: z.string().trim().min(2, "Full name must be at least 2 characters."),
@@ -26,11 +27,15 @@ const applicationSchema = z.object({
   phone: z.string().trim().optional(),
   role: z.string().min(1, "Please choose the role you are interested in."),
   cv: z
-    .custom<FileList>((value) => typeof FileList !== "undefined" && value instanceof FileList && value.length > 0, {
-      message: "Please attach your CV.",
-    })
-    .refine((files) => hasCvExtension(files[0].name), "Your CV must be a PDF or Word document.")
-    .refine((files) => files[0].size <= CV_RULES.maxBytes, "Your CV must be 5 MB or smaller."),
+    .custom<FileList>((value) => isFileList(value) && value.length > 0, { message: "Please attach your CV." })
+    .refine((files) => hasDocumentExtension(files[0].name), "Your CV must be a PDF or Word document.")
+    .refine((files) => files[0].size <= DOCUMENT_RULES.maxBytes, "Your CV must be 5 MB or smaller."),
+  // Optional: an empty FileList (nothing chosen) passes.
+  coverLetter: z
+    .custom<FileList>((value) => value === undefined || isFileList(value))
+    .optional()
+    .refine((files) => !files?.[0] || hasDocumentExtension(files[0].name), "Your cover letter must be a PDF or Word document.")
+    .refine((files) => !files?.[0] || files[0].size <= DOCUMENT_RULES.maxBytes, "Your cover letter must be 5 MB or smaller."),
   message: z.string().trim().optional(),
   consent: z.boolean().refine((val) => val === true, {
     message: "You must give your consent to submit.",
@@ -42,6 +47,59 @@ type ApplicationFormData = z.infer<typeof applicationSchema>;
 const labelClass = "text-xs font-normal text-muted-foreground";
 const fieldClass = "h-10 rounded-input border-border text-sm placeholder:text-muted-foreground/70";
 const errorClass = "text-xs font-medium text-destructive";
+
+interface DocumentFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  id: string;
+  label: string;
+  required?: boolean;
+  file?: File;
+  error?: string;
+}
+
+/** Dashed drop-style upload box; the real file input is visually hidden inside the label. */
+const DocumentField = React.forwardRef<HTMLInputElement, DocumentFieldProps>(
+  ({ id, label, required, file, error, ...inputProps }, ref) => (
+    <div className="space-y-xs">
+      <Label htmlFor={id} required={required} className={labelClass}>
+        {label}
+      </Label>
+      <label
+        htmlFor={id}
+        className={cn(
+          "flex cursor-pointer items-center gap-sm rounded-input border border-dashed border-border px-md py-md text-sm transition-colors hover:border-primary hover:bg-primary/5 focus-within:ring-2 focus-within:ring-ring",
+          error && "border-destructive"
+        )}
+      >
+        {file ? (
+          <FileText className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+        ) : (
+          <Upload className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+        )}
+        <span className="min-w-0 flex-1">
+          <span className="block truncate font-medium text-foreground">{file ? file.name : "Choose a file"}</span>
+          <span className="block text-xs text-muted-foreground">{DOCUMENT_RULES.hint}</span>
+        </span>
+        <input
+          ref={ref}
+          id={id}
+          type="file"
+          accept={DOCUMENT_RULES.accept}
+          aria-required={required ? "true" : undefined}
+          aria-invalid={error ? "true" : "false"}
+          aria-describedby={error ? `${id}-error` : undefined}
+          className="sr-only"
+          {...inputProps}
+        />
+      </label>
+      {error && (
+        <p id={`${id}-error`} className={errorClass}>
+          {error}
+        </p>
+      )}
+    </div>
+  )
+);
+DocumentField.displayName = "DocumentField";
 
 interface ApplicationFormProps {
   /** Titles of the open positions; "General application" is always offered last. */
@@ -83,6 +141,7 @@ export function ApplicationForm({ roles }: ApplicationFormProps) {
   });
 
   const cvFile = watch("cv")?.[0];
+  const coverLetterFile = watch("coverLetter")?.[0];
 
   const onSubmit = async (data: ApplicationFormData) => {
     const toastId = toast.loading("Sending your application...");
@@ -94,6 +153,7 @@ export function ApplicationForm({ roles }: ApplicationFormProps) {
     body.append("message", data.message ?? "");
     body.append("consent", String(data.consent));
     body.append("cv", data.cv[0]);
+    if (data.coverLetter?.[0]) body.append("coverLetter", data.coverLetter[0]);
 
     try {
       const response = await fetch("/api/careers", { method: "POST", body });
@@ -110,7 +170,7 @@ export function ApplicationForm({ roles }: ApplicationFormProps) {
           description:
             result.error ||
             (response.status === 413
-              ? "Your CV is too large to upload. Please send a file of 5 MB or smaller."
+              ? "Your files are too large to upload. Please keep each one to 5 MB or smaller."
               : "Failed to send your application. Please check the fields and try again."),
         });
       }
@@ -220,42 +280,15 @@ export function ApplicationForm({ roles }: ApplicationFormProps) {
               </div>
             </div>
 
-            <div className="space-y-xs">
-              <Label htmlFor="apply-cv" required className={labelClass}>
-                CV / Resume
-              </Label>
-              <label
-                htmlFor="apply-cv"
-                className={cn(
-                  "flex cursor-pointer items-center gap-sm rounded-input border border-dashed border-border px-md py-md text-sm transition-colors hover:border-primary hover:bg-primary/5 focus-within:ring-2 focus-within:ring-ring",
-                  errors.cv && "border-destructive"
-                )}
-              >
-                {cvFile ? (
-                  <FileText className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-                ) : (
-                  <Upload className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />
-                )}
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate font-medium text-foreground">{cvFile ? cvFile.name : "Choose a file"}</span>
-                  <span className="block text-xs text-muted-foreground">{CV_RULES.hint}</span>
-                </span>
-                <input
-                  id="apply-cv"
-                  type="file"
-                  accept={CV_RULES.accept}
-                  aria-required="true"
-                  aria-invalid={errors.cv ? "true" : "false"}
-                  aria-describedby={errors.cv ? "apply-cv-error" : undefined}
-                  className="sr-only"
-                  {...register("cv")}
-                />
-              </label>
-              {errors.cv && (
-                <p id="apply-cv-error" className={errorClass}>
-                  {errors.cv.message}
-                </p>
-              )}
+            <div className="grid grid-cols-1 gap-md sm:grid-cols-2">
+              <DocumentField id="apply-cv" label="CV / Resume" required file={cvFile} error={errors.cv?.message} {...register("cv")} />
+              <DocumentField
+                id="apply-cover-letter"
+                label="Cover Letter (Optional)"
+                file={coverLetterFile}
+                error={errors.coverLetter?.message}
+                {...register("coverLetter")}
+              />
             </div>
 
             <div className="space-y-xs">

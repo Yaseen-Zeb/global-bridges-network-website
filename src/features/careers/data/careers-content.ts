@@ -7,7 +7,7 @@ import type { PositionType } from "@/lib/sanity/types";
 export const CAREERS_HERO = {
   eyebrow: "Careers",
   title: ["Careers at", "Global Bridges Network"],
-  description: "Help us build bridges for refugees and families starting over.",
+  description: "Join a team helping refugees and families resettle, find stability, and build new lives in the United States.",
   images: [
     { src: "/images/about/hero-circle.jpg", alt: "A diverse group of people standing in a circle with their hands joined at the centre" },
     { src: "/images/home/mission-circle.jpg", alt: "A circle of people joining hands from above" },
@@ -71,14 +71,14 @@ export const POSITION_TYPE_LABELS: Record<PositionType, string> = {
 export const APPLICATION_FORM = {
   eyebrow: "Apply",
   title: "Send Us Your Application",
-  description: "Tell us a little about yourself and attach your CV. We read every application.",
+  description: "Tell us a little about yourself and attach your CV, plus a cover letter if you have one. We read every application.",
   generalRole: "General application",
   consent:
-    "I consent to Global Bridges Network using my details and CV to review my application. I understand my application is sent by email to the team and is not stored on this website.",
+    "I consent to Global Bridges Network using my details and documents to review my application. I understand my application is sent by email to the team and is not stored on this website.",
 };
 
-/** CV upload rules, shared by the form and /api/careers. */
-export const CV_RULES = {
+/** Upload rules for the CV and cover letter, shared by the form and /api/careers. */
+export const DOCUMENT_RULES = {
   maxBytes: 5 * 1024 * 1024,
   extensions: [".pdf", ".doc", ".docx"],
   accept: ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",

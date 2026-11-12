@@ -3,7 +3,7 @@ import { z } from "zod";
 import { createClient } from "next-sanity";
 import { transporter } from "@/lib/mailer";
 import { renderBrandedEmail } from "@/lib/email-template";
-import { CV_RULES } from "@/features/careers/data/careers-content";
+import { DOCUMENT_RULES } from "@/features/careers/data/careers-content";
 
 const sanityClient = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "YOUR_PROJECT_ID",
@@ -22,31 +22,48 @@ const applicationSchema = z.object({
 });
 
 /** File signatures, so a renamed file of another kind is rejected. */
-const CV_TYPES = [
+const DOCUMENT_TYPES = [
   { ext: ".pdf", mime: "application/pdf", magic: [0x25, 0x50, 0x44, 0x46] }, // %PDF
   { ext: ".docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", magic: [0x50, 0x4b, 0x03, 0x04] }, // ZIP
   { ext: ".doc", mime: "application/msword", magic: [0xd0, 0xcf, 0x11, 0xe0] }, // OLE2
 ];
 
-/** Room for the other fields on top of the largest CV. */
-const MAX_REQUEST_BYTES = CV_RULES.maxBytes + 512 * 1024;
+/** Room for the other fields on top of the largest CV and cover letter. */
+const MAX_REQUEST_BYTES = 2 * DOCUMENT_RULES.maxBytes + 512 * 1024;
 
 const fail = (error: string, status = 400) => NextResponse.json({ success: false, error }, { status });
 
 /** Keeps the original name readable but safe to use as an attachment name. */
-const safeFileName = (name: string, ext: string) => {
+const safeFileName = (name: string, ext: string, fallback: string) => {
   const base = name
     .replace(/\.[^.]*$/, "")
     .replace(/[^\w\- ]+/g, "")
     .trim()
     .slice(0, 80);
-  return `${base || "CV"}${ext}`;
+  return `${base || fallback}${ext}`;
 };
+
+interface Attachment {
+  filename: string;
+  content: Buffer;
+  contentType: string;
+}
+
+/** Checks an uploaded document's size, extension and real file type. Returns the attachment, or an error message. */
+async function readDocument(file: File, label: string, fallbackName: string): Promise<Attachment | string> {
+  if (file.size > DOCUMENT_RULES.maxBytes) return `Your ${label} must be 5 MB or smaller.`;
+  const content = Buffer.from(await file.arrayBuffer());
+  const type = DOCUMENT_TYPES.find(
+    ({ ext, magic }) => file.name.toLowerCase().endsWith(ext) && magic.every((byte, i) => content[i] === byte)
+  );
+  if (!type) return `Your ${label} must be a PDF or Word document.`;
+  return { filename: safeFileName(file.name, type.ext, fallbackName), content, contentType: type.mime };
+}
 
 /**
  * STATELESS API ROUTE: /api/careers
  * STRICT REQUIREMENT: ZERO persistence, ZERO database, ZERO file storage.
- * Emails the application, with the CV attached, to the configured recipient inbox.
+ * Emails the application, with the CV (and cover letter, if given) attached, to the configured recipient inbox.
  *
  * Recipient email is managed by the admin in Sanity Studio → Contact & Site Settings
  * (careersRecipientEmail field), falling back to the primary email.
@@ -54,7 +71,7 @@ const safeFileName = (name: string, ext: string) => {
 export async function POST(request: Request) {
   try {
     if (Number(request.headers.get("content-length") ?? 0) > MAX_REQUEST_BYTES) {
-      return fail("Your CV must be 5 MB or smaller.", 413);
+      return fail("Your files are too large. Please keep each one to 5 MB or smaller.", 413);
     }
 
     const form = await request.formData();
@@ -78,15 +95,19 @@ export async function POST(request: Request) {
     }
     const data = parsed.data;
 
-    const cv = form.get("cv");
-    if (!(cv instanceof File) || cv.size === 0) return fail("Please attach your CV.");
-    if (cv.size > CV_RULES.maxBytes) return fail("Your CV must be 5 MB or smaller.", 413);
+    const cvFile = form.get("cv");
+    if (!(cvFile instanceof File) || cvFile.size === 0) return fail("Please attach your CV.");
+    const cv = await readDocument(cvFile, "CV", "CV");
+    if (typeof cv === "string") return fail(cv);
 
-    const bytes = Buffer.from(await cv.arrayBuffer());
-    const type = CV_TYPES.find(
-      ({ ext, magic }) => cv.name.toLowerCase().endsWith(ext) && magic.every((byte, i) => bytes[i] === byte)
-    );
-    if (!type) return fail("Your CV must be a PDF or Word document.");
+    // Optional: skipped when no file was chosen.
+    const coverLetterFile = form.get("coverLetter");
+    let coverLetter: Attachment | undefined;
+    if (coverLetterFile instanceof File && coverLetterFile.size > 0) {
+      const result = await readDocument(coverLetterFile, "cover letter", "Cover Letter");
+      if (typeof result === "string") return fail(result);
+      coverLetter = result;
+    }
 
     // Fetch recipient email from Sanity (admin-configurable)
     const contactInfo = await sanityClient.fetch<{
@@ -101,7 +122,7 @@ export async function POST(request: Request) {
       return fail("Our inbox isn't configured right now. Please email us directly.", 500);
     }
 
-    const fileName = safeFileName(cv.name, type.ext);
+    const coverLetterNote = coverLetter ? `${coverLetter.filename} (attached)` : "Not provided";
 
     await transporter.sendMail({
       from: `"Global Bridges Network Website" <${process.env.SMTP_USER}>`,
@@ -111,11 +132,12 @@ export async function POST(request: Request) {
       text: `
 Job Application — Global Bridges Network Website
 =================================================
-Full Name:   ${data.name}
-Email:       ${data.email}
-Phone:       ${data.phone ?? "Not provided"}
-Role:        ${data.role}
-CV:          ${fileName} (attached)
+Full Name:     ${data.name}
+Email:         ${data.email}
+Phone:         ${data.phone ?? "Not provided"}
+Role:          ${data.role}
+CV:            ${cv.filename} (attached)
+Cover Letter:  ${coverLetterNote}
 
 Message:
 ${data.message ?? "None"}
@@ -127,7 +149,7 @@ Submitted At: ${new Date().toISOString()}
       html: renderBrandedEmail({
         overline: "Careers Form",
         title: "New Job Application",
-        intro: `${data.name} applied for: ${data.role}. Their CV is attached to this email.`,
+        intro: `${data.name} applied for: ${data.role}. Their CV${coverLetter ? " and cover letter are" : " is"} attached to this email.`,
         replyTo: { name: data.name, email: data.email },
         sections: [
           {
@@ -137,13 +159,14 @@ Submitted At: ${new Date().toISOString()}
               { label: "Email", value: data.email, email: true },
               { label: "Phone", value: data.phone },
               { label: "Role", value: data.role, badge: "blue" },
-              { label: "CV", value: `${fileName} (attached)` },
+              { label: "CV", value: `${cv.filename} (attached)` },
+              { label: "Cover letter", value: coverLetterNote },
             ],
             blocks: [{ label: "Message", text: data.message, accent: "blue" }],
           },
         ],
       }),
-      attachments: [{ filename: fileName, content: bytes, contentType: type.mime }],
+      attachments: coverLetter ? [cv, coverLetter] : [cv],
     });
 
     return NextResponse.json(
